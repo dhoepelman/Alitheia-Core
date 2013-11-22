@@ -9,7 +9,9 @@ with Eclipse Kepler (4.3) and IntelliJ 12.1 on MacOSX.
     git clone git@github.com:istlab/Alitheia-Core.git
 
 2. Do the following 
+
     mvn clean install
+    
     mvn -DdownloadJavadoc -Ddownloadsources eclipse:eclipse
 
 3. In Eclipse, choose Import->General->Existing Projects into Workspace.
@@ -33,6 +35,7 @@ at any breakpoint you have set in the code.
 
 2. Do the following 
     mvn clean install
+
     mvn -DdownloadJavadoc -Ddownloadsources intellij:intellij
     
 3. In IntelliJ, go to File->Open project and choose the Alitheia Core top-level 
