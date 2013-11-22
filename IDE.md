@@ -34,6 +34,7 @@ at any breakpoint you have set in the code.
     git clone git@github.com:istlab/Alitheia-Core.git
 
 2. Do the following 
+
     mvn clean install
 
     mvn -DdownloadJavadoc -Ddownloadsources intellij:intellij
