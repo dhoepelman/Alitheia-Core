@@ -17,3 +17,4 @@ bin/
 *.ipr
 *.iws
 *.db
+/metrics/contrib/maven-eclipse.xml
