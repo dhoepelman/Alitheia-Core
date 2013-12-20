@@ -5,7 +5,14 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.core.modules.junit4.PowerMockRunner;
 
+import eu.sqooss.core.AlitheiaCore;
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(AlitheiaCore.class)
 public class AddProjectTest {
 
     @BeforeClass
