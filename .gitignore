@@ -18,3 +18,4 @@ bin/
 *.iws
 *.db
 alitheia/core/.checkstyle
+/metrics/contrib/maven-eclipse.xml
