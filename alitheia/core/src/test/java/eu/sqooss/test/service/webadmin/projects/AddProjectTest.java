@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.core.modules.junit4.PowerMockRunner;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import eu.sqooss.core.AlitheiaCore;
 

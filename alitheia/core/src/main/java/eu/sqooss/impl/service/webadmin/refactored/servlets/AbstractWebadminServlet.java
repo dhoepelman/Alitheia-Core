@@ -21,19 +21,28 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doGet(req, resp);
+		preRender();
+		VelocityContext vc = null; // TODO: init vc
+		Template t = render(req, vc);
+		postRender();
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+		doGet(req,resp);
+	}
+	
+	private void preRender() {
+		// TODO: init db
 	}
 	
 	protected abstract Template render(HttpServletRequest req, VelocityContext vc);
-
+	
+	private void postRender() {
+		// TODO: commit DB
+	}
+	
 	protected DBService getDB() {
 		// TODO
 		return null;
