@@ -37,11 +37,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
 
+import javax.servlet.ServletException;
+
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
+import org.osgi.service.http.NamespaceException;
 
 import eu.sqooss.impl.service.webadmin.refactored.servlets.*;
 import eu.sqooss.service.logging.Logger;
@@ -125,11 +128,18 @@ public class WebadminServiceImpl implements WebadminService {
         // Register the front-end servlets
         if (sobjHTTPService != null) {
         	// TODO: Catch exceptions
-        	for(IWebadminServlet was : servlets) {
-        		sobjHTTPService.registerServlet(was.getPath(), was, new Hashtable(), null);
+        	try{
+	        	for(IWebadminServlet was : servlets) {
+	        		sobjHTTPService.registerServlet(was.getPath(), was, new Hashtable(), null);
+	        	}
+	        	for(String res : staticserv.getResourceList()) {
+	        		sobjHTTPService.registerServlet(res, staticserv, new Hashtable(), null);
+	        	}
+        	}catch(NamespaceException e) {
+        		// TODO
         	}
-        	for(String res : staticserv.getResourceList()) {
-        		sobjHTTPService.registerServlet(res, staticserv, new Hashtable(), null);
+        	catch(ServletException e) {
+        		//TODO
         	}
         }
         return true;

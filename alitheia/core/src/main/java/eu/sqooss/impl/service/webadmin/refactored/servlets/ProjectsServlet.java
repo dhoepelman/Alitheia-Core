@@ -1,5 +1,10 @@
 package eu.sqooss.impl.service.webadmin.refactored.servlets;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+
 import eu.sqooss.service.cluster.ClusterNodeService;
 import eu.sqooss.service.db.Plugin;
 import eu.sqooss.service.db.StoredProject;
@@ -36,5 +41,17 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 	
 	private void synchPlugin(StoredProject project, String plugin) {
 	    // TODO: Synch a plugin of a project
+	}
+
+	@Override
+	public String getPath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Template render(HttpServletRequest req, VelocityContext vc) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

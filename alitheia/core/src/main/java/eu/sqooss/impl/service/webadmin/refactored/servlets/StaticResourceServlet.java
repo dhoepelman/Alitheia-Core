@@ -8,5 +8,6 @@ import javax.servlet.http.HttpServlet;
 public class StaticResourceServlet extends HttpServlet {
 	public List<String> getResourceList() {
 		// TODO implement
+		return null;
 	}
 }

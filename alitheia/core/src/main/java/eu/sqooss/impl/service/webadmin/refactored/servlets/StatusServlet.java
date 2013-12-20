@@ -33,4 +33,18 @@ public class StatusServlet extends AbstractWebadminServlet {
 	 // TODO: Return the failed jobs
 	    return null;
 	}
+
+
+	@Override
+	public String getPath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	protected Template render(HttpServletRequest req, VelocityContext vc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
