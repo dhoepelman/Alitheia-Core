@@ -18,19 +18,19 @@ public class ProjectActionTest {
 
     //TODO: Test the displaying of project properties
     @Test
-    public void displayProjectPropertiesTest() {
+    public void testdisplayProjectProperties() {
         fail();
     }
     
     //TODO: Test the deleting of a project
     @Test
-    public void deleteProjectTest() {
+    public void testDeleteProject() {
         fail();
     }
     
     //TODO: Test the synchronizing of a metric of a project
     @Test
-    public void synchronzeMetricTest() {
+    public void testSynchronizeMetric() {
         fail();
     }
     
@@ -38,7 +38,7 @@ public class ProjectActionTest {
     //TODO: Test the running of all updaters on a project
     //TODO: Test the running of all updaters on all projects
     @Test
-    public void runUpdaterTest() {
+    public void testRunUpdater() {
         fail();
     }
 

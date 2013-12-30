@@ -5,14 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
-import eu.sqooss.core.AlitheiaCore;
-
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(AlitheiaCore.class)
 public class AddProjectTest {
 
     @BeforeClass
@@ -24,7 +17,7 @@ public class AddProjectTest {
     }
     
     @Test
-    public void AddProjectTest() {
+    public void testAddProject() {
         //TODO: Test the adding of a project by its project.properties file
         //TODO: Test the adding of a project by manually entered properties 
         fail();

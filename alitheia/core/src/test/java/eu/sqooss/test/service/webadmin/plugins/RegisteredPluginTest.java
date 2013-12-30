@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class RegisterdPluginTest {
+public class RegisteredPluginTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -16,7 +16,7 @@ public class RegisterdPluginTest {
 	public void setUp() throws Exception {
 	}
 	
-	// TODO: Test if a plugin is correctly registerd
+	// TODO: Test if a plugin is correctly registered
 	@Test
 	public void testPluginRegistration() {
 		fail();

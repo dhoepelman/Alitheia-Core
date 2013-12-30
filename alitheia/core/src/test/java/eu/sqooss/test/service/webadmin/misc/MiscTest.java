@@ -19,7 +19,7 @@ public class MiscTest {
     //TODO: Test the displaying of the uptime
     //TODO: Teset the displaying of the queue length
     @Test
-    public void displayTest() {
+    public void testDisplay() {
         fail();
     }
     
@@ -29,13 +29,13 @@ public class MiscTest {
     //TODO: Test the displaying of the total jobs
     //TODO: Test the displaying of the threads
     @Test
-    public void displayJobInformationTest() {
+    public void testDisplayJobInformation() {
         fail();
     }
     
     //TODO: Test the stopping of the service
     @Test
-    public void stopServiceTest() {
+    public void testStopService() {
         fail();
     }
 }
