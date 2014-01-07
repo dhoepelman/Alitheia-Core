@@ -31,7 +31,7 @@
  *
  */
 
-package eu.sqooss.impl.service.webadmin;
+package eu.sqooss.impl.service.webadmin.prerefactoring;
 
 import java.util.Collection;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package eu.sqooss.impl.service.webadmin.refactored.servlets;
+package eu.sqooss.impl.service.webadmin.servlets;
 
 import java.util.List;
 
