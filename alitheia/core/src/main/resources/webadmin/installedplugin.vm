@@ -6,8 +6,10 @@
           <div id="table">
             <h2>$tr.label("plugins_mngm")</h2>
             <form id="metrics" name="metrics" method="post" action="/index">
+              
+              ## Display plugin info
               <fieldset>
-                <legend>$selectedPlugin.getPluginName()</legend>
+                <legend>$plugin.getPluginName()</legend>
                 <table>
                   <thead>
                     <tr class="head">
@@ -20,19 +22,21 @@
                   <tbody>
                     <tr>
                       <td>Installed</td>
-                      <td>$selectedPlugin.getPluginName()</td>
-                      <td>$selectedPlugin.getServiceReference()</td>
-                      <td>$selectedPlugin.getPluginVersion()</td>
+                      <td>$plugin.getPluginName()</td>
+                      <td>$plugin.getServiceReference()</td>
+                      <td>$plugin.getPluginVersion()</td>
                     </tr>
                     <tr>
                       <td colspan="4">
-                        <input type="button" class="install" style="width: 100px;" value="Plug-ins list" onclick="javascript:document.getElementById('pluginHashcode').value='';document.metrics.submit();">
-                        <input type="button" class="install" style="width: 100px;" value="Uninstall" onclick="javascript:document.getElementById('action').value='uninstallPlugin';document.getElementById('pluginHashcode').value='$selectedPlugin.getHashcode()';document.metrics.submit();">
-                        <input type="button" class="install" style="width: 100px;" value="Synchronise" onclick="javascript:document.getElementById('action').value='syncPlugin';document.getElementById('pluginHashcode').value='$selectedPlugin.getHashcode()';document.metrics.submit();">
+                        <input type="button" class="install" style="width: 100px;" value="Plug-ins list" onclick="javascript:document.getElementById('$params.get("reqParHashcode")').value='';document.metrics.submit();">
+                        <input type="button" class="install" style="width: 100px;" value="Uninstall" onclick="javascript:document.getElementById('$params.get("reqParAction")').value='$params.get("actValUninstall")';document.getElementById('$params.get("reqParHashcode")').value='$plugin.getHashcode()';document.metrics.submit();">
+                        <input type="button" class="install" style="width: 100px;" value="Synchronise" onclick="javascript:document.getElementById('$params.get("reqParAction")').value='$params.get("actValSync")';document.getElementById('$params.get("reqParHashcode")').value='$plugin.getHashcode()';document.metrics.submit();">
                       </td>
                     </tr>
                   </tbody>
                 </table>
+                
+                ## Display supported metrics
                 <fieldset>
                   <legend>Supported metrics</legend>
                   <table>
@@ -43,27 +47,29 @@
                         <td class="head" style="width: 25%;">Type</td>
                         <td class="head" style="width: 40%;">Description</td>
                       </tr>
-                   </thead>
-                   <tbody>
-                     #if ($metrics.isEmpty())
-                     <tr>
-                       <td colspan="4" class="noattr">
-                         This plug-in does not support metrics."
-                       </td>
-                     </tr>
-                     #else
-                     #foreach ($metric in $metricList) 
-                     <tr>
-                       <td>$metric.getId()</td>
-                       <td>$metric.getMnemonic()</td>
-                         <td>$metric.getMetricType().getType()</td>
-                         <td>$metric.getDescription()</td>
-                       </tr>
-                       #end
-                       #end
+                    </thead>
+                    <tbody>
+                      #if ($metrics.isEmpty())
+                      <tr>
+                        <td colspan="4" class="noattr">
+                          This plug-in does not support metrics."
+                        </td>
+                      </tr>
+                      #else
+                      #foreach ($metric in $metricList) 
+                      <tr>
+                        <td>$metric.getId()</td>
+                        <td>$metric.getMnemonic()</td>
+                        <td>$metric.getMetricType().getType()</td>
+                        <td>$metric.getDescription()</td>
+                      </tr>
+                      #end
+                      #end
                     </tbody>
                   </table>
                 </fieldset>
+                
+                ## Display configuration properties
                 <fieldset>
                   <legend>Configuration properties</legend>
                   <table>
@@ -75,37 +81,36 @@
                       </tr>
                     </thead>
                     <tbody>
-                      #if ($parameterList.isEmpty())
+                      #if ($configPropList.isEmpty())
                       <tr>                            
                         <td colspan="3" class="noattr">This plug-in has no configuration properties.</td>
                       </tr>
                       #else
-                      #foreach ($parameter in $parameterList)
+                      #foreach ($configProp in $configPropList)
                       <tr> 
-                        <td class="trans" title="$parameter.getMsg()">
+                        <td class="trans" title="$configProp.getMsg()">
                           <img src="/edit.png" alt="[Edit]" />&nbsp;
-                          $parameter.getName()
+                          $configProp.getName()
                         </td>
                         <td class="trans">
-                          $parameter.getType()
+                          $configProp.getType()
                         </td>
                         <td class="trans">
-                          $parameter.getValue()
+                          $configProp.getValue()
                         </td>
                       </tr>
                       #end
                       #end
                       <tr>
                         <td colspan="3">
-                          <input type="button" class="install" style="width: 100px;" value="Add property" onclick="javascript:document.getElementById('action').value='createProperty';document.metrics.submit();">
+                          <input type="button" class="install" style="width: 100px;" value="Add property" onclick="javascript:document.getElementById('$params.get("reqParAction")').value='$params.get("actValReqAddProp")';document.metrics.submit();">
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </fieldset>
               </fieldset>
-              <input type="hidden" id="action" name="action" value="">
-              <input type="hidden" id="pluginHashcode" name="pluginHashcode" value="$selectedPlugin.getHashcode()">
+              <input type="hidden" id="$params.get("reqParHashcode")" name="$params.get("reqParHashcode")" value="$plugin.getHashcode()">
             </form>
           </div>
         </div>

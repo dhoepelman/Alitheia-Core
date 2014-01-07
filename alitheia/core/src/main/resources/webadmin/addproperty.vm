@@ -7,40 +7,43 @@
           <div id="table">  
             <form id="metrics" name="metrics" method="post" action="/index">
               <fieldset>
-                <legend>Create property for $selectedPlugin.getName()</legend>
+                <legend>Create property for $plugin.getName()</legend>
                 <table class="borderless">                
                   <tr>
                     <td class="borderless" style="width:100px;"><b>Name</b></td>
-                    <td class="borderless"><input type="text" class="form" id="propertyName" name="propertyName" value=""></td>
+                    <td class="borderless"><input type="text" class="form" id="$params.get("reqParPropName")" name="$params.get("reqParPropName")" value="$property.getName()"></td>
                   </tr>
-                  <tr>
+                  <tr> 
                     <td class="borderless" style="width:100px;"><b>Description</b></td>
-                    <td class="borderless"><input type="text" class="form" id="propertyDescription" name="propertyDescription" value=""></td>
+                    <td class="borderless"><input type="text" class="form" id="$params.get("reqParPropDescr")" name="$params.get("reqParPropDescr")" value="$property.getMsg()"></td>
                   </tr>
                   <tr>
                     <td class="borderless" style="width:100px;"><b>Type</b></td>
                     <td class="borderless">
-                      <select class="form" id="propertyType" name="propertyType">
-                        <option value="INTEGER">INTEGER</option>
-                        <option value="STRING">STRING</option>
-                        <option value="BOOLEAN">BOOLEAN</option>
-                        <option value="DOUBLE">DOUBLE</option>
+                      <select class="form" id="$params.get("reqParPropType")" name="params.get("reqParPropType")">
+                        #foreach ($type in $types)
+                        <option value="$type" #if ($type.equals($property.getType())) selected #end>$type</option>
+                        #end
                       </select>
                     </td>
                   </tr>
                   <tr>
                     <td class="borderless" style="width:100px;"><b>Value</b></td>
-                    <td class="borderless"><input type="text" class="form" id="propertyValue" name="propertyValue" value=""></td>
+                    <td class="borderless"><input type="text" class="form" id="$params.get("reqParPropValue")" name="$params.get("reqParPropValue")" value="$property.getValue()"></td>
                   </tr>
                   <tr>
-                     <td colspan="2" class="borderless"><input type="button" class="install" style="width: 100px;" value="Create" onclick="javascript:document.getElementById('action').value='confirmProperty';document.metrics.submit();">&nbsp;                  <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:document.metrics.submit();"></td>
+                    <td colspan="2" class="borderless">
+                      <input type="button" class="install" style="width: 100px;" value="#if ($update) Create #else Update #end" onclick="javascript:document.getElementById('$params.get("reqParAction")').value='$params.get("actValConAddProp")';document.metrics.submit();">&nbsp;                  <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:document.metrics.submit();">
+					  #if ($update)
+					  <input type="button" class="install" style="width: 100px;" value="Remove" onclick="javascript:document.getElementById('$params.get("reqParAction")').value='$params("actValConRemProp")'; document.metrics.submit();" />
+					  #end
+					  <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:document.metrics.submit()" />
+					</td>                    					                     
                   </tr>
                 </table>            
               </fieldset>
-              <input type="hidden" id="action" name="action" value="">
-              <input type="hidden" id="pluginHashcode" name="pluginHashcode" value="$selectedPlugin.getHashcode()">
+              <input type="hidden" id="$params.get("reqParHashcode")" name="$params.get("reqParHashcode")" value="$plugin.getHashcode()">
             </form>
-
           </div>    
         </div>
 
