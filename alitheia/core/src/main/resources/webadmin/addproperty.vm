@@ -1,0 +1,48 @@
+#set($section=3)
+#parse("header.inc")
+#parse("menu.inc")
+
+        <div id="contents">
+          <h2>$tr.label("plugins_mngm")</h2>
+          <div id="table">  
+            <form id="metrics" name="metrics" method="post" action="/index">
+              <fieldset>
+                <legend>Create property for $selectedPlugin.getName()</legend>
+                <table class="borderless">                
+                  <tr>
+                    <td class="borderless" style="width:100px;"><b>Name</b></td>
+                    <td class="borderless"><input type="text" class="form" id="propertyName" name="propertyName" value=""></td>
+                  </tr>
+                  <tr>
+                    <td class="borderless" style="width:100px;"><b>Description</b></td>
+                    <td class="borderless"><input type="text" class="form" id="propertyDescription" name="propertyDescription" value=""></td>
+                  </tr>
+                  <tr>
+                    <td class="borderless" style="width:100px;"><b>Type</b></td>
+                    <td class="borderless">
+                      <select class="form" id="propertyType" name="propertyType">
+                        <option value="INTEGER">INTEGER</option>
+                        <option value="STRING">STRING</option>
+                        <option value="BOOLEAN">BOOLEAN</option>
+                        <option value="DOUBLE">DOUBLE</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="borderless" style="width:100px;"><b>Value</b></td>
+                    <td class="borderless"><input type="text" class="form" id="propertyValue" name="propertyValue" value=""></td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" class="borderless"><input type="button" class="install" style="width: 100px;" value="Create" onclick="javascript:document.getElementById('action').value='confirmProperty';document.metrics.submit();">&nbsp;                  <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:document.metrics.submit();"></td>
+                  </tr>
+                </table>            
+              </fieldset>
+              <input type="hidden" id="action" name="action" value="">
+              <input type="hidden" id="pluginHashcode" name="pluginHashcode" value="$selectedPlugin.getHashcode()">
+            </form>
+
+          </div>    
+        </div>
+
+#parse("sidebar.inc")
+#parse("footer.inc")

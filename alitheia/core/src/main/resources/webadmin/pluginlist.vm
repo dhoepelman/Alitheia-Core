@@ -1,0 +1,83 @@
+#set($section=3)
+#parse("header.inc")
+#parse("menu.inc")
+            
+        <div id="contents">
+          <div id="table">
+          <h2>$tr.label("plugins_mngm")</h2>
+            #if ($projectList.isEmpty())
+      		<span>
+      		  No plug-ins found!&nbsp;
+      		  <input type="button" class="install" style="width: 100px;" value="Refresh" onclick="javascript:window.location.reload(true);">
+            </span>
+            #else
+	        <form id="metrics" name="metrics" method="post" action="/index">
+	          <fieldset>
+	            <legend>All plug-ins</legend>
+	            <table>
+	              <thead>
+	                <tr class="head">
+	                  <td class="head" style="width: 80px;">Status</td>
+	                  <td class="head" style="width: 30%;">Name</td>
+	                  <td class="head" style="width: 40%;">Class</td>
+	                  <td class="head">Version</td>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                #foreach ($plugin in $pluginList)
+	                <tr class="edit" onclick="javascript:document.getElementById('pluginHashcode').value='$plugin.getHashcode()';document.metrics.submit();">
+	                  <td class="trans"><img src="/edit.png" alt="[Edit]"/>&nbsp;$plugin.getStatus()</td>
+	                  <td class="trans">$plugin.getPluginName()</td>
+	                  <td class="trans">$plugin.getServiceRef()</td>
+	                  <td class="trans">$plugin.getPluginVersion()</td>
+	                </tr>
+	                
+	                ## Show properties if needed
+	                #if ($showProperties)
+	                #foreach ( $property in $plugin.getConfiguration() )
+	                <tr>
+                      <td>&nbsp;</td>
+                      <td colspan="3" class="attr">
+                        <b>Property:</b> " + $property.getName() &nbsp;
+                        <b>Type:</b> " + $property.getType() &nbsp;
+                        <b>Value:</b> " + $property.getValue()
+                      </td>
+                    </tr>
+	                #end
+	                #end
+	                
+	                ## Show activators if needed
+	                #if ($showActivators)
+	                #foreach ( $activator in $plugin.getActivationTypes() )
+	                <tr>
+                  	  <td>&nbsp;</td>
+                      <td colspan="3" class="attr">
+                        <b>Activator:</b>$activator.getName()
+                      </td>
+                  	</tr>
+	                #end
+	                #end
+
+	                #end
+                  </tbody>
+                </table>
+                <span>
+                  <input type="checkbox" onclick="javascript:document.getElementById('showProperties').value = this.checked;document.getElementById('pluginHashcode').value='';document.metrics.submit();">Display properties
+                  <input type="checkbox" onclick="javascript:document.getElementById('showActivators').value = this.checked;document.getElementById('pluginHashcode').value='';document.metrics.submit();">Display activators
+                </span>
+              </fieldset>
+              <input type="hidden" id="action" name="action" value="">
+              <input type="hidden" id="pluginHashcode" name="pluginHashcode" value="$pluginHashcode">
+              <input type="hidden" id="propertyName" name="propertyName" value="$propertyName">
+              <input type="hidden" id="propertyDescription" name="propertyDescription" value="$propertyDescription">
+              <input type="hidden" id="propertyType" name="propertyType" value="$propertyType">
+              <input type="hidden" id="propertyValue" name="propertyValue" value="$propertyValue">
+              <input type="hidden" id="showProperties" name="showProperties" value="$showProperties">
+              <input type="hidden" id="showActivators" name="showActivators" value="$showActivators">
+            </form>	
+	      </div>
+          #end
+        </div>
+
+#parse("sidebar.inc")
+#parse("footer.inc")            

@@ -1,0 +1,43 @@
+#set($section=3)
+#parse("header.inc")
+#parse("menu.inc")
+
+        <div id="contents">
+          <h2>$tr.label("plugins_mngm")</h2>
+          <div id="table">  
+            <form id="metrics" name="metrics" method="post" action="/index">
+              <fieldset>
+                <legend>Project Size Metrics</legend>
+                <table>
+                  <thead>
+                    <tr class="head">
+                      <td class="head" style="width: 80px;">Status</td>
+                      <td class="head" style="width: 30%;">Name</td>
+                      <td class="head" style="width: 40%;">Class</td>
+                      <td class="head">Version</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Registered</td>
+                      <td>$selectedPlugin.getPluginName()</td>
+                      <td>$selectedPlugin.getServiceReference()</td>
+                      <td>$selectedPlugin.getPluginVersion()</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4">
+                        <input type="button" class="install" style="width: 100px;" value="Plug-ins list" onclick="javascript:document.getElementById('pluginHashcode').value='';document.metrics.submit();">
+                        <input type="button" class="install" style="width: 100px;" value="Install" onclick="javascript:document.getElementById('action').value='installPlugin';document.getElementById('pluginHashcode').value='$selectedPlugin.getHashcode()';document.metrics.submit();">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset>
+              <input type="hidden" id="action" name="action" value="">
+			  <input type="hidden" id="pluginHashcode" name="pluginHashcode" value="$selectedPlugin.getHashcode()">
+            </form>
+          </div>    
+        </div>
+
+#parse("sidebar.inc")
+#parse("footer.inc")
