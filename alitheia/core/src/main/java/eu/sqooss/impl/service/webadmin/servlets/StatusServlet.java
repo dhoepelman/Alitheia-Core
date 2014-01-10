@@ -31,17 +31,21 @@ public class StatusServlet extends AbstractWebadminServlet {
 		return -1;
 	}
 
-
-	private int getJobRunStats() {
-		// TODO: Return the number of running jobs
-		return -1;
-	}
-
-
 	private Job[] getFailedJobs() {
 		// TODO: Return the failed jobs
 		return null;
 	}
+	
+	private int getJobRunStats() {
+	    // TODO: Return the number of running jobs
+        return -1;
+    }
+	
+	private int getThreads() {
+	 // TODO: Return the number of threads
+	    return -1;
+	}
+	   
 
 
 	@Override

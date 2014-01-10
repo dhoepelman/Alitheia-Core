@@ -1,7 +1,8 @@
       </div>
       <div id="footer">
         <p>
-        $COPYRIGHT
+          Copyright 2007-2008
+		  <a href="http://www.sqo-oss.eu/about/">&nbsp;SQO-OSS Consortium Members</a>
         </p>
       </div>
     </div>

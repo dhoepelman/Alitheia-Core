@@ -2,7 +2,7 @@
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title>SQO-OSS : $APP_NAME</title>
+    <title>SQO-OSS : Admin Panel</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <link rel="stylesheet" type="text/css" media="screen" href="screen.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="webadmin.css" />
@@ -10,7 +10,7 @@
   <body class="section-$section">
     <div id="wrap">
       <div id="header">
-        <h1>$APP_NAME</h1>
+        <h1>Admin Panel</h1>
         <img src="/sqo-oss.png" alt="SQO-OSS Logo" />
       </div>
       <div id="main">      
