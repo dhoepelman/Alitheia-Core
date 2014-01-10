@@ -5,10 +5,10 @@
           <div id="table">
           <h2>$tr.label("plugins_mngm")</h2>
             #if ($pluginList.isEmpty())
-      		<span>
-      		  No plug-ins found!&nbsp;
-      		  <input type="button" class="install" style="width: 100px;" value="Refresh" onclick="javascript:window.location.reload(true);">
-            </span>
+	      		<span>
+	      		  No plug-ins found!&nbsp;
+	      		  <input type="button" class="install" style="width: 100px;" value="Refresh" onclick="javascript:window.location.reload(true);">
+	            </span>
             #else
 	        <form id="metrics" name="metrics" method="get" action="$path">
 	          <fieldset>

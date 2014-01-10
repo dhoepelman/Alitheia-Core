@@ -15,8 +15,8 @@
                   </tr>
                   <tr>
                     <td class="borderless">
-                      <input type="button" class="install" style="width: 100px;" value="Yes" onclick="javascript:document.getElementById('$params.get("REQ_PAR_ACTION")').value='$params.get("ACT_CON_REM_PROJECT")';$params.get("SUBMIT")">
-                      <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:$params.get("SUBMIT")">
+                      <input type="button" class="install" style="width: 100px;" value="Yes" onclick="javascript:document.getElementById('$params.get("REQ_PAR_ACTION")').value='$params.get("ACT_CON_REM_PROJECT")';document.metrics.submit();">
+                      <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:document.metrics.submit();">
                     </td>
                   </tr>
                 </table>

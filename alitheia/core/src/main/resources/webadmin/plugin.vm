@@ -1,0 +1,130 @@
+#set($section=3)
+#parse("header.inc")
+
+        <div id="contents">
+          <div id="table">
+            <h2>$tr.label("plugins_mngm")</h2>
+            <form id="metrics" name="metrics" method="post" action="/index">
+              
+              ## Display plugin info
+              <fieldset>
+                <legend>$plugin.getPluginName()</legend>
+                <table>
+                  <thead>
+                    <tr class="head">
+                      <td class="head" style="width: 80px;">Status</td>
+                      <td class="head" style="width: 30%;">Name</td>
+                      <td class="head" style="width: 40%;">Class</td>
+                      <td class="head">Version</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        #if ($plugin.installed)
+                          Installed
+                        #else
+                          Registered
+                        #end
+                      </td>
+                      <td>$plugin.getPluginName()</td>
+                      <td>$plugin.getServiceReference()</td>
+                      <td>$plugin.getPluginVersion()</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4">
+                        <input type="button" class="install" style="width: 100px;" value="Plug-ins list" onclick="javascript:document.getElementById('reqParHashcode').value='';document.metrics.submit();">
+                        #if ($plugin.installed)
+                          <input type="button" class="install" style="width: 100px;" value="Uninstall" onclick="javascript:document.getElementById('reqParAction').value='actValUninstall';document.getElementById('reqParHashcode').value='$plugin.getHashcode()';document.metrics.submit();">
+                          <input type="button" class="install" style="width: 100px;" value="Synchronise" onclick="javascript:document.getElementById('reqParAction').value='actValSync';document.getElementById('reqParHashcode').value='$plugin.getHashcode()';document.metrics.submit();">
+                        #else
+                          <input type="button" class="install" style="width: 100px;" value="Install" onclick="javascript:document.getElementById('reqParAction').value='actValInstall';document.getElementById('reqParHashcode').value='$plugin.getHashcode()';document.metrics.submit();">
+                        #end
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+                #if ($plugin.installed)
+	                ## Display supported metrics
+	                <fieldset>
+	                  <legend>Supported metrics</legend>
+	                  <table>
+	                    <thead>
+	                      <tr class="head">
+	                        <td class="head" style="width: 10%;">Id</td>
+	                        <td class="head" style="width: 25%;">Name</td>
+	                        <td class="head" style="width: 25%;">Type</td>
+	                        <td class="head" style="width: 40%;">Description</td>
+	                      </tr>
+	                    </thead>
+	                    <tbody>
+	                      #if ($metrics.isEmpty())
+		                      <tr>
+		                        <td colspan="4" class="noattr">
+		                          This plug-in does not support metrics."
+		                        </td>
+		                      </tr>
+	                      #else
+		                      #foreach ($metric in $metricList) 
+			                      <tr>
+			                        <td>$metric.getId()</td>
+			                        <td>$metric.getMnemonic()</td>
+			                        <td>$metric.getMetricType().getType()</td>
+			                        <td>$metric.getDescription()</td>
+			                      </tr>
+		                      #end
+	                      #end
+	                    </tbody>
+	                  </table>
+	                </fieldset>
+	                
+	                ## Display configuration properties
+	                <fieldset>
+	                  <legend>Configuration properties</legend>
+	                  <table>
+	                    <thead>
+	                      <tr class="head">
+	                        <td class="head" style="width: 30%;">Name</td>
+	                        <td class="head" style="width: 20%;">Type</td>
+	                        <td class="head" style="width: 50%;">Value</td>
+	                      </tr>
+	                    </thead>
+	                    <tbody>
+	                      #if ($configPropList.isEmpty())
+		                      <tr>                            
+		                        <td colspan="3" class="noattr">This plug-in has no configuration properties.</td>
+		                      </tr>
+	                      #else
+		                      #foreach ($configProp in $configPropList)
+		                      <tr> 
+		                        <td class="trans" title="$configProp.getMsg()">
+		                          <img src="/edit.png" alt="[Edit]" />&nbsp;
+		                          $configProp.getName()
+		                        </td>
+		                        <td class="trans">
+		                          $configProp.getType()
+		                        </td>
+		                        <td class="trans">
+		                          $configProp.getValue()
+		                        </td>
+		                      </tr>
+		                      #end
+	                      #end
+	                      <tr>
+	                        <td colspan="3">
+	                          <input type="button" class="install" style="width: 100px;" value="Add property" onclick="javascript:document.getElementById('reqParAction').value='actValReqAddProp';document.metrics.submit();">
+	                        </td>
+	                      </tr>
+	                    </tbody>
+	                  </table>
+	                </fieldset>
+                #end
+
+              </fieldset>
+              <input type="hidden" id="reqParHashcode" name="reqParHashcode" value="$plugin.getHashcode()">
+            </form>
+          </div>
+        </div>
+                
+#parse("footer.inc")

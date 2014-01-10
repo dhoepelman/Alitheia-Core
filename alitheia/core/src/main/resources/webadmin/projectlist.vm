@@ -22,60 +22,60 @@
                 </thead>
                 <tbody>
                 
-               	  ## Display projects
-              	  #if ($projectList.isEmpty())
+           	  ## Display projects
+          	  #if ($projectList.isEmpty())
               	  <tr>
                     <td colspan="6" class="noattr">
                       No projects found.
                     </td>
                   </tr>
-              	  #else
+          	  #else
                   #foreach ($project in $projectList)
-                  #set ($isSelProj = $selProject.getId() == $project.getId())
-                  <tr class="#if ($isSelProj) selected #else edit #end" onclick="javascript:document.getElementById('REQ_PAR_PROJECT_ID').value='#if (!$isSelProj) $project.getId() #end (';document.projects.submit();">
-                    <td class="trans">$project.getId()</td>
-                    <td class="trans">
-                      <img src="/edit.png" alt="[Edit]"/>
-                      #if ($isSelProj)
-                      <input type="button" class="install" style="width: 100px;" value="Info" onclick="javascript:document.getElementById('REQ_PAR_ACTION').value='ACT_REQ_SHOW_PROJECT';document.projects.submit();">
+	                  #set ($isSelProj = $selProject.getId() == $project.getId())
+	                  <tr class="#if ($isSelProj) selected #else edit #end" onclick="javascript:document.getElementById('REQ_PAR_PROJECT_ID').value='#if (!$isSelProj) $project.getId() #end (';document.projects.submit();">
+                        <td class="trans">$project.getId()</td>
+	                    <td class="trans">
+	                      <img src="/edit.png" alt="[Edit]"/>
+	                      #if ($isSelProj)
+	                      	<input type="button" class="install" style="width: 100px;" value="Info" onclick="javascript:document.getElementById('REQ_PAR_ACTION').value='ACT_REQ_SHOW_PROJECT';document.projects.submit();">
+	                      #end
+	                      &nbsp;$project.getName()
+	                    </td>
+	                    <td class="trans">$getLastProjectVersion($project)</td>
+	                    <td class="trans">$getLatestMailMessage($project)</td>
+	                    <td class="trans">$getLastBugUpdate($project)</td>
+	                    <td class="trans">
+	                      #if ($project.isEvaluated())
+	                      	$tr.label("project_is_evaluated")
+	                      #else
+	                      	$tr.label("project_not_evaluated")
+	                      #end
+	                    </td>
+	                    <td class="trans">$getClusternode($project)</td>
+	                  </tr>
+	                  
+	                  ## Add metric if this project is opened
+	                  #if ($isSelProj)
+		                  #foreach ($metric in $installedMetrics)
+			                  <tr>
+			                    <td colspan="7" class="noattr">
+			                      <input type="button" class="install" style="width: 100px;" value="Synchronise" onclick="javascript:document.getElementById('REQ_PAR_SYNC_PLUGIN').value='$metric.getHashcode()';document.projects.submit();">&nbsp;$metric.getPluginName()
+			                    </td>
+			                  </tr>
+	                      #end
                       #end
-                      &nbsp;$project.getName()
-                    </td>
-                    <td class="trans">$getLastProjectVersion($project)</td>
-                    <td class="trans">$getLatestMailMessage($project)</td>
-                    <td class="trans">$getLastBugUpdate($project)</td>
-                    <td class="trans">
-                      #if ($project.isEvaluated())
-                      $tr.label("project_is_evaluated")
-                      #else
-                      $tr.label("project_not_evaluated")
-                      #end
-                    </td>
-                    <td class="trans">$getClusternode($project)</td>
-                  </tr>
-                  
-                  ## Add metric if this project is opened
-                  #if ($isSelProj)
-                  #foreach ($metric in $installedMetrics)
-                  <tr>
-                    <td colspan="7" class="noattr">
-                      <input type="button" class="install" style="width: 100px;" value="Synchronise" onclick="javascript:document.getElementById('REQ_PAR_SYNC_PLUGIN').value='$metric.getHashcode()';document.projects.submit();">&nbsp;$metric.getPluginName()
-                    </td>
-                  </tr>
-                  #end
-                  #end
-                  
-                  #end
-                  #end
+	                  
+	              #end
+	          #end
                 
                   ## Add toolbar
-                  #if ($isProjectSelected)
+              #if ($isProjectSelected)
                   #set ($disabled = "disabled")
                   #set ($projectLocation = "")
-                  #else
+              #else
                   #set ($disabled = "")
                   #set ($projectLocation = "?" + "REQ_PAR_PROJECT_ID" + "=" + $selProject.getId())
-                  #end
+              #end
                   
                   <tr class="subhead">
                     <td>View</td><td colspan="6">
@@ -96,15 +96,15 @@
                     <td colspan='4'>
                       ## Loop through all updaters and display them in a select
                       #if ($isSelProj)
-                      #set ($stages = ["Import Stage", "Parse Stage", "Inference Stage", "Default Stage"];
-                      <select name="reqUpd" id="reqUpd">
-                        #foreach ($updaterStage in $getUpdaters())
-						<optgroup label="$stages[$count]">
-						  #set ($list = $updaterStage.get($stages[$count])) 
-						  $foreach ($updater in $list)
-						  <option value="$updater.mnem">$updater.descr</option>
-						  #end
-						</optgroup>
+	                      #set ($stages = ["Import Stage", "Parse Stage", "Inference Stage", "Default Stage"];
+	                      <select name="reqUpd" id="reqUpd">
+	                        #foreach ($updaterStage in $getUpdaters())
+								<optgroup label="$stages[$count]">
+								#set ($list = $updaterStage.get($stages[$count])) 
+								#foreach ($updater in $list)
+								    <option value="$updater.mnem">$updater.descr</option>
+						        #end
+							</optgroup>
 						#end
 					</select>
                       #end 

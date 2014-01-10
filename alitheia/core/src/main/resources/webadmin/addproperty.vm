@@ -10,38 +10,38 @@
                 <table class="borderless">                
                   <tr>
                     <td class="borderless" style="width:100px;"><b>Name</b></td>
-                    <td class="borderless"><input type="text" class="form" id="$params.get("reqParPropName")" name="$params.get("reqParPropName")" value="$property.getName()"></td>
+                    <td class="borderless"><input type="text" class="form" id="reqParPropName" name="reqParPropName" value="$property.getName()"></td>
                   </tr>
                   <tr> 
                     <td class="borderless" style="width:100px;"><b>Description</b></td>
-                    <td class="borderless"><input type="text" class="form" id="$params.get("reqParPropDescr")" name="$params.get("reqParPropDescr")" value="$property.getMsg()"></td>
+                    <td class="borderless"><input type="text" class="form" id="reqParPropDescr" name="reqParPropDescr" value="$property.getMsg()"></td>
                   </tr>
                   <tr>
                     <td class="borderless" style="width:100px;"><b>Type</b></td>
                     <td class="borderless">
-                      <select class="form" id="$params.get("reqParPropType")" name="params.get("reqParPropType")">
+                      <select class="form" id="reqParPropType" name="params.get("reqParPropType")">
                         #foreach ($type in $types)
-                        <option value="$type" #if ($type.equals($property.getType())) selected #end>$type</option>
+                        	<option value="$type" #if ($type.equals($property.getType())) selected #end>$type</option>
                         #end
                       </select>
                     </td>
                   </tr>
                   <tr>
                     <td class="borderless" style="width:100px;"><b>Value</b></td>
-                    <td class="borderless"><input type="text" class="form" id="$params.get("reqParPropValue")" name="$params.get("reqParPropValue")" value="$property.getValue()"></td>
+                    <td class="borderless"><input type="text" class="form" id="reqParPropValue" name="reqParPropValue" value="$property.getValue()"></td>
                   </tr>
                   <tr>
                     <td colspan="2" class="borderless">
-                      <input type="button" class="install" style="width: 100px;" value="#if ($update) Create #else Update #end" onclick="javascript:document.getElementById('$params.get("reqParAction")').value='$params.get("actValConAddProp")';document.metrics.submit();">&nbsp;                  <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:document.metrics.submit();">
+                      <input type="button" class="install" style="width: 100px;" value="#if ($update) Create #else Update #end" onclick="javascript:document.getElementById('reqParAction').value='actValConAddProp';document.metrics.submit();">&nbsp;                  <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:document.metrics.submit();">
 					  #if ($update)
-					  <input type="button" class="install" style="width: 100px;" value="Remove" onclick="javascript:document.getElementById('$params.get("reqParAction")').value='$params("actValConRemProp")'; document.metrics.submit();" />
+					  	<input type="button" class="install" style="width: 100px;" value="Remove" onclick="javascript:document.getElementById('reqParAction').value='$params("actValConRemProp")'; document.metrics.submit();" />
 					  #end
 					  <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:document.metrics.submit()" />
 					</td>                    					                     
                   </tr>
                 </table>            
               </fieldset>
-              <input type="hidden" id="$params.get("reqParHashcode")" name="$params.get("reqParHashcode")" value="$plugin.getHashcode()">
+              <input type="hidden" id="reqParHashcode" name="reqParHashcode" value="$plugin.getHashcode()">
             </form>
           </div>    
         </div>
