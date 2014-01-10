@@ -20,7 +20,13 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Installed</td>
+                      <td>
+                        #if ($plugin.installed)
+                        Installed
+                        #else
+                        Registered
+                        #end
+                      </td>
                       <td>$plugin.getPluginName()</td>
                       <td>$plugin.getServiceReference()</td>
                       <td>$plugin.getPluginVersion()</td>
@@ -28,13 +34,18 @@
                     <tr>
                       <td colspan="4">
                         <input type="button" class="install" style="width: 100px;" value="Plug-ins list" onclick="javascript:document.getElementById('$params.get("reqParHashcode")').value='';document.metrics.submit();">
+                        #if ($plugin.installed)
                         <input type="button" class="install" style="width: 100px;" value="Uninstall" onclick="javascript:document.getElementById('$params.get("reqParAction")').value='$params.get("actValUninstall")';document.getElementById('$params.get("reqParHashcode")').value='$plugin.getHashcode()';document.metrics.submit();">
                         <input type="button" class="install" style="width: 100px;" value="Synchronise" onclick="javascript:document.getElementById('$params.get("reqParAction")').value='$params.get("actValSync")';document.getElementById('$params.get("reqParHashcode")').value='$plugin.getHashcode()';document.metrics.submit();">
+                        #else
+                        <input type="button" class="install" style="width: 100px;" value="Install" onclick="javascript:document.getElementById('$params.get("reqParAction")').value='$params.get("actValInstall")';document.getElementById('$params.get("reqParHashcode")').value='$plugin.getHashcode()';document.metrics.submit();">
+                        #end
                       </td>
                     </tr>
                   </tbody>
                 </table>
                 
+                #if ($plugin.installed)
                 ## Display supported metrics
                 <fieldset>
                   <legend>Supported metrics</legend>
@@ -108,6 +119,8 @@
                     </tbody>
                   </table>
                 </fieldset>
+                #end
+
               </fieldset>
               <input type="hidden" id="reqParHashcode" name="reqParHashcode" value="$plugin.getHashcode()">
             </form>
