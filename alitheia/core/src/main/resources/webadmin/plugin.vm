@@ -1,5 +1,5 @@
 #set($section=3)
-#parse("header.inc")
+#parse("/webadmin/inc/header.vm")
 
         <div id="contents">
           <div id="table">
@@ -127,4 +127,4 @@
           </div>
         </div>
                 
-#parse("footer.inc")
+#parse("/webadmin/inc/footer.vm")
