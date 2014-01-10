@@ -540,7 +540,14 @@ public class PluginInfo implements Comparable<PluginInfo> {
     public ServiceReference getServiceRef() {
         return serviceRef;
     }
-
+    
+    /**
+     * @return The class name of the plugin
+     */
+    public String getClassName() {
+        return StringUtils.join((String[]) (getServiceRef().getProperty(Constants.OBJECTCLASS)),",");
+    }
+    
     /**
      * Sets the hash code's value of this <code>MetricInfo</code> instance.
      * <br/>

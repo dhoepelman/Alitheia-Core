@@ -1,12 +1,67 @@
 #set($section=3)
 #parse("header.inc")
-#parse("menu.inc")
 
         <div id="contents">
-          ## Display project list
           <h2>$tr.label("projects_mngm")</h2>
+          
+          ## Display form to add a project
           <div id="table">
-            $projects.render($request)
+            
+            <form id="projects" name="projects" method="post" action="/projects">
+              <table class="borderless" width='100%'>
+
+                <tr>
+                  <td class="borderless" style="width:100px;"><b>Project name</b></td>
+                  <td class="borderless">
+                    <input type="text" class="form" id="$params.get("REQ_PAR_PRJ_NAME")" name="$params.get("REQ_PAR_PRJ_NAME")" value="" size="60">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="borderless" style="width:100px;"><b>Homepage</b></td>
+                  <td class="borderless">
+                    <input type="text" class="form" id="$params.get("REQ_PAR_PRJ_WEB")" name="$params.get("REQ_PAR_PRJ_WEB")" value="" size="60">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="borderless" style="width:100px;"><b>Contact e-mail</b></td>
+                  <td class="borderless">
+                    <input type="text" class="form" id="$params.get("REQ_PAR_PRJ_CONT")" name="$params.get("REQ_PAR_PRJ_CONT")" value="" size="60">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="borderless" style="width:100px;"><b>Bug database</b></td>
+                  <td class="borderless">
+                    <input type="text" class="form" id="$params.get("REQ_PAR_PRJ_BUG")" name="$params.get("REQ_PAR_PRJ_BUG")" value="" size="60">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="borderless" style="width:100px;"><b>Mailing list</b></td>
+                  <td class="borderless">
+                    <input type="text" class="form" id="$params.get("REQ_PAR_PRJ_MAIL")" name="$params.get("REQ_PAR_PRJ_MAIL")" value="" size="60">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="borderless" style="width:100px;"><b>Source code</b></td>
+                  <td class="borderless">
+                    <input type="text" class="form" id="$params.get("REQ_PAR_PRJ_CODE")" name="$params.get("REQ_PAR_PRJ_CODE")" value="" size="60">
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="borderless">
+                    <input type="button" class="install" style="width: 100px;" value="Add Project" onclick="javascript:document.getElementById('$params.get("REQ_PAR_ACTION")').value='$params.get("ACT_CON_ADD_PROJECT")';$param.get("SUBMIT")">
+                    <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:$param.get("SUBMIT")">
+                  </td>
+                </tr>
+              </table>
+              <input type='hidden' id='$params.get("REQ_PAR_ACTION")' name='$params.get("REQ_PAR_ACTION")' value=''>
+              <input type='hidden' id='$params.get("REQ_PAR_PROJECT_ID")' name='$params.get("REQ_PAR_PROJECT_ID")' value='$selProject.getId()'>
+              <input type='hidden' id='$params.get("REQ_PAR_SYNC_PLUGIN")' name='$params.get("REQ_PAR_SYNC_PLUGIN")' value=''>
+            </form>
           </div>
           
           ## Display a fast way to add a project
@@ -20,7 +75,7 @@
           ## Print some help
           <h2>$tr.label("help")</h2>
           $tr.message("project_help")
+          
         </div>
 
-#parse("sidebar.inc")
 #parse("footer.inc")

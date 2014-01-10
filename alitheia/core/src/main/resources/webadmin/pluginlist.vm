@@ -1,6 +1,5 @@
 #set($section=3)
 #parse("/webadmin/inc/header.vm")
-#parse("/webadmin/inc/menu.vm")
             
         <div id="contents">
           <div id="table">
@@ -77,7 +76,5 @@
              </form>	
 	      </div>
           #end
-        </div>
-
-#parse("/webadmin/inc/sidebar.vm")
+        </div>           
 #parse("/webadmin/inc/footer.vm")            

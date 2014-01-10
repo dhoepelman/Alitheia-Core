@@ -1,0 +1,86 @@
+#set($section=4)
+#parse("header.inc")
+
+        <div id="contents">
+          ## Display job statistics
+          <h2>Job statistics</h2>
+          <ul>
+            <li>Jobs Executing: $getRunningJobsCount()</li>
+            <li>Jobs Waiting: $getWaitingJobsCount()</li>
+            <li>Failed Jobs: $getFailedJobsCount()</li>
+            <li>Worker Threads: $getWorkerThreadsCount()</li>
+            <li>Total Jobs: $getTotalJobsCount()</li>
+          </ul>
+        
+          ## Display running jobs
+          <h2>Running Jobs</h2>
+          <div id="bundles">
+             #if ($runningJobs.isEmpty())
+             No running jobs
+             #else
+             <ul>
+               #foreach ($job in $runningJobs) {
+               <li>$job</li>
+               #end
+             </ul>
+             #end
+          </div>
+
+          ## Display waiting jobs statistics
+          <h2>Waiting Jobs statistics</h2>
+          <div id="bundles">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <thead>
+                <tr>
+                  <td>Job Type</td>
+                  <td>Num Jobs Waiting</td>
+                </tr>
+              </thead>
+              <tbody>
+                #if ($waitingJobs.isEmpty())
+                <tr>
+                  <td>No waiting</td>
+                  <td>&nbsp;</td>
+                </tr>
+                #else
+                #foreach ($job in $waitingJobs)
+                <tr>
+                  <td>$job.getType()</td>
+                  <td>$job.getCount()</td>
+                </tr>
+                #end
+                #end
+              </tbody>
+            </table>
+
+          ## Display job failure statistics
+          <h2>Job failure statistics</h2> 
+          <a href="alljobs">Details ...</a>
+          <div id="bundles">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <thead>
+                <tr>
+                  <td>Job Type</td>
+                  <td>Num Jobs Failed</td>
+                </tr>
+              </thead>
+              <tbody>
+    	      #if ($failedJobs.isEmpty())
+              <tr>
+                <td>No failures</td>
+                <td>&nbsp;</td>
+              </tr>
+              #else
+              #foreach ($job in $failedJobs)
+              <tr>
+                <td>$job.getType()</td>
+                <td>$job.getCount()</td>
+              </tr>
+              #end
+              #end
+              </tbody>
+            </table>
+    	  </div>
+	    </div>
+
+#parse("footer.inc")

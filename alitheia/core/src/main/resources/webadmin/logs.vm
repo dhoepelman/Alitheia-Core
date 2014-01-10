@@ -1,0 +1,17 @@
+#set($section=2)
+#parse("header.inc")
+
+	    <div id="contents">
+          <h2>Alitheia Logs</h2>
+          <ul class="logs">
+            #if ($logs.isEmpty())
+              <li>&lt;none&gt;</li>
+            #else
+            #foreach ($log in $logs)
+              <li>$log</li>
+            #end
+            #end
+          </ul>
+        </div>
+
+#parse("footer.inc")

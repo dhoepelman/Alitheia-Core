@@ -1,6 +1,5 @@
 #set($section=3)
 #parse("header.inc")
-#parse("menu.inc")
 
         <div id="contents">
           <div id="table">
@@ -110,10 +109,9 @@
                   </table>
                 </fieldset>
               </fieldset>
-              <input type="hidden" id="$params.get("reqParHashcode")" name="$params.get("reqParHashcode")" value="$plugin.getHashcode()">
+              <input type="hidden" id="reqParHashcode" name="reqParHashcode" value="$plugin.getHashcode()">
             </form>
           </div>
         </div>
                 
-#parse("sidebar.inc")
 #parse("footer.inc")

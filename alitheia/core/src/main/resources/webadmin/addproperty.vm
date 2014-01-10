@@ -1,6 +1,5 @@
 #set($section=3)
 #parse("header.inc")
-#parse("menu.inc")
 
         <div id="contents">
           <h2>$tr.label("plugins_mngm")</h2>
@@ -47,5 +46,4 @@
           </div>    
         </div>
 
-#parse("sidebar.inc")
 #parse("footer.inc")
