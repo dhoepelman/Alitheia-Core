@@ -1,4 +1,8 @@
       </div>
+      <div id="sidebar">
+        <iframe style="width: 100%;" frameborder="0" scrolling="no" src="/status">
+        </iframe>
+      </div>
       <div id="footer">
         <p>
           Copyright 2007-2008

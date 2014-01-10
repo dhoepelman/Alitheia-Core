@@ -1,6 +1,5 @@
 #set($section=2)
 #parse("header.inc")
-#parse("menu.inc")
 
 	    <div id="contents">
           <h2>Alitheia Logs</h2>
@@ -15,5 +14,4 @@
           </ul>
         </div>
 
-#parse("sidebar.inc")
 #parse("footer.inc")

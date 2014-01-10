@@ -1,6 +1,5 @@
 #set($section=4)
 #parse("header.inc")
-#parse("menu.inc")
 
         <div id="contents">
           ## Display job statistics
@@ -84,5 +83,4 @@
     	  </div>
 	    </div>
 
-#parse("sidebar.inc")
 #parse("footer.inc")

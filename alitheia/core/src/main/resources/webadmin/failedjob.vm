@@ -1,6 +1,5 @@
 #set($section=4)
 #parse("header.inc")
-#parse("menu.inc")
 
         <div id="contents">
           <h2>Failed Jobs (Last 1000)</h2>
@@ -34,5 +33,4 @@
           </div>
         </div>
 
-#parse("sidebar.inc")
 #parse("footer.inc")

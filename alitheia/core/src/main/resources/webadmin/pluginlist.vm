@@ -1,6 +1,5 @@
 #set($section=3)
 #parse("header.inc")
-#parse("menu.inc")
             
         <div id="contents">
           <div id="table">
@@ -71,5 +70,4 @@
           #end
         </div>
 
-#parse("sidebar.inc")
 #parse("footer.inc")            
