@@ -1,0 +1,14 @@
+#if($msgtype == "error") 
+<p>
+	I maked you a template but I eated it :'(
+</p>
+#elseif ($msgtype == "success")
+<p>
+	Great success<br />
+	<img src="http://weblogs.nrc.nl/idfa/files/2008/borat.jpg" />
+</p>
+#end
+
+<p>
+$msg
+</p>

@@ -17,22 +17,26 @@ import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.ITranslation;
 import eu.sqooss.impl.service.webadmin.Translation;
 import eu.sqooss.service.db.DBService;
+import eu.sqooss.service.logging.LogManager;
 import eu.sqooss.service.logging.Logger;
 
 public abstract class AbstractWebadminServlet extends HttpServlet implements IWebadminServlet {
 
-	private final VelocityEngine ve;
+	protected static final String TEMPLATE_ROOT = "/webadmin";
 
-	// AlitheiaCore god object. Will probably get replaced by dependency injection but for now use this
-	private final AlitheiaCore core = AlitheiaCore.getInstance();
+	private static final String TEMPLATE_MSG = "/message.vm";
+
+	private final VelocityEngine ve;
 
 	// Services that most likely all subclasses will use
 	protected final DBService sobjDB;
 	protected final Logger sobjLogger;
 
 	public AbstractWebadminServlet(VelocityEngine ve) {
+		AlitheiaCore instance = AlitheiaCore.getInstance();
 		try {
-			sobjLogger = core.getLogManager().createLogger(Logger.NAME_SQOOSS_WEBADMIN);
+			LogManager logManager = instance.getLogManager();
+			sobjLogger = logManager.createLogger(Logger.NAME_SQOOSS_WEBADMIN);
 		} catch(NullPointerException e) {
 			// We can't get a logger, this is going great...
 			// Implementing null checks everywhere is a PIA,
@@ -40,7 +44,7 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 			throw new RuntimeException("Could not retrieve a logger for the webadmin service (template " + this.getClass() + ")");
 		}
 
-		sobjDB = core.getDBService();
+		sobjDB = instance.getDBService();
 		if(sobjDB == null && sobjLogger != null) {
 			sobjLogger.error("Could not get the database component's instance.");
 		}
@@ -52,6 +56,11 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 	protected void doGet(HttpServletRequest req, HttpServletResponse response)
 			throws ServletException, IOException {
 		preRender();
+		/**
+		 * You might (rightly) consider making this a field
+		 * However: note that this might make for easier testing and debugging and prevent possible interference
+		 * Also: possible race conditions if a servlet 2 identical URL's are proccesed at the same time (I do not know if this really is a risk, but check this)
+		 */
 		VelocityContext vc = createDefaultVC(req);
 		Template t;
 		try {
@@ -60,7 +69,9 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 				String request = req.getRequestURL() + (req.getQueryString()==null?"":"?" + req.getQueryString());
 				getLogger().warn("Servlet " + this.getClass().getSimpleName() + " failed rendering request " + request);
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				throw new ServletException("Failed rendering the request. Sorry about that.\nThis request caused me to break:\n" + HtmlEscapers.htmlEscaper().escape(request));
+				t = makeErrorMsg(vc, "Internal error while processing the request");
+				if(t == null)
+					throw new ServletException("Failed rendering the request and I couldn't even make an error message. Sorry about that.\nThis request caused me to break:\n" + HtmlEscapers.htmlEscaper().escape(request));
 			} else {
 				response.setContentType("text/html");
 				t.merge(vc, response.getWriter());
@@ -110,10 +121,28 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 		}
 	}
 
+	/**
+	 * Return a template for an error message
+	 */
+	protected Template makeErrorMsg(VelocityContext vc, String message) {
+		vc.put("msgtype", "error");
+		vc.put("msg", message);
+		return loadTemplate(TEMPLATE_MSG);
+	}
+
+	/**
+	 * Return a template for a success message
+	 */
+	protected Template makeSuccessMsg(VelocityContext vc, String message) {
+		vc.put("msgtype", "success");
+		vc.put("msg", message);
+		return loadTemplate(TEMPLATE_MSG);
+	}
+
 	protected Template loadTemplate(String path) {
 		Template t = null;
 		try {
-			t = ve.getTemplate( path );
+			t = ve.getTemplate(TEMPLATE_ROOT + path );
 		} catch (Exception e) {
 			getLogger().warn("Failed to get template <" + path + ">");
 		}
