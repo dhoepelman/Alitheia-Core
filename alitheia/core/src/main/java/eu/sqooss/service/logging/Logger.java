@@ -157,10 +157,6 @@ public interface Logger {
 	 * Represents Admin Action logger name.
 	 */
 	public static final String NAME_SQOOSS_ADMINACTION = "sqooss.adminaction";
-	/**
-	 * Represents Translation logger name.
-	 */
-	public static final String NAME_SQOOSS_TRANSLATION = "sqooss.translation";
 
 	/**
 	 * Log a message with debug (lower than lowest) logging level.

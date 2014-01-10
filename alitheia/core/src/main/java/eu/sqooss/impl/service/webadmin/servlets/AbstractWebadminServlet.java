@@ -11,6 +11,8 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
+import com.google.common.html.HtmlEscapers;
+
 import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.ITranslation;
 import eu.sqooss.impl.service.webadmin.Translation;
@@ -29,14 +31,13 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 	protected final Logger sobjLogger;
 
 	public AbstractWebadminServlet(VelocityEngine ve) {
-		Logger sobjLogger = null;
 		try {
 			sobjLogger = core.getLogManager().createLogger(Logger.NAME_SQOOSS_WEBADMIN);
 		} catch(NullPointerException e) {
 			// We can't get a logger, this is going great...
-			sobjLogger = null;
-		} finally {
-			this.sobjLogger = sobjLogger;
+			// Implementing null checks everywhere is a PIA,
+			// so we just as well might die right here right now then die to a NullPointerException along the way
+			throw new RuntimeException("Could not retrieve a logger for the webadmin service (template " + this.getClass() + ")");
 		}
 
 		sobjDB = core.getDBService();
@@ -51,13 +52,15 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 	protected void doGet(HttpServletRequest req, HttpServletResponse response)
 			throws ServletException, IOException {
 		preRender();
-		VelocityContext vc = new VelocityContext();
+		VelocityContext vc = createDefaultVC(req);
 		Template t;
 		try {
 			t = render(req, vc);
 			if(t == null) {
-				getLogger().warn("Servlet " + this.getClass().getName() + " failed rendering request");
+				String request = req.getRequestURL() + (req.getQueryString()==null?"":"?" + req.getQueryString());
+				getLogger().warn("Servlet " + this.getClass().getSimpleName() + " failed rendering request " + request);
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				throw new ServletException("Failed rendering the request. Sorry about that.\nThis request caused me to break:\n" + HtmlEscapers.htmlEscaper().escape(request));
 			} else {
 				response.setContentType("text/html");
 				t.merge(vc, response.getWriter());
@@ -71,6 +74,19 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		doGet(req,resp);
+	}
+
+	/**
+	 * Create the default VelocityContext with variables that every template uses or might use
+	 */
+	private VelocityContext createDefaultVC(HttpServletRequest req) {
+		VelocityContext vc = new VelocityContext();
+		// Add the translation class to every page
+		vc.put("tr", getTranslation());
+		// Add the current path
+		vc.put("path", req.getRequestURI());
+
+		return vc;
 	}
 
 	/**
@@ -92,6 +108,16 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 		if (sobjDB.isDBSessionActive()) {
 			sobjDB.commitDBSession();
 		}
+	}
+
+	protected Template loadTemplate(String path) {
+		Template t = null;
+		try {
+			t = ve.getTemplate( path );
+		} catch (Exception e) {
+			getLogger().warn("Failed to get template <" + path + ">");
+		}
+		return t;
 	}
 
 	protected DBService getDB() {

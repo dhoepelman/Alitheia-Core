@@ -6,9 +6,9 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
-public class LogsServlet extends AbstractWebadminServlet {
+public class ErrorServlet extends AbstractWebadminServlet {
 
-	public LogsServlet(VelocityEngine ve) {
+	public ErrorServlet(VelocityEngine ve) {
 		super(ve);
 	}
 

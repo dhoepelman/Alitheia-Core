@@ -1,7 +1,5 @@
 package eu.sqooss.impl.service.webadmin.servlets;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.velocity.Template;
@@ -45,7 +43,7 @@ public class StatusServlet extends AbstractWebadminServlet {
 
 
 	@Override
-	public List<String> getPaths() {
+	public String getPath() {
 		// TODO Auto-generated method stub
 		return null;
 	}
