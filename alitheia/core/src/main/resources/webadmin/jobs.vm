@@ -16,13 +16,13 @@
           <h2>Running Jobs</h2>
           <div id="bundles">
              #if ($runningJobs.isEmpty())
-             No running jobs
+             	No running jobs
              #else
-             <ul>
-               #foreach ($job in $runningJobs) {
-               <li>$job</li>
-               #end
-             </ul>
+	             <ul>
+	               #foreach ($job in $runningJobs) {
+	                 <li>$job</li>
+	               #end
+	             </ul>
              #end
           </div>
 
@@ -38,17 +38,17 @@
               </thead>
               <tbody>
                 #if ($waitingJobs.isEmpty())
-                <tr>
-                  <td>No waiting</td>
-                  <td>&nbsp;</td>
-                </tr>
+                  <tr>
+                    <td>No waiting</td>
+                    <td>&nbsp;</td>
+                  </tr>
                 #else
-                #foreach ($job in $waitingJobs)
-                <tr>
-                  <td>$job.getType()</td>
-                  <td>$job.getCount()</td>
-                </tr>
-                #end
+                  #foreach ($job in $waitingJobs)
+                    <tr>
+                      <td>$job.getType()</td>
+                      <td>$job.getCount()</td>
+                    </tr>
+                  #end
                 #end
               </tbody>
             </table>

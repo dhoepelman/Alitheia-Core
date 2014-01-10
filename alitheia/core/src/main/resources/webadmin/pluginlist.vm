@@ -5,68 +5,68 @@
           <div id="table">
           <h2>$tr.label("plugins_mngm")</h2>
             #if ($projectList.isEmpty())
-      		<span>
-      		  No plug-ins found!&nbsp;
-      		  <input type="button" class="install" style="width: 100px;" value="Refresh" onclick="javascript:window.location.reload(true);">
-            </span>
+	      		<span>
+	      		  No plug-ins found!&nbsp;
+	      		  <input type="button" class="install" style="width: 100px;" value="Refresh" onclick="javascript:window.location.reload(true);">
+	            </span>
             #else
-	        <form id="metrics" name="metrics" method="post" action="/index">
-	          <fieldset>
-	            <legend>All plug-ins</legend>
-	            <table>
-	              <thead>
-	                <tr class="head">
-	                  <td class="head" style="width: 80px;">Status</td>
-	                  <td class="head" style="width: 30%;">Name</td>
-	                  <td class="head" style="width: 40%;">Class</td>
-	                  <td class="head">Version</td>
-	                </tr>
-	              </thead>
-	              <tbody>
-	                #foreach ($p in $pluginList)
-	                <tr class="edit" onclick="javascript:document.getElementById('$params.get("reqParHashcode")').value='$plugin.getHashcode()';document.metrics.submit();">
-	                  <td class="trans"><img src="/edit.png" alt="[Edit]"/>&nbsp;#if ($p.installed) Installed #else Registered #end</td>
-	                  <td class="trans">$p.getPluginName()</td>
-	                  <td class="trans">$p.getServiceRef()</td>
-	                  <td class="trans">$p.getPluginVersion()</td>
-	                </tr>
-	                
-	                ## Show properties if needed
-	                #if ($showProperties)
-	                #foreach ($property in $p.getConfiguration())
-	                <tr>
-                      <td>&nbsp;</td>
-                      <td colspan="3" class="attr">
-                        <b>Property:</b> " + $property.getName() &nbsp;
-                        <b>Type:</b> " + $property.getType() &nbsp;
-                        <b>Value:</b> " + $property.getValue()
-                      </td>
-                    </tr>
-	                #end
-	                #end
-	                
-	                ## Show activators if needed
-	                #if ($showActivators)
-	                #foreach ($activator in $p.getActivationTypes())
-	                <tr>
-                  	  <td>&nbsp;</td>
-                      <td colspan="3" class="attr">
-                        <b>Activator:</b>$activator.getName()
-                      </td>
-                  	</tr>
-	                #end
-	                #end
-
-	                #end
-                  </tbody>
-                </table>
-                <span>
-                  <input type="checkbox" #if ($showProperties) checked #end onclick="javascript:document.getElementById('$params.get("reqParShowProp")').value = this.checked; document.getElementById('$params.get("reqParHashcode")').value='';document.metrics.submit();">Display properties
-                  <input type="checkbox" #if ($showActivators) checked #end onclick="javascript:document.getElementById('$params.get("reqParShowActv")').value = this.checked; document.getElementById('$params.get("reqParHashcode")').value='';document.metrics.submit();">Display activators
-                </span>
-              </fieldset>
-             </form>	
-	      </div>
+		        <form id="metrics" name="metrics" method="post" action="/index">
+		          <fieldset>
+		            <legend>All plug-ins</legend>
+		            <table>
+		              <thead>
+		                <tr class="head">
+		                  <td class="head" style="width: 80px;">Status</td>
+		                  <td class="head" style="width: 30%;">Name</td>
+		                  <td class="head" style="width: 40%;">Class</td>
+		                  <td class="head">Version</td>
+		                </tr>
+		              </thead>
+		              <tbody>
+		                #foreach ($p in $pluginList)
+			                <tr class="edit" onclick="javascript:document.getElementById('reqParHashcode').value='$plugin.getHashcode()';document.metrics.submit();">
+			                  <td class="trans"><img src="/edit.png" alt="[Edit]"/>&nbsp;#if ($p.installed) Installed #else Registered #end</td>
+			                  <td class="trans">$p.getPluginName()</td>
+			                  <td class="trans">$p.getServiceRef()</td>
+			                  <td class="trans">$p.getPluginVersion()</td>
+			                </tr>
+			                
+			                ## Show properties if needed
+			                #if ($showProperties)
+				                #foreach ($property in $p.getConfiguration())
+				                <tr>
+			                      <td>&nbsp;</td>
+			                      <td colspan="3" class="attr">
+			                        <b>Property:</b> " + $property.getName() &nbsp;
+			                        <b>Type:</b> " + $property.getType() &nbsp;
+			                        <b>Value:</b> " + $property.getValue()
+			                      </td>
+			                    </tr>
+				                #end
+			                #end
+			                
+			                ## Show activators if needed
+			                #if ($showActivators)
+				                #foreach ($activator in $p.getActivationTypes())
+				                <tr>
+			                  	  <td>&nbsp;</td>
+			                      <td colspan="3" class="attr">
+			                        <b>Activator:</b>$activator.getName()
+			                      </td>
+			                  	</tr>
+				                #end
+			                #end
+	
+		                #end
+	                  </tbody>
+	                </table>
+	                <span>
+	                  <input type="checkbox" #if ($showProperties) checked #end onclick="javascript:document.getElementById('reqParShowProp').value = this.checked; document.getElementById('reqParHashcode').value='';document.metrics.submit();">Display properties
+	                  <input type="checkbox" #if ($showActivators) checked #end onclick="javascript:document.getElementById('reqParShowActv').value = this.checked; document.getElementById('reqParHashcode').value='';document.metrics.submit();">Display activators
+	                </span>
+	              </fieldset>
+	             </form>	
+		      </div>
           #end
         </div>
 

@@ -7,9 +7,9 @@
             #if ($logs.isEmpty())
               <li>&lt;none&gt;</li>
             #else
-            #foreach ($log in $logs)
-              <li>$log</li>
-            #end
+              #foreach ($log in $logs)
+                <li>$log</li>
+              #end
             #end
           </ul>
         </div>

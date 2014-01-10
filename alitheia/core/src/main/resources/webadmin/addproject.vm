@@ -13,54 +13,54 @@
                 <tr>
                   <td class="borderless" style="width:100px;"><b>Project name</b></td>
                   <td class="borderless">
-                    <input type="text" class="form" id="$params.get("REQ_PAR_PRJ_NAME")" name="$params.get("REQ_PAR_PRJ_NAME")" value="" size="60">
+                    <input type="text" class="form" id="REQ_PAR_PRJ_NAME" name="REQ_PAR_PRJ_NAME" value="" size="60">
                   </td>
                 </tr>
 
                 <tr>
                   <td class="borderless" style="width:100px;"><b>Homepage</b></td>
                   <td class="borderless">
-                    <input type="text" class="form" id="$params.get("REQ_PAR_PRJ_WEB")" name="$params.get("REQ_PAR_PRJ_WEB")" value="" size="60">
+                    <input type="text" class="form" id="REQ_PAR_PRJ_WEB" name="REQ_PAR_PRJ_WEB" value="" size="60">
                   </td>
                 </tr>
 
                 <tr>
                   <td class="borderless" style="width:100px;"><b>Contact e-mail</b></td>
                   <td class="borderless">
-                    <input type="text" class="form" id="$params.get("REQ_PAR_PRJ_CONT")" name="$params.get("REQ_PAR_PRJ_CONT")" value="" size="60">
+                    <input type="text" class="form" id="REQ_PAR_PRJ_CONT" name="REQ_PAR_PRJ_CONT" value="" size="60">
                   </td>
                 </tr>
 
                 <tr>
                   <td class="borderless" style="width:100px;"><b>Bug database</b></td>
                   <td class="borderless">
-                    <input type="text" class="form" id="$params.get("REQ_PAR_PRJ_BUG")" name="$params.get("REQ_PAR_PRJ_BUG")" value="" size="60">
+                    <input type="text" class="form" id="REQ_PAR_PRJ_BUG" name="REQ_PAR_PRJ_BUG" value="" size="60">
                   </td>
                 </tr>
 
                 <tr>
                   <td class="borderless" style="width:100px;"><b>Mailing list</b></td>
                   <td class="borderless">
-                    <input type="text" class="form" id="$params.get("REQ_PAR_PRJ_MAIL")" name="$params.get("REQ_PAR_PRJ_MAIL")" value="" size="60">
+                    <input type="text" class="form" id="REQ_PAR_PRJ_MAIL" name="REQ_PAR_PRJ_MAIL" value="" size="60">
                   </td>
                 </tr>
 
                 <tr>
                   <td class="borderless" style="width:100px;"><b>Source code</b></td>
                   <td class="borderless">
-                    <input type="text" class="form" id="$params.get("REQ_PAR_PRJ_CODE")" name="$params.get("REQ_PAR_PRJ_CODE")" value="" size="60">
+                    <input type="text" class="form" id="REQ_PAR_PRJ_CODE" name="REQ_PAR_PRJ_CODE" value="" size="60">
                   </td>
                 </tr>
                 <tr>
                   <td colspan="2" class="borderless">
-                    <input type="button" class="install" style="width: 100px;" value="Add Project" onclick="javascript:document.getElementById('$params.get("REQ_PAR_ACTION")').value='$params.get("ACT_CON_ADD_PROJECT")';$param.get("SUBMIT")">
-                    <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:$param.get("SUBMIT")">
+                    <input type="button" class="install" style="width: 100px;" value="Add Project" onclick="javascript:document.getElementById('REQ_PAR_ACTION').value='ACT_CON_ADD_PROJECT';document.metrics.submit();">
+                    <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:document.metrics.submit();">
                   </td>
                 </tr>
               </table>
-              <input type='hidden' id='$params.get("REQ_PAR_ACTION")' name='$params.get("REQ_PAR_ACTION")' value=''>
-              <input type='hidden' id='$params.get("REQ_PAR_PROJECT_ID")' name='$params.get("REQ_PAR_PROJECT_ID")' value='$selProject.getId()'>
-              <input type='hidden' id='$params.get("REQ_PAR_SYNC_PLUGIN")' name='$params.get("REQ_PAR_SYNC_PLUGIN")' value=''>
+              <input type='hidden' id='REQ_PAR_ACTION' name='REQ_PAR_ACTION' value=''>
+              <input type='hidden' id='REQ_PAR_PROJECT_ID' name='REQ_PAR_PROJECT_ID' value='$selProject.getId()'>
+              <input type='hidden' id='REQ_PAR_SYNC_PLUGIN' name='REQ_PAR_SYNC_PLUGIN' value=''>
             </form>
           </div>
           
@@ -68,8 +68,8 @@
           <h2>$tr.label("install_new_project")</h2>
           <form id="addprojectdir" method="post" action="diraddproject">
             project.properties file location
-            <input name="properties" type="text" alt="Enter the path to the project.properties file of the project you want to install" class="form" size="40"/>
-            <input type="submit" value="Install Project"/>
+            <input name="properties" type="text" alt="Enter the path to the project.properties file of the project you want to install" class="form" size="40" />
+            <input type="submit" value="Install Project" />
           </form>
           
           ## Print some help
