@@ -110,7 +110,7 @@
                   </table>
                 </fieldset>
               </fieldset>
-              <input type="hidden" id="$params.get("reqParHashcode")" name="$params.get("reqParHashcode")" value="$plugin.getHashcode()">
+              <input type="hidden" id="reqParHashcode" name="reqParHashcode" value="$plugin.getHashcode()">
             </form>
           </div>
         </div>

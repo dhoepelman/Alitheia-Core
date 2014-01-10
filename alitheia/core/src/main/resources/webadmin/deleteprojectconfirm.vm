@@ -1,0 +1,43 @@
+#set($section=3)
+#parse("header.inc")
+#parse("menu.inc")
+
+        <div id="contents">
+          <h2>$tr.label("projects_mngm")</h2>
+          
+          ## Display confirmation for deleting a project
+          <div id="table">
+            <form id="projects" name="projects" method="post" action="/projects">
+              <fieldset>
+                <legend>Delete project: $selProject.getName()</legend>
+                <table class="borderless">                  
+                  <tr>
+                    <td class="borderless"><b>Are you sure that you want to completely remove this project?</b></td>
+                  </tr>
+                  <tr>
+                    <td class="borderless">
+                      <input type="button" class="install" style="width: 100px;" value="Yes" onclick="javascript:document.getElementById('$params.get("REQ_PAR_ACTION")').value='$params.get("ACT_CON_REM_PROJECT")';$params.get("SUBMIT")">
+                      <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:$params.get("SUBMIT")">
+                    </td>
+                  </tr>
+                </table>
+              </fieldset>
+              
+              <input type='hidden' id='$params.get("REQ_PAR_ACTION")' name='$params.get("REQ_PAR_ACTION")' value=''>
+              <input type='hidden' id='$params.get("REQ_PAR_PROJECT_ID")' name='$params.get("REQ_PAR_PROJECT_ID")' value='$selProject.getId()'>
+              <input type='hidden' id='$params.get("REQ_PAR_SYNC_PLUGIN")' name='$params.get("REQ_PAR_SYNC_PLUGIN")' value=''>
+            </form>
+          </div>
+          
+          ## Display fast way to install new project
+          <h2>$tr.label("install_new_project")</h2>
+          <form id="addprojectdir" method="post" action="diraddproject">
+            $tr.label("project_info_txt")
+            <input name="info" type="text" alt="$tr.label("project_info_txt_help")" class="form" size="40"/>
+            <input type="submit" value="$tr.label("project_info_txt_install")"/>
+          </form>
+        </div>
+      </div>
+
+#parse("sidebar.inc")
+#parse("footer.inc")
