@@ -1,2 +1,3 @@
-*.java text eol=lf
+*.java text eol=lf diff=java
 *.scala text eol=lf
+*.vm text eol=lf
