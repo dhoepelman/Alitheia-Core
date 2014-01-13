@@ -1,5 +1,5 @@
 #set($section=4)
-#parse("header.vm")
+#parse("/webadmin/inc/header.vm")
 
         <div id="contents">
           <h2>Failed Jobs (Last 1000)</h2>
@@ -15,22 +15,22 @@
 	          </thead>
 	          <tbody>
 	            #if ($failedJobs.isEmpty())
-		            <tr>
-		              <td colspan="4">No failed jobs.</td>
-		            </tr>
+		          <tr>
+		            <td colspan="4">No failed jobs.</td>
+		          </tr>
 	            #else
-		            #foreach ($job in $failedJobs)
-			        <tr>
-				      <td>$job.getJobType()</td>
-				      <td>$job.getExceptionType()</td>
-	  			      <td>$job.getExceptionText()</td>
-		   	  	      <td>$job.getExceptionBacktrace()</td>
-			        </tr>
-			        #end
+		          #foreach ($job in $failedJobs)
+			      <tr>
+				    <td>$job.getJobType()</td>
+				    <td>$job.getExceptionType()</td>
+	  			    <td>$job.getExceptionText()</td>
+		   	  	    <td>$job.getExceptionBacktrace()</td>
+			      </tr>
+			      #end
 		        #end
 		      </tbody>
             </table>
           </div>
         </div>
 
-#parse("footer.vm")
+#parse("/webadmin/inc/footer.vm")

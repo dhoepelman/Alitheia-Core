@@ -1,5 +1,6 @@
 package eu.sqooss.impl.service.webadmin.servlets;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +52,7 @@ public class JobsServlet extends AbstractWebadminServlet {
 	
 	private Template PageJobs(HttpServletRequest req, VelocityContext vc) {
 	    // Load template
-	    Template t = loadTemplate(PAGE_JOBS);
+	    Template t = loadTemplate(templates.get(PAGE_JOBS));
 	    
 	    // Add scheduler stats
 	    vc.put("scheduler", sobjSched.getSchedulerStats());
@@ -61,8 +62,10 @@ public class JobsServlet extends AbstractWebadminServlet {
 	
 	private Template PageFailedJobs(HttpServletRequest req, VelocityContext vc) {
 	    // Load template
-	    Template t = loadTemplate(PAGE_FAILEDJOBS);
-	    // TODO: to implement
+	    Template t = loadTemplate(templates.get(PAGE_FAILEDJOBS));
+
+	    // Add scheduler stats
+        vc.put("failedJobs", Arrays.asList(sobjSched.getFailedQueue()));
 	    return t;
 	}
 

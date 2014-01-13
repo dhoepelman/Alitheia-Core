@@ -109,7 +109,7 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 		vc.put("tr", getTranslation());
 		// Add the current path
 		vc.put("path", req.getRequestURI());
-		// Add the NullTool
+		// Add the NullTool and ListTool
 		vc.put("null", new NullTool());
 
 		return vc;
