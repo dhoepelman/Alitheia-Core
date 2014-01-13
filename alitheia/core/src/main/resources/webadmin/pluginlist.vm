@@ -71,8 +71,8 @@
                   			 document.metrics.submit();">Display activators
                 </span>
               </fieldset>
-              <input type="hidden" id="showProperties" name="showProperties" value="#if($showProperties) true #else false #end">
-              <input type="hidden" id="showActivators" name="showActivators" value="#if($showActivators) true #else false #end">
+              <input type="hidden" id="showProperties" name="showProperties" #if($showProperties) value="true" #else value="false" #end >
+              <input type="hidden" id="showActivators" name="showActivators" #if($showActivators) value="true" #else value="false" #end >
              </form>	
 	      </div>
           #end
