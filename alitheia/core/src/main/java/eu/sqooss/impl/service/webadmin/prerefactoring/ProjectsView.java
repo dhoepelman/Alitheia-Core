@@ -290,244 +290,26 @@ public class ProjectsView extends AbstractView {
         // ===================================================================
         if ((reqValAction.equals(ACT_REQ_SHOW_PROJECT))
                 && (selProject != null)) {
-            // Create the field-set
-            b.append(sp(in++) + "<fieldset>\n");
-            b.append(sp(in) + "<legend>"
-                    + "Project information"
-                    + "</legend>\n");
-            b.append(sp(in++) + "<table class=\"borderless\">\n");
-            // Create the input fields
-            b.append(normalInfoRow(
-                    "Project name", selProject.getName(), in));
-            b.append(normalInfoRow(
-                    "Homepage", selProject.getWebsiteUrl(), in));
-            b.append(normalInfoRow(
-                    "Contact e-mail", selProject.getContactUrl(), in));
-            b.append(normalInfoRow(
-                    "Bug database", selProject.getBtsUrl(), in));
-            b.append(normalInfoRow(
-                    "Mailing list", selProject.getMailUrl(), in));
-            b.append(normalInfoRow(
-                    "Source code", selProject.getScmUrl(), in));
-
-            //------------------------------------------------------------
-            // Tool-bar
-            //------------------------------------------------------------
-            b.append(sp(in++) + "<tr>\n");
-            b.append(sp(in++)
-                    + "<td colspan=\"2\" class=\"borderless\">\n");
-            // Back button
-            b.append(sp(in) + "<input type=\"button\""
-                    + " class=\"install\""
-                    + " style=\"width: 100px;\""
-                    + " value=\"" + getLbl("btn_back") + "\""
-                    + " onclick=\"javascript:"
-                    + SUBMIT + "\">\n");
-            b.append(sp(--in) + "</td>\n");
-            b.append(sp(--in) + "</tr>\n");
-            b.append(sp(--in) + "</table>\n");
-            b.append(sp(--in) + "</fieldset>\n");
+            in = showProjectInfo(b, selProject, in);
         }
         // ===================================================================
         // "Add project" editor
         // ===================================================================
         else if (reqValAction.equals(ACT_REQ_ADD_PROJECT)) {
-            // Create the field-set
-            b.append(sp(in++) + "<table class=\"borderless\" width='100%'>\n");
-            // Create the input fields
-            b.append(normalInputRow(
-                    "Project name", REQ_PAR_PRJ_NAME, "", in));
-            b.append(normalInputRow(
-                    "Homepage", REQ_PAR_PRJ_WEB, "", in));
-            b.append(normalInputRow(
-                    "Contact e-mail", REQ_PAR_PRJ_CONT, "", in));
-            b.append(normalInputRow(
-                    "Bug database", REQ_PAR_PRJ_BUG, "", in));
-            b.append(normalInputRow(
-                    "Mailing list", REQ_PAR_PRJ_MAIL, "", in));
-            b.append(normalInputRow(
-                    "Source code", REQ_PAR_PRJ_CODE, "", in));
-
-            //------------------------------------------------------------
-            // Tool-bar
-            //------------------------------------------------------------
-            b.append(sp(in++) + "<tr>\n");
-            b.append(sp(in++)
-                    + "<td colspan=\"2\" class=\"borderless\">\n");
-            // Apply button
-            b.append(sp(in) + "<input type=\"button\""
-                    + " class=\"install\""
-                    + " style=\"width: 100px;\""
-                    + " value=\"" + getLbl("project_add") + "\""
-                    + " onclick=\"javascript:"
-                    + "document.getElementById('"
-                    + REQ_PAR_ACTION + "').value='"
-                    + ACT_CON_ADD_PROJECT + "';"
-                    + SUBMIT + "\">\n");
-            // Cancel button
-            b.append(sp(in) + "<input type=\"button\""
-                    + " class=\"install\""
-                    + " style=\"width: 100px;\""
-                    + " value=\"" + getLbl("cancel") + "\""
-                    + " onclick=\"javascript:"
-                    + SUBMIT + "\">\n");
-            b.append(sp(--in) + "</td>\n");
-            b.append(sp(--in) + "</tr>\n");
-            b.append(sp(--in) + "</table>\n");
+            in = showAddProject(b, in);
         }
         // ===================================================================
         // "Delete project" confirmation view
         // ===================================================================
         else if ((reqValAction.equals(ACT_REQ_REM_PROJECT))
                 && (selProject != null)) {
-            b.append(sp(in++) + "<fieldset>\n");
-            b.append(sp(in) + "<legend>" + getLbl("l0059")
-                    + ": " + selProject.getName()
-                    + "</legend>\n");
-            b.append(sp(in++) + "<table class=\"borderless\">");
-            // Confirmation message
-            b.append(sp(in++) + "<tr>\n");
-            b.append(sp(in) + "<td class=\"borderless\">"
-                    + "<b>" + getMsg("delete_project") + "</b>"
-                    + "</td>\n");
-
-            b.append(sp(--in) + "</tr>\n");
-            //------------------------------------------------------------
-            // Tool-bar
-            //------------------------------------------------------------
-            b.append(sp(in++) + "<tr>\n");
-            b.append(sp(in++)
-                    + "<td class=\"borderless\">\n");
-            // Confirm button
-            b.append(sp(in) + "<input type=\"button\""
-                    + " class=\"install\""
-                    + " style=\"width: 100px;\""
-                    + " value=\"" + getLbl("l0006") + "\""
-                    + " onclick=\"javascript:"
-                    + "document.getElementById('"
-                    + REQ_PAR_ACTION + "').value='"
-                    + ACT_CON_REM_PROJECT + "';"
-                    + SUBMIT + "\">\n");
-            // Cancel button
-            b.append(sp(in) + "<input type=\"button\""
-                    + " class=\"install\""
-                    + " style=\"width: 100px;\""
-                    + " value=\"" + getLbl("l0004") + "\""
-                    + " onclick=\"javascript:"
-                    + SUBMIT + "\">\n");
-            b.append(sp(--in) + "</td>\n");
-            b.append(sp(--in) + "</tr>\n");
-            b.append(sp(--in) + "</table>");
-            b.append(sp(in) + "</fieldset>\n");
+            in = showDeleteProjectConfirm(b, selProject, in);
         }
         // ===================================================================
         // Projects list view
         // ===================================================================
         else {
-            addHeaderRow(b,in);
-
-            if (projects.isEmpty()) {
-                b.append(sp(in++) + "<tr>\n");
-                b.append(sp(in) + "<td colspan=\"6\" class=\"noattr\">\n"
-                        + getMsg("no_projects")
-                        + "</td>\n");
-                b.append(sp(--in) + "</tr>\n");
-            }
-            else {
-                //------------------------------------------------------------
-                // Create the content rows
-                //------------------------------------------------------------
-                b.append(sp(in++) + "<tbody>\n");
-                for (StoredProject nextPrj : projects) {
-                    boolean selected = false;
-                    if ((selProject != null)
-                            && (selProject.getId() == nextPrj.getId())) {
-                        selected = true;
-                    }
-                    b.append(sp(in++) + "<tr class=\""
-                            + ((selected) ? "selected" : "edit") + "\""
-                            + " onclick=\"javascript:"
-                            + "document.getElementById('"
-                            + REQ_PAR_PROJECT_ID + "').value='"
-                            + ((selected) ? "" : nextPrj.getId())
-                            + "';"
-                            + SUBMIT + "\">\n");
-                    // Project Id
-                    b.append(sp(in) + "<td class=\"trans\">"
-                            + nextPrj.getId()
-                            + "</td>\n");
-                    // Project name
-                    b.append(sp(in) + "<td class=\"trans\">"
-                            + ((selected)
-                                    ? "<input type=\"button\""
-                                        + " class=\"install\""
-                                        + " style=\"width: 100px;\""
-                                        + " value=\""
-                                        + getLbl("btn_info")
-                                        + "\""
-                                        + " onclick=\"javascript:"
-                                        + "document.getElementById('"
-                                        + REQ_PAR_ACTION + "').value='" 
-                                        + ACT_REQ_SHOW_PROJECT + "';"
-                                        + SUBMIT + "\">"
-                                    : "<img src=\"/edit.png\""
-                                        + " alt=\"[Edit]\"/>")
-                            + "&nbsp;"
-                            + nextPrj.getName()
-                            + "</td>\n");
-                    // Last project version
-                    String lastVersion = getLbl("l0051");
-                    ProjectVersion v = ProjectVersion.getLastProjectVersion(nextPrj);
-                    if (v != null) {
-                        lastVersion = String.valueOf(v.getSequence()) + "(" + v.getRevisionId() + ")";
-                    }
-                    b.append(sp(in) + "<td class=\"trans\">"
-                            + lastVersion
-                            + "</td>\n");
-                    // Date of the last known email
-                    MailMessage mm = MailMessage.getLatestMailMessage(nextPrj);
-                    b.append(sp(in) + "<td class=\"trans\">"
-                            + ((mm == null)?getLbl("l0051"):mm.getSendDate())
-                            + "</td>\n");
-                    // ID of the last known bug entry
-                    Bug bug = Bug.getLastUpdate(nextPrj);
-                    b.append(sp(in) + "<td class=\"trans\">"
-                            + ((bug == null)?getLbl("l0051"):bug.getBugID())
-                            + "</td>\n");
-                    // Evaluation state
-                    String evalState = getLbl("project_not_evaluated");
-                    if (nextPrj.isEvaluated()) {
-                    	evalState = getLbl("project_is_evaluated");
-                    }
-                    b.append(sp(in) + "<td class=\"trans\">"
-                            + evalState
-                            + "</td>\n");
-                    
-                    // Cluster node
-                    String nodename = null;
-                    if (null != nextPrj.getClusternode()) {
-                        nodename = nextPrj.getClusternode().getName();
-                    } else {
-                        nodename = "(local)";
-                    }
-                    b.append(sp(in) + "<td class=\"trans\">" + nodename + "</td>\n");
-                    b.append(sp(--in) + "</tr>\n");
-                    if ((selected) && (metrics.isEmpty() == false)) {
-                        showLastAppliedVersion(nextPrj, metrics, b);
-                    }
-                }
-            }
-            //----------------------------------------------------------------
-            // Tool-bar
-            //----------------------------------------------------------------
-            addToolBar(selProject,b,in);
-
-            //----------------------------------------------------------------
-            // Close the table
-            //----------------------------------------------------------------
-            b.append(sp(--in) + "</tbody>\n");
-            b.append(sp(--in) + "</table>\n");
-            b.append(sp(--in) + "</fieldset>\n");
+            in = showProjectList(b, selProject, in, projects, metrics);
         }
 
         // ===============================================================
@@ -539,6 +321,260 @@ public class ProjectsView extends AbstractView {
         // Close the form
         // ===============================================================
         b.append(sp(--in) + "</form>\n");
+    }
+
+    // ===================================================================
+    // Projects list view
+    // ===================================================================
+    private static int showProjectList(StringBuilder b,
+            StoredProject selProject, int in, Set<StoredProject> projects,
+            Collection<PluginInfo> metrics) {
+        addHeaderRow(b,in);
+
+        if (projects.isEmpty()) {
+            b.append(sp(in++) + "<tr>\n");
+            b.append(sp(in) + "<td colspan=\"6\" class=\"noattr\">\n"
+                    + getMsg("no_projects")
+                    + "</td>\n");
+            b.append(sp(--in) + "</tr>\n");
+        }
+        else {
+            //------------------------------------------------------------
+            // Create the content rows
+            //------------------------------------------------------------
+            b.append(sp(in++) + "<tbody>\n");
+            for (StoredProject nextPrj : projects) {
+                boolean selected = false;
+                if ((selProject != null)
+                        && (selProject.getId() == nextPrj.getId())) {
+                    selected = true;
+                }
+                b.append(sp(in++) + "<tr class=\""
+                        + ((selected) ? "selected" : "edit") + "\""
+                        + " onclick=\"javascript:"
+                        + "document.getElementById('"
+                        + REQ_PAR_PROJECT_ID + "').value='"
+                        + ((selected) ? "" : nextPrj.getId())
+                        + "';"
+                        + SUBMIT + "\">\n");
+                // Project Id
+                b.append(sp(in) + "<td class=\"trans\">"
+                        + nextPrj.getId()
+                        + "</td>\n");
+                // Project name
+                b.append(sp(in) + "<td class=\"trans\">"
+                        + ((selected)
+                                ? "<input type=\"button\""
+                                    + " class=\"install\""
+                                    + " style=\"width: 100px;\""
+                                    + " value=\""
+                                    + getLbl("btn_info")
+                                    + "\""
+                                    + " onclick=\"javascript:"
+                                    + "document.getElementById('"
+                                    + REQ_PAR_ACTION + "').value='" 
+                                    + ACT_REQ_SHOW_PROJECT + "';"
+                                    + SUBMIT + "\">"
+                                : "<img src=\"/edit.png\""
+                                    + " alt=\"[Edit]\"/>")
+                        + "&nbsp;"
+                        + nextPrj.getName()
+                        + "</td>\n");
+                // Last project version
+                String lastVersion = getLbl("l0051");
+                ProjectVersion v = ProjectVersion.getLastProjectVersion(nextPrj);
+                if (v != null) {
+                    lastVersion = String.valueOf(v.getSequence()) + "(" + v.getRevisionId() + ")";
+                }
+                b.append(sp(in) + "<td class=\"trans\">"
+                        + lastVersion
+                        + "</td>\n");
+                // Date of the last known email
+                MailMessage mm = MailMessage.getLatestMailMessage(nextPrj);
+                b.append(sp(in) + "<td class=\"trans\">"
+                        + ((mm == null)?getLbl("l0051"):mm.getSendDate())
+                        + "</td>\n");
+                // ID of the last known bug entry
+                Bug bug = Bug.getLastUpdate(nextPrj);
+                b.append(sp(in) + "<td class=\"trans\">"
+                        + ((bug == null)?getLbl("l0051"):bug.getBugID())
+                        + "</td>\n");
+                // Evaluation state
+                String evalState = getLbl("project_not_evaluated");
+                if (nextPrj.isEvaluated()) {
+                	evalState = getLbl("project_is_evaluated");
+                }
+                b.append(sp(in) + "<td class=\"trans\">"
+                        + evalState
+                        + "</td>\n");
+                
+                // Cluster node
+                String nodename = null;
+                if (null != nextPrj.getClusternode()) {
+                    nodename = nextPrj.getClusternode().getName();
+                } else {
+                    nodename = "(local)";
+                }
+                b.append(sp(in) + "<td class=\"trans\">" + nodename + "</td>\n");
+                b.append(sp(--in) + "</tr>\n");
+                if ((selected) && (metrics.isEmpty() == false)) {
+                    showLastAppliedVersion(nextPrj, metrics, b);
+                }
+            }
+        }
+        //----------------------------------------------------------------
+        // Tool-bar
+        //----------------------------------------------------------------
+        addToolBar(selProject,b,in);
+
+        //----------------------------------------------------------------
+        // Close the table
+        //----------------------------------------------------------------
+        b.append(sp(--in) + "</tbody>\n");
+        b.append(sp(--in) + "</table>\n");
+        b.append(sp(--in) + "</fieldset>\n");
+        return in;
+    }
+
+    // ===================================================================
+    // "Delete project" confirmation view
+    // ===================================================================
+    private static int showDeleteProjectConfirm(StringBuilder b,
+            StoredProject selProject, int in) {
+        b.append(sp(in++) + "<fieldset>\n");
+        b.append(sp(in) + "<legend>" + getLbl("l0059")
+                + ": " + selProject.getName()
+                + "</legend>\n");
+        b.append(sp(in++) + "<table class=\"borderless\">");
+        // Confirmation message
+        b.append(sp(in++) + "<tr>\n");
+        b.append(sp(in) + "<td class=\"borderless\">"
+                + "<b>" + getMsg("delete_project") + "</b>"
+                + "</td>\n");
+
+        b.append(sp(--in) + "</tr>\n");
+        //------------------------------------------------------------
+        // Tool-bar
+        //------------------------------------------------------------
+        b.append(sp(in++) + "<tr>\n");
+        b.append(sp(in++)
+                + "<td class=\"borderless\">\n");
+        // Confirm button
+        b.append(sp(in) + "<input type=\"button\""
+                + " class=\"install\""
+                + " style=\"width: 100px;\""
+                + " value=\"" + getLbl("l0006") + "\""
+                + " onclick=\"javascript:"
+                + "document.getElementById('"
+                + REQ_PAR_ACTION + "').value='"
+                + ACT_CON_REM_PROJECT + "';"
+                + SUBMIT + "\">\n");
+        // Cancel button
+        b.append(sp(in) + "<input type=\"button\""
+                + " class=\"install\""
+                + " style=\"width: 100px;\""
+                + " value=\"" + getLbl("l0004") + "\""
+                + " onclick=\"javascript:"
+                + SUBMIT + "\">\n");
+        b.append(sp(--in) + "</td>\n");
+        b.append(sp(--in) + "</tr>\n");
+        b.append(sp(--in) + "</table>");
+        b.append(sp(in) + "</fieldset>\n");
+        return in;
+    }
+
+    // ===================================================================
+    // "Add project" editor
+    // ===================================================================
+    private static int showAddProject(StringBuilder b, int in) {
+        // Create the field-set
+        b.append(sp(in++) + "<table class=\"borderless\" width='100%'>\n");
+        // Create the input fields
+        b.append(normalInputRow(
+                "Project name", REQ_PAR_PRJ_NAME, "", in));
+        b.append(normalInputRow(
+                "Homepage", REQ_PAR_PRJ_WEB, "", in));
+        b.append(normalInputRow(
+                "Contact e-mail", REQ_PAR_PRJ_CONT, "", in));
+        b.append(normalInputRow(
+                "Bug database", REQ_PAR_PRJ_BUG, "", in));
+        b.append(normalInputRow(
+                "Mailing list", REQ_PAR_PRJ_MAIL, "", in));
+        b.append(normalInputRow(
+                "Source code", REQ_PAR_PRJ_CODE, "", in));
+
+        //------------------------------------------------------------
+        // Tool-bar
+        //------------------------------------------------------------
+        b.append(sp(in++) + "<tr>\n");
+        b.append(sp(in++)
+                + "<td colspan=\"2\" class=\"borderless\">\n");
+        // Apply button
+        b.append(sp(in) + "<input type=\"button\""
+                + " class=\"install\""
+                + " style=\"width: 100px;\""
+                + " value=\"" + getLbl("project_add") + "\""
+                + " onclick=\"javascript:"
+                + "document.getElementById('"
+                + REQ_PAR_ACTION + "').value='"
+                + ACT_CON_ADD_PROJECT + "';"
+                + SUBMIT + "\">\n");
+        // Cancel button
+        b.append(sp(in) + "<input type=\"button\""
+                + " class=\"install\""
+                + " style=\"width: 100px;\""
+                + " value=\"" + getLbl("cancel") + "\""
+                + " onclick=\"javascript:"
+                + SUBMIT + "\">\n");
+        b.append(sp(--in) + "</td>\n");
+        b.append(sp(--in) + "</tr>\n");
+        b.append(sp(--in) + "</table>\n");
+        return in;
+    }
+
+    // ===================================================================
+    // "Show project info" view
+    // ===================================================================
+    private static int showProjectInfo(StringBuilder b,
+            StoredProject selProject, int in) {
+        // Create the field-set
+        b.append(sp(in++) + "<fieldset>\n");
+        b.append(sp(in) + "<legend>"
+                + "Project information"
+                + "</legend>\n");
+        b.append(sp(in++) + "<table class=\"borderless\">\n");
+        // Create the input fields
+        b.append(normalInfoRow(
+                "Project name", selProject.getName(), in));
+        b.append(normalInfoRow(
+                "Homepage", selProject.getWebsiteUrl(), in));
+        b.append(normalInfoRow(
+                "Contact e-mail", selProject.getContactUrl(), in));
+        b.append(normalInfoRow(
+                "Bug database", selProject.getBtsUrl(), in));
+        b.append(normalInfoRow(
+                "Mailing list", selProject.getMailUrl(), in));
+        b.append(normalInfoRow(
+                "Source code", selProject.getScmUrl(), in));
+
+        //------------------------------------------------------------
+        // Tool-bar
+        //------------------------------------------------------------
+        b.append(sp(in++) + "<tr>\n");
+        b.append(sp(in++)
+                + "<td colspan=\"2\" class=\"borderless\">\n");
+        // Back button
+        b.append(sp(in) + "<input type=\"button\""
+                + " class=\"install\""
+                + " style=\"width: 100px;\""
+                + " value=\"" + getLbl("btn_back") + "\""
+                + " onclick=\"javascript:"
+                + SUBMIT + "\">\n");
+        b.append(sp(--in) + "</td>\n");
+        b.append(sp(--in) + "</tr>\n");
+        b.append(sp(--in) + "</table>\n");
+        b.append(sp(--in) + "</fieldset>\n");
+        return in;
     }
 
 
