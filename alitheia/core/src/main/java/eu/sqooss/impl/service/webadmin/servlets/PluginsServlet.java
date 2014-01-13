@@ -13,6 +13,7 @@ import org.apache.velocity.app.VelocityEngine;
 import com.google.common.collect.ImmutableMap;
 
 import eu.sqooss.core.AlitheiaCore;
+import eu.sqooss.impl.service.webadmin.servlets.exceptions.PageNotFoundException;
 import eu.sqooss.service.db.Plugin;
 import eu.sqooss.service.metricactivator.MetricActivator;
 import eu.sqooss.service.pa.PluginAdmin;
@@ -45,7 +46,7 @@ public class PluginsServlet extends AbstractWebadminServlet {
 	}
 
 	@Override
-	protected Template render(HttpServletRequest req, VelocityContext vc) {
+	protected Template render(HttpServletRequest req, VelocityContext vc) throws PageNotFoundException {
 		// Delegate the request to the correct method
 		switch (req.getRequestURI()) {
 		case PAGE_PLUGINSLIST:
@@ -72,10 +73,7 @@ public class PluginsServlet extends AbstractWebadminServlet {
 				return makeErrorMsg(vc, "No or invalid action ");
 			}
 		default:
-			getLogger().warn(
-					this.getClass() + " was called with incorrect path "
-							+ req.getRequestURI());
-			return null;
+			throw new PageNotFoundException();
 		}
 	}
 

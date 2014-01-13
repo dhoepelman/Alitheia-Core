@@ -1,8 +1,8 @@
 #set($section=2)
-#parse("header.vm")
+#parse("/webadmin/inc/header.vm")
 
 	    <div id="contents">
-          <h2>Alitheia Logs</h2>
+          <h2>Recent Alitheia Logs</h2>
           <ul class="logs">
             #if ($logs.isEmpty())
               <li>&lt;none&gt;</li>
@@ -14,4 +14,4 @@
           </ul>
         </div>
 
-#parse("footer.vm")
+#parse("/webadmin/inc/footer.vm")

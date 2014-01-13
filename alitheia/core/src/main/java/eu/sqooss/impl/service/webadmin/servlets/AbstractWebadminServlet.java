@@ -16,6 +16,7 @@ import com.google.common.html.HtmlEscapers;
 import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.ITranslation;
 import eu.sqooss.impl.service.webadmin.Translation;
+import eu.sqooss.impl.service.webadmin.servlets.exceptions.PageNotFoundException;
 import eu.sqooss.impl.service.webadmin.templates.NullTool;
 import eu.sqooss.service.db.DBService;
 import eu.sqooss.service.logging.LogManager;
@@ -56,15 +57,25 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 	protected void doGet(HttpServletRequest req, HttpServletResponse response)
 			throws ServletException, IOException {
 		preRender();
-		/**
-		 * You might (rightly) consider making this a field
-		 * However: note that this might make for easier testing and debugging and prevent possible interference
-		 * Also: possible race conditions if a servlet 2 identical URL's are proccesed at the same time (I do not know if this really is a risk, but check this)
-		 */
-		VelocityContext vc = createDefaultVC(req);
-		Template t;
+
+		// Try-finally to ensure DB session commit
 		try {
-			t = render(req, vc);
+			/**
+			 * You might (rightly) consider making this a field
+			 * However: note that this might make for easier testing and debugging and prevent possible interference
+			 * Also: possible race conditions if a servlet 2 identical URL's are proccesed at the same time (I do not know if this really is a risk, but check this)
+			 */
+			VelocityContext vc = createDefaultVC(req);
+			Template t = null;
+			try {
+				t = render(req, vc);
+			}
+			// "Normal" exceptions
+			catch(PageNotFoundException e) {
+				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				t = makeErrorMsg(vc, "Page not found", "/");
+			}
+
 			if(t == null) {
 				String request = req.getRequestURL() + (req.getQueryString()==null?"":"?" + req.getQueryString());
 				getLogger().warn("Servlet " + this.getClass().getSimpleName() + " failed rendering request " + request);
@@ -72,11 +83,13 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 				t = makeErrorMsg(vc, "Internal error while processing the request");
 				if(t == null)
 					throw new ServletException("Failed rendering the request and I couldn't even make an error message. Sorry about that.\nThis request caused me to break:\n" + HtmlEscapers.htmlEscaper().escape(request));
-			} else {
+			}
+
+			if(t != null){
 				response.setContentType("text/html");
 				t.merge(vc, response.getWriter());
 			}
-		} finally {
+		}finally {
 			postRender();
 		}
 	}
@@ -97,7 +110,7 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 		// Add the current path
 		vc.put("path", req.getRequestURI());
 		// Add the NullTool
-        vc.put("null", new NullTool());
+		vc.put("null", new NullTool());
 
 		return vc;
 	}
@@ -111,7 +124,7 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 		}
 	}
 
-	protected abstract Template render(HttpServletRequest req, VelocityContext vc);
+	protected abstract Template render(HttpServletRequest req, VelocityContext vc) throws PageNotFoundException;
 
 	/**
 	 * Does actions necessary after rendering (like committing the DB session)

@@ -48,6 +48,7 @@ import org.osgi.service.http.NamespaceException;
 import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.servlets.IWebadminServlet;
 import eu.sqooss.impl.service.webadmin.servlets.JobsServlet;
+import eu.sqooss.impl.service.webadmin.servlets.LogsServlet;
 import eu.sqooss.impl.service.webadmin.servlets.PluginsServlet;
 import eu.sqooss.impl.service.webadmin.servlets.ProjectsServlet;
 import eu.sqooss.impl.service.webadmin.servlets.StaticResourceServlet;
@@ -177,6 +178,8 @@ public class WebadminServiceImpl implements WebadminService {
 		// TODO: Change to use dependency injection when that is finished
 		servlets.add(new JobsServlet(ve, core));
 		// servlets.add(new LogsServlet(ve));
+		// servlets.add(new JobsServlet(ve));
+		servlets.add(new LogsServlet(ve, core));
 		// servlets.add(new OptionsServlet(ve));
 		servlets.add(new PluginsServlet(ve, core));
 		servlets.add(new ProjectsServlet(ve, core));
