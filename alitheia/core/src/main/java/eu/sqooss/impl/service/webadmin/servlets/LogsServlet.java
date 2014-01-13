@@ -6,10 +6,12 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
+import eu.sqooss.core.AlitheiaCore;
+
 public class LogsServlet extends AbstractWebadminServlet {
 
-	public LogsServlet(VelocityEngine ve) {
-		super(ve);
+	public LogsServlet(VelocityEngine ve,AlitheiaCore core) {
+		super(ve, core);
 	}
 
 	@Override

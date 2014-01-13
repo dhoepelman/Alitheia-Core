@@ -6,10 +6,12 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
+import eu.sqooss.core.AlitheiaCore;
+
 public class JobsServlet extends AbstractWebadminServlet {
 
-	public JobsServlet(VelocityEngine ve) {
-		super(ve);
+	public JobsServlet(VelocityEngine ve,AlitheiaCore core) {
+		super(ve, core);
 	}
 
 	@Override

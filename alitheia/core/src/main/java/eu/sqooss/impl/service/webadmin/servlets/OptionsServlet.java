@@ -6,10 +6,12 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
+import eu.sqooss.core.AlitheiaCore;
+
 public class OptionsServlet extends AbstractWebadminServlet {
 
-	public OptionsServlet(VelocityEngine ve) {
-		super(ve);
+	public OptionsServlet(VelocityEngine ve,AlitheiaCore core) {
+		super(ve, core);
 		// TODO Auto-generated constructor stub
 	}
 

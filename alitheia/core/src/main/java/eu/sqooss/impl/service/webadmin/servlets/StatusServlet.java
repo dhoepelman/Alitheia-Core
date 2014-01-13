@@ -6,12 +6,13 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
+import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.service.scheduler.Job;
 import eu.sqooss.service.scheduler.Scheduler;
 
 public class StatusServlet extends AbstractWebadminServlet {
-	public StatusServlet(VelocityEngine ve) {
-		super(ve);
+	public StatusServlet(VelocityEngine ve, AlitheiaCore core) {
+		super(ve, core);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -33,17 +34,17 @@ public class StatusServlet extends AbstractWebadminServlet {
 		// TODO: Return the failed jobs
 		return null;
 	}
-	
+
 	private int getJobRunStats() {
-	    // TODO: Return the number of running jobs
-        return -1;
-    }
-	
-	private int getThreads() {
-	 // TODO: Return the number of threads
-	    return -1;
+		// TODO: Return the number of running jobs
+		return -1;
 	}
-	   
+
+	private int getThreads() {
+		// TODO: Return the number of threads
+		return -1;
+	}
+
 
 
 	@Override

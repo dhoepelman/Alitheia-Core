@@ -32,10 +32,9 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 	protected final DBService sobjDB;
 	protected final Logger sobjLogger;
 
-	public AbstractWebadminServlet(VelocityEngine ve) {
-		AlitheiaCore instance = AlitheiaCore.getInstance();
+	public AbstractWebadminServlet(VelocityEngine ve, AlitheiaCore core) {
 		try {
-			LogManager logManager = instance.getLogManager();
+			LogManager logManager = core.getLogManager();
 			sobjLogger = logManager.createLogger(Logger.NAME_SQOOSS_WEBADMIN);
 		} catch(NullPointerException e) {
 			// We can't get a logger, this is going great...
@@ -44,7 +43,7 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 			throw new RuntimeException("Could not retrieve a logger for the webadmin service (template " + this.getClass() + ")");
 		}
 
-		sobjDB = instance.getDBService();
+		sobjDB = core.getDBService();
 		if(sobjDB == null && sobjLogger != null) {
 			sobjLogger.error("Could not get the database component's instance.");
 		}

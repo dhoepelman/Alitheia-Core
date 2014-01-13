@@ -160,16 +160,7 @@ public class PluginsView extends AbstractView{
                     // Plug-in install request
                     // =======================================================
                     if (reqValAction.equals(actValInstall)) {
-                        if (sobjPA.installPlugin(reqValHashcode) == false) {
-                            e.append("Plug-in can not be installed!"
-                                    + " Check log for details.");
-                        }
-                        // Persist the DB changes
-                        else {
-                            PluginInfo pInfo =
-                                sobjPA.getPluginInfo(reqValHashcode);
-                            sobjPA.pluginUpdated(sobjPA.getPlugin(pInfo));
-                        }
+                        installPlugin(e, reqValHashcode);
                     }
                     // =======================================================
                     // Plug-in un-install request
@@ -754,76 +745,8 @@ public class PluginsView extends AbstractView{
                 // Create the content row
                 //------------------------------------------------------------
                 b.append(sp(in++) + "<tbody>\n");
-                //------------------------------------------------------------
-                // Display not-installed plug-ins first
-                //------------------------------------------------------------
-                for(PluginInfo i : l) {
-                    if (i.installed == false) {
-                        b.append(sp(in) + "<tr class=\"edit\""
-                                + " onclick=\"javascript:"
-                                + "document.getElementById('"
-                                + reqParHashcode + "').value='"
-                                + i.getHashcode() + "';"
-                                + "document.metrics.submit();\""
-                                + ">\n");
-                        // Plug-in state
-                        b.append(sp(++in) + "<td class=\"trans\">"
-                                + "<img src=\"/edit.png\" alt=\"[Edit]\"/>"
-                                + "&nbsp;Registered</td>\n");
-                        // Plug-in name
-                        b.append(sp(in) + "<td class=\"trans\">"
-                            + i.getPluginName()
-                            + "</td>\n");
-                        // Plug-in class
-                        b.append(sp(in) + "<td class=\"trans\">"
-                                + StringUtils.join((String[]) (
-                                        i.getServiceRef().getProperty(
-                                                Constants.OBJECTCLASS)),",")
-                                                + "</td>\n");
-                        // Plug-in version
-                        b.append(sp(in) + "<td class=\"trans\">"
-                                + i.getPluginVersion() + "</td>\n");
-                        b.append(sp(--in) + "</tr>\n");
-                        // Extended plug-in information
-                        b.append(renderPluginAttributes(
-                                i, reqValShowProp, reqValShowActv, in));
-                    }
-                }
-                //------------------------------------------------------------
-                // Installed plug-ins
-                //------------------------------------------------------------
-                for(PluginInfo i : l) {
-                    if (i.installed) {
-                        b.append(sp(in) + "<tr class=\"edit\""
-                                + " onclick=\"javascript:"
-                                + "document.getElementById('"
-                                + reqParHashcode + "').value='"
-                                + i.getHashcode() + "';"
-                                + "document.metrics.submit();\""
-                                + ">\n");
-                        // Plug-in state
-                        b.append(sp(++in) + "<td class=\"trans\">"
-                                + "<img src=\"/edit.png\" alt=\"[Edit]\"/>"
-                                + "&nbsp;Installed</td>\n");
-                        // Plug-in name
-                        b.append(sp(in) + "<td class=\"trans\">"
-                                + i.getPluginName()
-                                + "</td>\n");
-                        // Plug-in class
-                        b.append(sp(in) + "<td class=\"trans\">"
-                                + StringUtils.join((String[]) (
-                                        i.getServiceRef().getProperty(
-                                                Constants.OBJECTCLASS)),",")
-                                                + "</td>\n");
-                        // Plug-in version
-                        b.append(sp(in) + "<td class=\"trans\">"
-                                + i.getPluginVersion() + "</td>\n");
-                        b.append(sp(--in) + "</tr>\n");
-                        // Extended plug-in information
-                        b.append(renderPluginAttributes(
-                                i, reqValShowProp, reqValShowActv, in));
-                    }
-                }
+                in = showPluginsList(b, in, reqParHashcode, reqValShowProp,
+						reqValShowActv, l);
                 //------------------------------------------------------------
                 // Close the table
                 //------------------------------------------------------------
@@ -924,6 +847,95 @@ public class PluginsView extends AbstractView{
 
         return b.toString();
     }
+
+	private static long showPluginsList(StringBuilder b, long in,
+			String reqParHashcode, boolean reqValShowProp,
+			boolean reqValShowActv, Collection<PluginInfo> l) {
+		//------------------------------------------------------------
+		// Display not-installed plug-ins first
+		//------------------------------------------------------------
+		for(PluginInfo i : l) {
+		    if (i.installed == false) {
+		        b.append(sp(in) + "<tr class=\"edit\""
+		                + " onclick=\"javascript:"
+		                + "document.getElementById('"
+		                + reqParHashcode + "').value='"
+		                + i.getHashcode() + "';"
+		                + "document.metrics.submit();\""
+		                + ">\n");
+		        // Plug-in state
+		        b.append(sp(++in) + "<td class=\"trans\">"
+		                + "<img src=\"/edit.png\" alt=\"[Edit]\"/>"
+		                + "&nbsp;Registered</td>\n");
+		        // Plug-in name
+		        b.append(sp(in) + "<td class=\"trans\">"
+		            + i.getPluginName()
+		            + "</td>\n");
+		        // Plug-in class
+		        b.append(sp(in) + "<td class=\"trans\">"
+		                + StringUtils.join((String[]) (
+		                        i.getServiceRef().getProperty(
+		                                Constants.OBJECTCLASS)),",")
+		                                + "</td>\n");
+		        // Plug-in version
+		        b.append(sp(in) + "<td class=\"trans\">"
+		                + i.getPluginVersion() + "</td>\n");
+		        b.append(sp(--in) + "</tr>\n");
+		        // Extended plug-in information
+		        b.append(renderPluginAttributes(
+		                i, reqValShowProp, reqValShowActv, in));
+		    }
+		}
+		//------------------------------------------------------------
+		// Installed plug-ins
+		//------------------------------------------------------------
+		for(PluginInfo i : l) {
+		    if (i.installed) {
+		        b.append(sp(in) + "<tr class=\"edit\""
+		                + " onclick=\"javascript:"
+		                + "document.getElementById('"
+		                + reqParHashcode + "').value='"
+		                + i.getHashcode() + "';"
+		                + "document.metrics.submit();\""
+		                + ">\n");
+		        // Plug-in state
+		        b.append(sp(++in) + "<td class=\"trans\">"
+		                + "<img src=\"/edit.png\" alt=\"[Edit]\"/>"
+		                + "&nbsp;Installed</td>\n");
+		        // Plug-in name
+		        b.append(sp(in) + "<td class=\"trans\">"
+		                + i.getPluginName()
+		                + "</td>\n");
+		        // Plug-in class
+		        b.append(sp(in) + "<td class=\"trans\">"
+		                + StringUtils.join((String[]) (
+		                        i.getServiceRef().getProperty(
+		                                Constants.OBJECTCLASS)),",")
+		                                + "</td>\n");
+		        // Plug-in version
+		        b.append(sp(in) + "<td class=\"trans\">"
+		                + i.getPluginVersion() + "</td>\n");
+		        b.append(sp(--in) + "</tr>\n");
+		        // Extended plug-in information
+		        b.append(renderPluginAttributes(
+		                i, reqValShowProp, reqValShowActv, in));
+		    }
+		}
+		return in;
+	}
+
+	private static void installPlugin(StringBuilder e, String reqValHashcode) {
+		if (sobjPA.installPlugin(reqValHashcode) == false) {
+		    e.append("Plug-in can not be installed!"
+		            + " Check log for details.");
+		}
+		// Persist the DB changes
+		else {
+		    PluginInfo pInfo =
+		        sobjPA.getPluginInfo(reqValHashcode);
+		    sobjPA.pluginUpdated(sobjPA.getPlugin(pInfo));
+		}
+	}
 
     /**
      * Creates a set of table rows populated with the plug-in properties and

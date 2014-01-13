@@ -40,7 +40,7 @@ public class PluginListTest {
 	@Before
 	public void setUp() throws Exception {
 		ve = new VelocityEngine();
-		testee = new PluginsServlet(ve);
+		testee = new PluginsServlet(ve, null);
 
 
 	}

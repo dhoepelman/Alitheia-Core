@@ -6,6 +6,7 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
+import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.service.cluster.ClusterNodeService;
 import eu.sqooss.service.db.StoredProject;
 import eu.sqooss.service.metricactivator.MetricActivator;
@@ -13,8 +14,8 @@ import eu.sqooss.service.scheduler.Scheduler;
 import eu.sqooss.service.updater.UpdaterService;
 
 public class ProjectsServlet extends AbstractWebadminServlet {
-	public ProjectsServlet(VelocityEngine ve) {
-		super(ve);
+	public ProjectsServlet(VelocityEngine ve,AlitheiaCore core) {
+		super(ve, core);
 		// TODO Auto-generated constructor stub
 	}
 
