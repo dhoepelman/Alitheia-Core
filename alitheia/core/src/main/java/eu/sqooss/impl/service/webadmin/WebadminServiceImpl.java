@@ -48,6 +48,7 @@ import org.osgi.service.http.NamespaceException;
 import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.servlets.IWebadminServlet;
 import eu.sqooss.impl.service.webadmin.servlets.PluginsServlet;
+import eu.sqooss.impl.service.webadmin.servlets.ProjectsServlet;
 import eu.sqooss.impl.service.webadmin.servlets.StaticResourceServlet;
 import eu.sqooss.service.logging.Logger;
 import eu.sqooss.service.webadmin.WebadminService;
@@ -172,7 +173,7 @@ public class WebadminServiceImpl implements WebadminService {
 		//servlets.add(new LogsServlet(ve));
 		//servlets.add(new OptionsServlet(ve));
 		servlets.add(new PluginsServlet(ve, core));
-		//servlets.add(new ProjectsServlet(ve));
+		servlets.add(new ProjectsServlet(ve, core));
 		//servlets.add(new StatusServlet(ve));
 
 		// Register the servlets
