@@ -3,29 +3,26 @@
  */
 package eu.sqooss.test.service.webadmin.plugins;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.apache.velocity.app.VelocityEngine;
+import java.io.IOException;
+import java.util.Arrays;
+
+import javax.servlet.ServletException;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
-import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.servlets.PluginsServlet;
-import eu.sqooss.service.logging.Logger;
+import eu.sqooss.service.pa.PluginInfo;
+import eu.sqooss.test.service.webadmin.AbstractWebadminServletTest;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(AlitheiaCore.class)
-public class PluginListTest {
+public class PluginListTest extends AbstractWebadminServletTest{
 
 	private PluginsServlet testee;
-	private VelocityEngine ve;
 
 	/**
 	 * @throws java.lang.Exception
@@ -34,28 +31,38 @@ public class PluginListTest {
 	public static void setUpBeforeClass() throws Exception {
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
+	@Override
 	@Before
 	public void setUp() throws Exception {
-		ve = new VelocityEngine();
-		testee = new PluginsServlet(ve, null);
-
-
+		super.setUp();
+		testee = new PluginsServlet(ve, mockAC);
 	}
 
-	// TODO: test if the lists of plugins contains all plugins
 	@Test
-	public void testPluginListNames() {
-		// Mock static AlitheiaCore methods
-		PowerMockito.mockStatic(AlitheiaCore.class);
-		AlitheiaCore mockAC = mock(AlitheiaCore.class);
-		when(AlitheiaCore.getInstance()).thenReturn(new AlitheiaCore(null));
-		//LogManager mockLM = mock(LogManager.class);
-		//when(mockAC.getLogManager()).thenReturn(mockLM);
-		Logger mockLog = mock(Logger.class);
-		when(mockAC.getLogManager().createLogger(Logger.NAME_SQOOSS_WEBADMIN)).thenReturn(mockLog);
+	public void testPluginListNames() throws ServletException, IOException {
+		when(mockReq.getRequestURI()).thenReturn("/plugins");
+		when(mockReq.getMethod()).thenReturn("GET");
+
+		// We expect these plugins
+		PluginInfo p1 = new PluginInfo();
+		p1.setPluginName("TestPlugin1");
+		p1.setPluginVersion("1.0");
+		PluginInfo p2 = new PluginInfo();
+		p2.setPluginName("TestPlugin2");
+		p2.setPluginVersion("2.0");
+
+		when(mockPA.listPlugins()).thenReturn(Arrays.asList(new PluginInfo[] {p1,p2}));
+
+		// Do the fake request
+		testee.service(mockReq, mockResp);
+		// Get the output
+		String output = getResponseOuput();
+		//System.out.println(output);
+		// Verify that the 2 plugins are all contained correctly in the output
+		assertTrue(output.contains("TestPlugin1"));
+		assertTrue(output.contains("1.0"));
+		assertTrue(output.contains("TestPlugin2"));
+		assertTrue(output.contains("2.0"));
 	}
 
 	// TODO: test if registered/installed status is correct

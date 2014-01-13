@@ -30,8 +30,8 @@ public class PluginsServlet extends AbstractWebadminServlet {
 			.put(PAGE_PLUGIN, "/plugin.vm")
 			.build();
 
-	private PluginAdmin sobjPA;
-	private MetricActivator compMA;
+	private final PluginAdmin sobjPA;
+	private final MetricActivator compMA;
 
 	public PluginsServlet(VelocityEngine ve, AlitheiaCore core) {
 		super(ve, core);
