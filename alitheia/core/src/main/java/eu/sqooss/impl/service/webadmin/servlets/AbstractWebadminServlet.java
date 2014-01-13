@@ -16,6 +16,7 @@ import com.google.common.html.HtmlEscapers;
 import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.ITranslation;
 import eu.sqooss.impl.service.webadmin.Translation;
+import eu.sqooss.impl.service.webadmin.templates.NullTool;
 import eu.sqooss.service.db.DBService;
 import eu.sqooss.service.logging.LogManager;
 import eu.sqooss.service.logging.Logger;
@@ -95,6 +96,8 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 		vc.put("tr", getTranslation());
 		// Add the current path
 		vc.put("path", req.getRequestURI());
+		// Add the NullTool
+        vc.put("null", new NullTool());
 
 		return vc;
 	}
