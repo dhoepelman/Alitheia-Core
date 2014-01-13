@@ -1,29 +1,69 @@
 package eu.sqooss.impl.service.webadmin.servlets;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
+import com.google.common.collect.ImmutableMap;
+
 import eu.sqooss.core.AlitheiaCore;
+import eu.sqooss.service.scheduler.Scheduler;
 
 public class JobsServlet extends AbstractWebadminServlet {
 
-	public JobsServlet(VelocityEngine ve,AlitheiaCore core) {
+    private static final String ROOT_PATH = "/jobs";
+    private static final String PAGE_JOBS = ROOT_PATH;
+    private static final String PAGE_FAILEDJOBS = ROOT_PATH + "/failed";
+    private static final Map<String, String> templates = new ImmutableMap.Builder<String, String>()
+            .put(PAGE_JOBS, "/jobs.vm")
+            .put(PAGE_FAILEDJOBS, "/failedjobs.vm")
+            .build();
+    
+    private final Scheduler sobjSched;
+    
+	public JobsServlet(VelocityEngine ve, AlitheiaCore core) {
 		super(ve, core);
+		sobjSched = core.getScheduler();
 	}
 
 	@Override
 	public String getPath() {
-		// TODO Auto-generated method stub
-		return null;
+		return ROOT_PATH;
 	}
 
 	@Override
 	protected Template render(HttpServletRequest req, VelocityContext vc) {
-		// TODO Auto-generated method stub
-		return null;
+	 // Switch over the URI
+        switch(req.getRequestURI()) {
+        case PAGE_JOBS:
+            return PageJobs(req, vc);
+        case PAGE_FAILEDJOBS:
+            return PageFailedJobs(req, vc);
+        default:
+            getLogger().warn(this.getClass() + " was called with incorrect path " + req.getRequestURI());
+            return null;
+        }
+	}
+	
+	private Template PageJobs(HttpServletRequest req, VelocityContext vc) {
+	    // Load template
+	    Template t = loadTemplate(PAGE_JOBS);
+	    
+	    // Add scheduler stats
+	    vc.put("scheduler", sobjSched.getSchedulerStats());
+	    
+	    return t;
+	}
+	
+	private Template PageFailedJobs(HttpServletRequest req, VelocityContext vc) {
+	    // Load template
+	    Template t = loadTemplate(PAGE_FAILEDJOBS);
+	    // TODO: to implement
+	    return t;
 	}
 
 }

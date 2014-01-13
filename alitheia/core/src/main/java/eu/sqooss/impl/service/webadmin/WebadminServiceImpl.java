@@ -47,9 +47,11 @@ import org.osgi.service.http.NamespaceException;
 
 import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.servlets.IWebadminServlet;
+import eu.sqooss.impl.service.webadmin.servlets.JobsServlet;
 import eu.sqooss.impl.service.webadmin.servlets.PluginsServlet;
 import eu.sqooss.impl.service.webadmin.servlets.ProjectsServlet;
 import eu.sqooss.impl.service.webadmin.servlets.StaticResourceServlet;
+import eu.sqooss.impl.service.webadmin.servlets.StatusServlet;
 import eu.sqooss.service.logging.Logger;
 import eu.sqooss.service.webadmin.WebadminService;
 
@@ -173,12 +175,12 @@ public class WebadminServiceImpl implements WebadminService {
 		// that code can be in the servlets themselves,
 		// but this allows to test the servlets without mocking static methods
 		// TODO: Change to use dependency injection when that is finished
-		// servlets.add(new JobsServlet(ve));
+		servlets.add(new JobsServlet(ve, core));
 		// servlets.add(new LogsServlet(ve));
 		// servlets.add(new OptionsServlet(ve));
 		servlets.add(new PluginsServlet(ve, core));
 		servlets.add(new ProjectsServlet(ve, core));
-		// servlets.add(new StatusServlet(ve));
+		servlets.add(new StatusServlet(ve, core));
 
 		// Register the servlets
 		for (IWebadminServlet was : servlets) {

@@ -1,62 +1,91 @@
 package eu.sqooss.impl.service.webadmin.servlets;
 
+import java.util.Date;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
+import com.google.common.collect.ImmutableMap;
+
 import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.service.scheduler.Job;
 import eu.sqooss.service.scheduler.Scheduler;
 
 public class StatusServlet extends AbstractWebadminServlet {
-	public StatusServlet(VelocityEngine ve, AlitheiaCore core) {
+	
+    /**
+     * Represents the system time at which the WebAdminRender (and
+     * thus the system) was started. This is required for the system
+     * uptime display.
+     */
+    private static long startTime = new Date().getTime();
+    
+    private static final String ROOT_PATH = "/status";
+    private static final String PAGE_SIDEBAR = ROOT_PATH;
+    private static final Map<String, String> templates = new ImmutableMap.Builder<String, String>()
+            .put(PAGE_SIDEBAR, "/status.vm")
+            .build();
+    
+    private Scheduler sobjSched;
+    
+    public StatusServlet(VelocityEngine ve, AlitheiaCore core) {
 		super(ve, core);
-		// TODO Auto-generated constructor stub
+		sobjSched = core.getScheduler();
 	}
 
+    /**
+     * Returns a string representing the uptime of the Alitheia core
+     * in dd:hh:mm:ss format
+     */
+    private static String getUptime() {
+        long remainder;
+        long currentTime = new Date().getTime();
+        long timeRunning = currentTime - startTime;
 
-	private Scheduler sobjSched;
+        // Get the elapsed time in days, hours, mins, secs
+        int days = new Long(timeRunning / 86400000).intValue();
+        remainder = timeRunning % 86400000;
+        int hours = new Long(remainder / 3600000).intValue();
+        remainder = remainder % 3600000;
+        int mins = new Long(remainder / 60000).intValue();
+        remainder = remainder % 60000;
+        int secs = new Long(remainder / 1000).intValue();
 
-	private int getJobFailStats() {
-		// TODO: Return the number of failed jobs
-		return -1;
-	}
-
-
-	private int getJobWaitStats() {
-		// TODO: Return the number of waiting jobs
-		return -1;
-	}
-
-	private Job[] getFailedJobs() {
-		// TODO: Return the failed jobs
-		return null;
-	}
-
-	private int getJobRunStats() {
-		// TODO: Return the number of running jobs
-		return -1;
-	}
-
-	private int getThreads() {
-		// TODO: Return the number of threads
-		return -1;
-	}
-
-
+        return String.format("%d:%02d:%02d:%02d", days, hours, mins, secs);
+    }
 
 	@Override
 	public String getPath() {
-		// TODO Auto-generated method stub
-		return null;
+		return PAGE_SIDEBAR;
 	}
 
 
 	@Override
 	protected Template render(HttpServletRequest req, VelocityContext vc) {
-		// TODO Auto-generated method stub
-		return null;
+        // Switch over the URI
+        switch(req.getRequestURI()) {
+        case PAGE_SIDEBAR:
+            return PageSidebar(req, vc);
+        default:
+            getLogger().warn(this.getClass() + " was called with incorrect path " + req.getRequestURI());
+            return null;
+        }
+	}
+	
+	private Template PageSidebar(HttpServletRequest req, VelocityContext vc) {
+	    // Load template
+	    Template t = loadTemplate(templates.get(PAGE_SIDEBAR));
+	    
+	    // Add uptime
+	    vc.put("uptime", getUptime());
+	    
+	    // Add scheduler
+	    vc.put("scheduler", sobjSched.getSchedulerStats());
+	    
+	    return t;
 	}
 }

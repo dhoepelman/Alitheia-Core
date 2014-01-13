@@ -127,16 +127,12 @@ input {
 
 #sidebar {
 	background:#fff;
-	float:right;
-	width:22%;
 }
 
 #sidebar fieldset {
 	display: inline;
 	background-color: #f6f6f6;
 	width: 89%;
-	float: left;
-	clear: left;
 	border: 1px solid #ccc;
 	margin: 15px 0px 10px 0px;
 	padding: 5px;
