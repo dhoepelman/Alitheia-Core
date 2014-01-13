@@ -1,10 +1,12 @@
-#set($section=3)
+#set($section=1)
 #parse("/webadmin/inc/header.vm")
 
         <div id="contents">
           <div id="table">
             <h2>$tr.label("plugins_mngm")</h2>
-            <form id="metrics" name="metrics" method="post" action="/index">
+            <form id="pluginform" name="pluginform" method="post" action="/plugins/plugin/action?hash=$plugin.getHashcode()">
+            <input type="hidden" id="action" name="action" value="" />
+            </form>
               
               ## Display plugin info
               <fieldset>
@@ -28,24 +30,23 @@
                         #end
                       </td>
                       <td>$plugin.getPluginName()</td>
-                      <td>$plugin.getServiceReference()</td>
+                      <td>$plugin.getServiceRef()</td>
                       <td>$plugin.getPluginVersion()</td>
                     </tr>
                     <tr>
                       <td colspan="4">
-                        <input type="button" class="install" style="width: 100px;" value="Plug-ins list" onclick="javascript:document.getElementById('reqParHashcode').value='';document.metrics.submit();">
-                        #if ($plugin.installed)
-                          <input type="button" class="install" style="width: 100px;" value="Uninstall" onclick="javascript:document.getElementById('reqParAction').value='actValUninstall';document.getElementById('reqParHashcode').value='$plugin.getHashcode()';document.metrics.submit();">
-                          <input type="button" class="install" style="width: 100px;" value="Synchronise" onclick="javascript:document.getElementById('reqParAction').value='actValSync';document.getElementById('reqParHashcode').value='$plugin.getHashcode()';document.metrics.submit();">
+                        #if ($plugin.isInstalled())
+                          <input type="button" class="install" style="width: 100px;" value="Uninstall" onclick="javascript:document.getElementById('action').value='uninstall';document.pluginform.submit();">
+                          <input type="button" class="install" style="width: 100px;" value="Synchronise" onclick="javascript:document.getElementById('action').value='sync';document.pluginform.submit();">
                         #else
-                          <input type="button" class="install" style="width: 100px;" value="Install" onclick="javascript:document.getElementById('reqParAction').value='actValInstall';document.getElementById('reqParHashcode').value='$plugin.getHashcode()';document.metrics.submit();">
+                          <input type="button" class="install" style="width: 100px;" value="Install" onclick="javascript:document.getElementById('action').value='install';document.pluginform.submit();">
                         #end
                       </td>
                     </tr>
                   </tbody>
                 </table>
                 
-                #if ($plugin.installed)
+                #if ($plugin.isInstalled())
 	                ## Display supported metrics
 	                <fieldset>
 	                  <legend>Supported metrics</legend>
@@ -113,16 +114,14 @@
 	                      #end
 	                      <tr>
 	                        <td colspan="3">
-	                          <input type="button" class="install" style="width: 100px;" value="Add property" onclick="javascript:document.getElementById('reqParAction').value='actValReqAddProp';document.metrics.submit();">
+	                          <input type="button" class="install" style="width: 100px;" value="Add property" onclick="javascript:document.getElementById('reqParAction').value='actValReqAddProp';document.pluginform.submit();">
 	                        </td>
 	                      </tr>
 	                    </tbody>
 	                  </table>
 	                </fieldset>
                 #end
-
               </fieldset>
-              <input type="hidden" id="reqParHashcode" name="reqParHashcode" value="$plugin.getHashcode()">
             </form>
           </div>
         </div>

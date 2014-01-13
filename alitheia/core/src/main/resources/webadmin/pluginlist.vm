@@ -25,7 +25,7 @@
 	              <tbody>
 	                #foreach ($p in $pluginList)
 	                <tr class="edit" onclick="window.location.href = '/plugins/plugin?hash=$p.getHashcode()';">
-	                  <td class="trans"><img src="/edit.png" alt="[Edit]"/>&nbsp;#if ($p.installed) Installed #else Registered #end</td>
+	                  <td class="trans"><img src="/edit.png" alt="[Edit]"/>&nbsp;#if ($p.isInstalled()) Installed #else Registered #end</td>
 	                  <td class="trans">$p.getPluginName()</td>
 	                  <td class="trans">$p.getServiceRef()</td>
 	                  <td class="trans">$p.getPluginVersion()</td>
@@ -33,7 +33,7 @@
 	                
 	                ## Show properties if needed
 	                #if ($showProperties)
-		                #foreach ($property in $p.getConfiguration())
+		                #foreach ($property in $Plugin.getPluginByHashcode($p.getHashcode()).getConfigurations())
 		                <tr>
 	                      <td>&nbsp;</td>
 	                      <td colspan="3" class="attr">

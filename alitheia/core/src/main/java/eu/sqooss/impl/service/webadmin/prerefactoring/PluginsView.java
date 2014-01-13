@@ -166,12 +166,7 @@ public class PluginsView extends AbstractView{
                     // Plug-in un-install request
                     // =======================================================
                     else if (reqValAction.equals(actValUninstall)) {
-                        if (sobjPA.uninstallPlugin(reqValHashcode) == false) {
-                            e.append("Plug-in can not be uninstalled."
-                                    + " Check log for details.");
-                        } else {
-                            e.append("A job was scheduled to remove the plug-in");
-                        }
+                        uninstallPlugin(e, reqValHashcode);
                     } 
                 }
                 // Retrieve the selected plug-in's info object
@@ -847,6 +842,15 @@ public class PluginsView extends AbstractView{
 
         return b.toString();
     }
+
+	private static void uninstallPlugin(StringBuilder e, String reqValHashcode) {
+		if (sobjPA.uninstallPlugin(reqValHashcode) == false) {
+		    e.append("Plug-in can not be uninstalled."
+		            + " Check log for details.");
+		} else {
+		    e.append("A job was scheduled to remove the plug-in");
+		}
+	}
 
 	private static long showPluginsList(StringBuilder b, long in,
 			String reqParHashcode, boolean reqValShowProp,

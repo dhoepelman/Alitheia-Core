@@ -12,3 +12,9 @@
 <p>
 $msg
 </p>
+
+#if($returnURL)
+<p>
+<a href="$returnURL">Continue</a>
+</p>
+#end

@@ -120,22 +120,39 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 		}
 	}
 
+	private Template makeMsg(VelocityContext vc, String msgType, String message, String returnURL) {
+		vc.put("msgtype", msgType);
+		vc.put("msg", message);
+		vc.put("returnURL", returnURL);
+		return loadTemplate(TEMPLATE_MSG);
+	}
+
 	/**
 	 * Return a template for an error message
 	 */
 	protected Template makeErrorMsg(VelocityContext vc, String message) {
-		vc.put("msgtype", "error");
-		vc.put("msg", message);
-		return loadTemplate(TEMPLATE_MSG);
+		return makeErrorMsg(vc, message, "");
+	}
+
+	/**
+	 * Return a template for an error message with a return URL
+	 */
+	protected Template makeErrorMsg(VelocityContext vc, String message, String returnURL) {
+		return makeMsg(vc, "error", message, returnURL);
 	}
 
 	/**
 	 * Return a template for a success message
 	 */
 	protected Template makeSuccessMsg(VelocityContext vc, String message) {
-		vc.put("msgtype", "success");
-		vc.put("msg", message);
-		return loadTemplate(TEMPLATE_MSG);
+		return makeSuccessMsg(vc, message, "");
+	}
+
+	/**
+	 * Return a template for a success message with a return URL
+	 */
+	protected Template makeSuccessMsg(VelocityContext vc, String message, String returnURL) {
+		return makeMsg(vc, "success", message, returnURL);
 	}
 
 	protected Template loadTemplate(String path) {
