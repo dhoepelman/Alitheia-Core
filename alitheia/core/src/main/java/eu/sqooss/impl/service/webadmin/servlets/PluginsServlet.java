@@ -53,21 +53,23 @@ public class PluginsServlet extends AbstractWebadminServlet {
 		case PAGE_PLUGIN:
 			return PagePlugin(req, vc);
 		case ACTION_PLUGIN:
+			// Convert the action argument to the enum and switch on it
+			PLUGIN_ACTIONS action;
 			try {
-				// Convert the action argument to the enum and switch on it
-				switch (Enum.valueOf(PLUGIN_ACTIONS.class,
-						req.getParameter("action").toUpperCase())) {
-						case INSTALL:
-							return installPlugin(req, vc);
-						case UNINSTALL:
-							return uninstallPlugin(req, vc);
-						case SYNCHRONIZE:
-							return synchronizePlugin(req, vc);
-						default:
-							throw new IllegalArgumentException();
-				}
-			} catch (IllegalArgumentException | NullPointerException e) {
-				return makeErrorMsg(vc, "No or invalid action");
+				action = Enum.valueOf(PLUGIN_ACTIONS.class, req.getParameter("action").toUpperCase());
+			}
+			catch(IllegalArgumentException | NullPointerException e) {
+				action = PLUGIN_ACTIONS.INVALID;
+			}
+			switch (action) {
+			case INSTALL:
+				return installPlugin(req, vc);
+			case UNINSTALL:
+				return uninstallPlugin(req, vc);
+			case SYNCHRONIZE:
+				return synchronizePlugin(req, vc);
+			default:
+				return makeErrorMsg(vc, "No or invalid action ");
 			}
 		default:
 			getLogger().warn(
@@ -140,7 +142,7 @@ public class PluginsServlet extends AbstractWebadminServlet {
 	 * parameter (when lowercase)
 	 */
 	private enum PLUGIN_ACTIONS {
-		INSTALL, UNINSTALL, SYNCHRONIZE;
+		INSTALL, UNINSTALL, SYNCHRONIZE, INVALID;
 	}
 
 	private Template installPlugin(HttpServletRequest req, VelocityContext vc) {

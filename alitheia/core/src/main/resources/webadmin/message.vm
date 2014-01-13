@@ -1,20 +1,19 @@
-#if($msgtype == "error") 
-<p>
-	I maked you a template but I eated it :'(
-</p>
-#elseif ($msgtype == "success")
-<p>
-	Great success<br />
-	<img src="http://weblogs.nrc.nl/idfa/files/2008/borat.jpg" />
-</p>
-#end
-
-<p>
-$msg
-</p>
-
-#if($returnURL)
-<p>
-<a href="$returnURL">Continue</a>
-</p>
-#end
+#parse("/webadmin/inc/header.vm")
+	<div id="contents">
+		#if($msgtype == "error") 
+		<h2>Error</h2>
+		#elseif ($msgtype == "success")
+		<h2>Success</h2>
+		#end
+		
+		<p>
+		$msg
+		</p>
+		
+		#if($returnURL != "")
+		<p><a href="$returnURL">Continue</a></p>
+		#else
+		<p><a href="javascript:history.back()">Return to previous page</a></p>
+		#end
+	</div>
+#parse("/webadmin/inc/footer.vm")

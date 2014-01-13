@@ -37,7 +37,7 @@
                       <td colspan="4">
                         #if ($plugin.isInstalled())
                           <input type="button" class="install" style="width: 100px;" value="Uninstall" onclick="javascript:document.getElementById('action').value='uninstall';document.pluginform.submit();">
-                          <input type="button" class="install" style="width: 100px;" value="Synchronise" onclick="javascript:document.getElementById('action').value='sync';document.pluginform.submit();">
+                          <input type="button" class="install" style="width: 100px;" value="Synchronize" onclick="javascript:document.getElementById('action').value='synchronize';document.pluginform.submit();">
                         #else
                           <input type="button" class="install" style="width: 100px;" value="Install" onclick="javascript:document.getElementById('action').value='install';document.pluginform.submit();">
                         #end
@@ -67,7 +67,7 @@
 		                        </td>
 		                      </tr>
 	                      #else
-		                      #foreach ($metric in $metricList) 
+		                      #foreach ($metric in $metrics) 
 			                      <tr>
 			                        <td>$metric.getId()</td>
 			                        <td>$metric.getMnemonic()</td>
