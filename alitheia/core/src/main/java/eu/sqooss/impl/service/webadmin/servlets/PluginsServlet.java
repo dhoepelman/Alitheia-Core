@@ -28,8 +28,7 @@ public class PluginsServlet extends AbstractWebadminServlet {
 
 	private static final Map<String, String> templates = new ImmutableMap.Builder<String, String>()
 			.put(PAGE_PLUGINSLIST, "/pluginlist.vm")
-			.put(PAGE_PLUGIN, "/plugin.vm")
-			.build();
+			.put(PAGE_PLUGIN, "/plugin.vm").build();
 
 	private final PluginAdmin sobjPA;
 	private final MetricActivator compMA;
@@ -40,8 +39,6 @@ public class PluginsServlet extends AbstractWebadminServlet {
 		compMA = core.getMetricActivator();
 	}
 
-
-
 	@Override
 	public String getPath() {
 		return ROOT_PATH;
@@ -50,7 +47,7 @@ public class PluginsServlet extends AbstractWebadminServlet {
 	@Override
 	protected Template render(HttpServletRequest req, VelocityContext vc) {
 		// Delegate the request to the correct method
-		switch(req.getRequestURI()) {
+		switch (req.getRequestURI()) {
 		case PAGE_PLUGINSLIST:
 			return PagePluginsList(req, vc);
 		case PAGE_PLUGIN:
@@ -58,22 +55,24 @@ public class PluginsServlet extends AbstractWebadminServlet {
 		case ACTION_PLUGIN:
 			try {
 				// Convert the action argument to the enum and switch on it
-				switch(Enum.valueOf(PLUGIN_ACTIONS.class, req.getParameter("action").toUpperCase())) {
-				case INSTALL:
-					return installPlugin(req, vc);
-				case UNINSTALL:
-					return uninstallPlugin(req, vc);
-				case SYNCHRONIZE:
-					return synchronizePlugin(req, vc);
-				default:
-					throw new IllegalArgumentException();
+				switch (Enum.valueOf(PLUGIN_ACTIONS.class,
+						req.getParameter("action").toUpperCase())) {
+						case INSTALL:
+							return installPlugin(req, vc);
+						case UNINSTALL:
+							return uninstallPlugin(req, vc);
+						case SYNCHRONIZE:
+							return synchronizePlugin(req, vc);
+						default:
+							throw new IllegalArgumentException();
 				}
-			}
-			catch(IllegalArgumentException | NullPointerException e) {
+			} catch (IllegalArgumentException | NullPointerException e) {
 				return makeErrorMsg(vc, "No or invalid action");
 			}
 		default:
-			getLogger().warn(this.getClass() + " was called with incorrect path " + req.getRequestURI());
+			getLogger().warn(
+					this.getClass() + " was called with incorrect path "
+							+ req.getRequestURI());
 			return null;
 		}
 	}
@@ -82,8 +81,10 @@ public class PluginsServlet extends AbstractWebadminServlet {
 		// Load the template
 		Template t = loadTemplate(templates.get(PAGE_PLUGINSLIST));
 
-		boolean showProperties = req.getParameter("showProperties")!=null&&req.getParameter("showProperties").equals("true");
-		boolean showActivators = req.getParameter("showActivators")!=null&&req.getParameter("showActivators").equals("true");
+		boolean showProperties = req.getParameter("showProperties") != null
+				&& req.getParameter("showProperties").equals("true");
+		boolean showActivators = req.getParameter("showActivators") != null
+				&& req.getParameter("showActivators").equals("true");
 
 		// Whether to show properties and activators
 		vc.put("showProperties", showProperties);
@@ -91,9 +92,10 @@ public class PluginsServlet extends AbstractWebadminServlet {
 
 		// The list of plugins
 		Collection<PluginInfo> pluginList = sobjPA.listPlugins();
-		if(pluginList == null) {
+		if (pluginList == null) {
 			pluginList = new ArrayList<PluginInfo>();
-			getLogger().warn("Could not get plugin information from PluginAdmin");
+			getLogger().warn(
+					"Could not get plugin information from PluginAdmin");
 		}
 
 		vc.put("pluginList", pluginList);
@@ -108,23 +110,25 @@ public class PluginsServlet extends AbstractWebadminServlet {
 
 		// Get the correct plugin
 		PluginInfo plugin = getPluginFromHash(req);
-		if(plugin == null)
-			return makeErrorMsg(vc, "No plugin hash given or plugin does not exist");
+		if (plugin == null)
+			return makeErrorMsg(vc,
+					"No plugin hash given or plugin does not exist");
 
 		// Provide the variables to the template
 		vc.put("plugin", plugin);
-		if(plugin.isInstalled()) {
+		if (plugin.isInstalled()) {
 			vc.put("metrics", sobjPA.getPlugin(plugin).getAllSupportedMetrics());
-			vc.put("configPropList", Plugin.getPluginByHashcode(plugin.getHashcode()).getConfigurations());
+			vc.put("configPropList",
+					Plugin.getPluginByHashcode(plugin.getHashcode())
+					.getConfigurations());
 		}
 
 		return t;
 	}
 
-
-
 	private PluginInfo getPluginFromHash(HttpServletRequest req) {
-		if(req.getParameter("hash") == null || req.getParameter("hash").isEmpty())
+		if (req.getParameter("hash") == null
+				|| req.getParameter("hash").isEmpty())
 			return null;
 		String hash = req.getParameter("hash");
 		PluginInfo plugin = sobjPA.getPluginInfo(hash);
@@ -132,59 +136,66 @@ public class PluginsServlet extends AbstractWebadminServlet {
 	}
 
 	/**
-	 * Valid actions for a plugin.
-	 * These are the valid values for the "action" parameter (when lowercase)
+	 * Valid actions for a plugin. These are the valid values for the "action"
+	 * parameter (when lowercase)
 	 */
 	private enum PLUGIN_ACTIONS {
-		INSTALL,
-		UNINSTALL,
-		SYNCHRONIZE;
+		INSTALL, UNINSTALL, SYNCHRONIZE;
 	}
-
 
 	private Template installPlugin(HttpServletRequest req, VelocityContext vc) {
 		PluginInfo plugin = getPluginFromHash(req);
-		if(plugin == null)
-			return makeErrorMsg(vc, "No plugin hash given or plugin does not exist");
+		if (plugin == null)
+			return makeErrorMsg(vc,
+					"No plugin hash given or plugin does not exist");
 
-		if(plugin.isInstalled())
+		if (plugin.isInstalled())
 			return makeErrorMsg(vc, "Plugin is already installed");
 
 		if (sobjPA.installPlugin(plugin.getHashcode()) == false) {
 			getLogger().warn("Could not install plugin " + plugin.toString());
-			return makeErrorMsg(vc, "Plug-in can not be installed! Check log for details.");
+			return makeErrorMsg(vc,
+					"Plug-in can not be installed! Check log for details.");
 		}
 		// Persist the DB changes
 		else {
 			sobjPA.pluginUpdated(sobjPA.getPlugin(plugin));
-			return makeSuccessMsg(vc, "Plugin successfully installed", PAGE_PLUGIN+"?hash="+plugin.getHashcode());
+			return makeSuccessMsg(vc, "Plugin successfully installed",
+					PAGE_PLUGIN + "?hash=" + plugin.getHashcode());
 		}
 	}
 
 	private Template uninstallPlugin(HttpServletRequest req, VelocityContext vc) {
 		PluginInfo plugin = getPluginFromHash(req);
-		if(plugin == null)
-			return makeErrorMsg(vc, "No plugin hash given or plugin does not exist");
+		if (plugin == null)
+			return makeErrorMsg(vc,
+					"No plugin hash given or plugin does not exist");
 
-		if(!plugin.isInstalled())
+		if (!plugin.isInstalled())
 			return makeErrorMsg(vc, "Plugin isn't installed");
 
 		if (sobjPA.uninstallPlugin(plugin.getHashcode()) == false) {
 			getLogger().warn("Could not uninstall plugin " + plugin.toString());
-			return makeErrorMsg(vc, "Plug-in can not be uninstalled! Check log for details.");
+			return makeErrorMsg(vc,
+					"Plug-in can not be uninstalled! Check log for details.");
 		} else
-			return makeSuccessMsg(vc, "A job was scheduled to remove the plug-in", PAGE_PLUGIN+"?hash="+plugin.getHashcode());
+			return makeSuccessMsg(vc,
+					"A job was scheduled to remove the plug-in", PAGE_PLUGIN
+					+ "?hash=" + plugin.getHashcode());
 	}
 
-	private Template synchronizePlugin(HttpServletRequest req, VelocityContext vc) {
+	private Template synchronizePlugin(HttpServletRequest req,
+			VelocityContext vc) {
 		PluginInfo plugin = getPluginFromHash(req);
-		if(plugin == null)
-			return makeErrorMsg(vc, "No plugin hash given or plugin does not exist");
+		if (plugin == null)
+			return makeErrorMsg(vc,
+					"No plugin hash given or plugin does not exist");
 
-		if(!plugin.isInstalled())
+		if (!plugin.isInstalled())
 			return makeErrorMsg(vc, "Plugin isn't installed");
 
 		compMA.syncMetrics(sobjPA.getPlugin(plugin));
-		return makeSuccessMsg(vc, "Jobs are scheduled to run the plugin over all projects");
+		return makeSuccessMsg(vc,
+				"Jobs are scheduled to run the plugin over all projects");
 	}
 }
