@@ -1,5 +1,5 @@
 #set($section=3)
-#parse("header.inc")
+#parse("header.vm")
 
         <div id="contents">
           <h2>$tr.label("projects_mngm")</h2>
@@ -50,4 +50,4 @@
           </div>
         </div>
 
-#parse("footer.inc")
+#parse("footer.vm")
