@@ -1,6 +1,7 @@
 package eu.sqooss.impl.service.webadmin.servlets;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

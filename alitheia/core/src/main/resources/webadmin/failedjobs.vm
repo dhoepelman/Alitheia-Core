@@ -21,10 +21,38 @@
 	            #else
 		          #foreach ($job in $failedJobs)
 			      <tr>
-				    <td>$job.getJobType()</td>
-				    <td>$job.getExceptionType()</td>
-	  			    <td>$job.getExceptionText()</td>
-		   	  	    <td>$job.getExceptionBacktrace()</td>
+				    <td>
+				      #if ($null.isNull($job))
+				        NA
+				      #else
+				        $job
+				      #end
+				    </td>
+				    #set ($exception = $job.getErrorException())
+				    #if ($null.isNull($exception))
+				      <td>NA</td>
+				      <td>NA</td>
+				      <td>NA</td>
+				    #else
+				      <td>
+				        $exception.getClass().getPackage().getName()
+				        .
+				        $exception.getClass().getSimpleName()
+				      </td>
+				      <td>
+				        $exception.getMessage()
+				      </td>
+				      <td>
+				        #if ($null.isNotNull($exception.getStackTrace()))
+				          #foreach ($m in $exception.getStackTrace())
+				            #if ($null.isNotNull($m))
+				              #set ($string = $m.getClassName() + ". " + $m.getMethodName() + "(), (" + $m.getFileName() + ":" + $m.getLineNumber() + ")<br />")
+				              $string
+				            #end
+				          #end 
+				        #end				      
+				      </td>
+				    #end
 			      </tr>
 			      #end
 		        #end
