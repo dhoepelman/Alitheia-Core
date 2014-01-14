@@ -112,6 +112,7 @@ public class PluginsServlet extends AbstractWebadminServlet {
 			return makeErrorMsg(vc,
 					"No plugin hash given or plugin does not exist");
 
+
 		// Provide the variables to the template
 		vc.put("plugin", plugin);
 		if (plugin.isInstalled()) {

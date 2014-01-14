@@ -1,12 +1,9 @@
 package eu.sqooss.impl.service.webadmin.servlets;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -192,9 +189,5 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 
 	protected ITranslation getTranslation() {
 		return Translation.EN;
-	}
-
-	protected VelocityEngine getVelocityEngine() {
-		return ve;
 	}
 }
