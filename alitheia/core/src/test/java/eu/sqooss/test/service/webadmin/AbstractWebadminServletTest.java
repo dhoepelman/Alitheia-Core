@@ -105,4 +105,11 @@ public abstract class AbstractWebadminServletTest {
 				"org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
 		return ve;
 	}
+
+	/**
+	 * Basic removal of HTML and whitespace suitable for testing if output contains something
+	 */
+	protected static String stripHTMLandWhitespace(String output) {
+		return output.replaceAll("\\<[^>]+>","").replaceAll("\\s+","");
+	}
 }

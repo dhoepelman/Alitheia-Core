@@ -4,22 +4,31 @@
 package eu.sqooss.test.service.webadmin.plugins;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashSet;
 
 import javax.servlet.ServletException;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import eu.sqooss.impl.service.webadmin.servlets.PluginsServlet;
+import eu.sqooss.service.db.DAObject;
+import eu.sqooss.service.db.Plugin;
+import eu.sqooss.service.db.PluginConfiguration;
+import eu.sqooss.service.db.ProjectFile;
 import eu.sqooss.service.pa.PluginInfo;
 import eu.sqooss.test.service.webadmin.AbstractWebadminServletTest;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Plugin.class)
 public class PluginListTest extends AbstractWebadminServletTest{
 
 	private PluginsServlet testee;
@@ -38,17 +47,22 @@ public class PluginListTest extends AbstractWebadminServletTest{
 		testee = new PluginsServlet(ve, mockAC);
 	}
 
+	/**
+	 * A basic test to see if plugin name, version and installed status is displayed correctly
+	 */
 	@Test
-	public void testPluginListNames() throws ServletException, IOException {
+	public void testPluginList() throws ServletException, IOException {
 		when(mockReq.getRequestURI()).thenReturn("/plugins");
 		when(mockReq.getMethod()).thenReturn("GET");
 
 		// We expect these plugins
 		PluginInfo p1 = new PluginInfo();
 		p1.setPluginName("TestPlugin1");
+		p1.installed = true;
 		p1.setPluginVersion("1.0");
 		PluginInfo p2 = new PluginInfo();
 		p2.setPluginName("TestPlugin2");
+		p2.installed = false;
 		p2.setPluginVersion("2.0");
 
 		when(mockPA.listPlugins()).thenReturn(Arrays.asList(new PluginInfo[] {p1,p2}));
@@ -56,25 +70,44 @@ public class PluginListTest extends AbstractWebadminServletTest{
 		// Do the fake request
 		testee.service(mockReq, mockResp);
 		// Get the output
-		String output = getResponseOuput();
-		//System.out.println(output);
+		String output = stripHTMLandWhitespace(getResponseOuput());
+
 		// Verify that the 2 plugins are all contained correctly in the output
-		assertTrue(output.contains("TestPlugin1"));
+		assertTrue(output.contains("InstalledTestPlugin1"));
 		assertTrue(output.contains("1.0"));
-		assertTrue(output.contains("TestPlugin2"));
+		assertTrue(output.contains("RegisteredTestPlugin2"));
 		assertTrue(output.contains("2.0"));
 	}
 
-	// TODO: test if registered/installed status is correct
+	// TODO: Test if pluginlist lists activators for a plugin
 	@Test
-	public void testPluginListInstalledStatus() {
-		fail();
-	}
+	public void testPluginListActivators() throws ServletException, IOException {
+		when(mockReq.getRequestURI()).thenReturn("/plugins");
+		when(mockReq.getMethod()).thenReturn("GET");
+		when(mockReq.getParameter("showActivators")).thenReturn("true");
 
-	// TODO: Test if plugin lists contains all activators for a plugin
-	@Test
-	public void testPluginListActivators() {
-		fail();
+		// We expect these activators
+		HashSet<Class<? extends DAObject>> activators = new HashSet<>();
+		activators.add(PluginConfiguration.class);
+		activators.add(ProjectFile.class);
+
+		// We expect these plugins
+		PluginInfo p1 = new PluginInfo();
+		p1.setPluginName("TestPlugin1");
+		p1.installed = true;
+		p1.setActivationTypes(activators);
+
+		when(mockPA.listPlugins()).thenReturn(Arrays.asList(new PluginInfo[] {p1}));
+
+		// Do the fake request
+		testee.service(mockReq, mockResp);
+		// Get the output
+		String output = getResponseOuput();
+		System.out.println(output);
+		// Assert that all activators are in the output
+		for(Class<?> c : activators) {
+			assertTrue(output.contains(c.getName()));
+		}
 	}
 
 }

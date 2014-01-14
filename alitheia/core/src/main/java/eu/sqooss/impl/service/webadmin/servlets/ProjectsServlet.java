@@ -1,9 +1,6 @@
 package eu.sqooss.impl.service.webadmin.servlets;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,11 +18,11 @@ import org.hibernate.Hibernate;
 import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.ProjectDeleteJob;
 import eu.sqooss.impl.service.webadmin.templates.NullTool;
-
 import com.google.common.collect.ImmutableMap;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import eu.sqooss.service.abstractmetric.AlitheiaPlugin;
+
+import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.service.admin.AdminAction;
 import eu.sqooss.service.admin.AdminService;
 import eu.sqooss.service.admin.actions.AddProject;
@@ -277,10 +274,10 @@ public class ProjectsServlet extends AbstractWebadminServlet {
                 return makeSuccessMsg(vc, "Succesfully triggered the updates");
         }
     }
-
+    
     private Template PageProjectsList(HttpServletRequest req, VelocityContext vc) {
         
-	    // Load the template
+        // Load the template
         Template t = loadTemplate(templates.get(PAGE_PROJECTSLIST));
         
         // Add selected project
@@ -307,56 +304,57 @@ public class ProjectsServlet extends AbstractWebadminServlet {
         vc.put("Bug", Bug.class);
         
         return t;
-	}
-	
+    }
+
+
 	private Template PageAddProject(HttpServletRequest req, VelocityContext vc) {
-	    // Load the template
-	    Template t = loadTemplate(templates.get(PAGE_ADDPROJECT));
-	    return t;
+		// Load the template
+		Template t = loadTemplate(templates.get(PAGE_ADDPROJECT));
+		return t;
 	}
 
-   private Template PageDeleteProject(HttpServletRequest req, VelocityContext vc) {
-        
-       // Load the template
-        Template t = loadTemplate(templates.get(PAGE_DELETEPROJECT));
-        
-        // Add selected project
-        vc.put("selProject", selProject);
-        
-        return t;
-    }
-   
-    private Template PageViewProject(HttpServletRequest req, VelocityContext vc) {
-        
-        // Load the template
-        Template t = loadTemplate(templates.get(PAGE_VIEWPROJECT));
-        
-        // Add selected project
-        vc.put("selProject", selProject);
-        
-        return t;
-    }
-    
-    private boolean isEmpty(String string) {
-        return string == null || string.equals("");
-    }
-    
-    /**
-     * Creates a <code>Long</code> object from the content of the given
-     * <code>String</code> object, while handling internally any thrown
-     * exception.
-     * 
-     * @param value the <code>String</code> value
-     * 
-     * @return The <code>Long</code> value.
-     */
-    protected static Long fromString (String value) {
-        try {
-            return (new Long(value));
-        }
-        catch (NumberFormatException ex){
-            return null;
-        }
-    }
-   
+	private Template PageDeleteProject(HttpServletRequest req, VelocityContext vc) {
+
+		// Load the template
+		Template t = loadTemplate(templates.get(PAGE_DELETEPROJECT));
+
+		// Add selected project
+		vc.put("selProject", selProject);
+
+		return t;
+	}
+
+	private Template PageViewProject(HttpServletRequest req, VelocityContext vc) {
+
+		// Load the template
+		Template t = loadTemplate(templates.get(PAGE_VIEWPROJECT));
+
+		// Add selected project
+		vc.put("selProject", selProject);
+
+		return t;
+	}
+
+	private boolean isEmpty(String string) {
+		return string == null || string.equals("");
+	}
+
+	/**
+	 * Creates a <code>Long</code> object from the content of the given
+	 * <code>String</code> object, while handling internally any thrown
+	 * exception.
+	 * 
+	 * @param value the <code>String</code> value
+	 * 
+	 * @return The <code>Long</code> value.
+	 */
+	protected static Long fromString (String value) {
+		try {
+			return (new Long(value));
+		}
+		catch (NumberFormatException ex){
+			return null;
+		}
+	}
+
 }

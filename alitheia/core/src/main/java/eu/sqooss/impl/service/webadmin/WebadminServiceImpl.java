@@ -147,11 +147,17 @@ public class WebadminServiceImpl implements WebadminService {
 				sobjHTTPService.unregister(was.getPath());
 			} catch (IllegalArgumentException e) {
 				// Was already unregistered, result is the same though
+				logger.warn("Tried unregistering already unregistered path " + was.getPath());
 			}
 		}
 
 		// Unregister static resource servlet
-		sobjHTTPService.unregister("/");
+		try {
+			sobjHTTPService.unregister("/");
+		} catch (IllegalArgumentException e) {
+			// Was already unregistered, result is the same though
+			logger.warn("Tried unregistering already unregistered path /");
+		}
 	}
 
 	@Override
