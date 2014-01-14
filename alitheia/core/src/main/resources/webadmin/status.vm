@@ -19,13 +19,13 @@
         <table>
           <tr>
             <td style="width: 50%; padding: 0;">
-              <form id="start" method="post" action="restart">
-                <input type="submit" style="width: 100%;" value="$tr.label("restart")" />
+              <form target="_top" id="start" method="post" action="/system/restart">
+                <input onclick="javascript: if(!confirm('Press OK to restart Alitheia')) { return false; }" type="submit" style="width: 100%;" value="$tr.label("restart")" />
               </form>
             </td>
             <td style="width: 50%; padding: 0;">
-              <form id="stop" method="post" action="stop">
-                <input type="submit" style="width: 100%;" value="$tr.label("stop")" />
+              <form target="_top" id="stop" method="post" action="/system/shutdown">
+                <input onclick="javascript: if(!confirm('Press OK to stop Alitheia')) { return false; }" type="submit" style="width: 100%;" value="$tr.label("stop")" />
               </form>
             </td>
           </tr>
@@ -57,28 +57,6 @@
               <td class="number">$scheduler.WorkerThreads</td>
             </tr>
           </table>
-      </fieldset>
-    
-      ## Display option
-      <fieldset id="options">
-        <legend>$tr.label("options")</legend>
-        <form id="motd" method="post" action="motd">
-          <table>
-            <tr>
-              <td>$tr.label("motd") :</td>
-            </tr>
-            <tr>
-              <td>
-                 <input type="text" style="width: 99%;" class="form" name="motdtext" />
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align: right;">
-                <input type="submit" style="width: 100px;" value="$tr.label("set_save")" />
-              </td>
-            </tr>
-          </table>
-        </form>
       </fieldset>
     </div>
   </body>

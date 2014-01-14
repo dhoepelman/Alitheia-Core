@@ -12,23 +12,16 @@ import java.util.HashSet;
 
 import javax.servlet.ServletException;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import eu.sqooss.impl.service.webadmin.servlets.PluginsServlet;
-import eu.sqooss.service.db.DAObject;
-import eu.sqooss.service.db.Plugin;
-import eu.sqooss.service.db.PluginConfiguration;
-import eu.sqooss.service.db.ProjectFile;
+import eu.sqooss.service.db.*;
 import eu.sqooss.service.pa.PluginInfo;
 import eu.sqooss.test.service.webadmin.AbstractWebadminServletTest;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(Plugin.class)
 public class PluginListTest extends AbstractWebadminServletTest{
 
 	private PluginsServlet testee;

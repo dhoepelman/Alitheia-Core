@@ -1,8 +1,6 @@
 package eu.sqooss.impl.service.webadmin.servlets;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,8 +26,8 @@ public class PluginsServlet extends AbstractWebadminServlet {
 	private static final String ACTION_PLUGIN = ROOT_PATH + "/plugin/action";
 
 	private static final Map<String, String> templates = new ImmutableMap.Builder<String, String>()
-			.put(PAGE_PLUGINSLIST, "/pluginlist.vm")
-			.put(PAGE_PLUGIN, "/plugin.vm").build();
+			.put(PAGE_PLUGINSLIST, "/plugins/pluginlist.vm")
+			.put(PAGE_PLUGIN, "/plugins/plugin.vm").build();
 
 	private final PluginAdmin sobjPA;
 	private final MetricActivator compMA;
