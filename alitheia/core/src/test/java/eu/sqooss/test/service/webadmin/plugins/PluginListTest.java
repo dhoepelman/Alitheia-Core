@@ -14,6 +14,8 @@ import javax.servlet.ServletException;
 
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.osgi.framework.ServiceReference;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import eu.sqooss.impl.service.webadmin.servlets.PluginsServlet;
@@ -48,15 +50,18 @@ public class PluginListTest extends AbstractWebadminServletTest{
 		when(mockReq.getRequestURI()).thenReturn("/plugins");
 		when(mockReq.getMethod()).thenReturn("GET");
 
+		ServiceReference mockRef = Mockito.mock(ServiceReference.class);
 		// We expect these plugins
 		PluginInfo p1 = new PluginInfo();
 		p1.setPluginName("TestPlugin1");
 		p1.installed = true;
 		p1.setPluginVersion("1.0");
+		p1.setServiceRef(mockRef);
 		PluginInfo p2 = new PluginInfo();
 		p2.setPluginName("TestPlugin2");
 		p2.installed = false;
 		p2.setPluginVersion("2.0");
+		p2.setServiceRef(mockRef);
 
 		when(mockPA.listPlugins()).thenReturn(Arrays.asList(new PluginInfo[] {p1,p2}));
 
@@ -89,6 +94,8 @@ public class PluginListTest extends AbstractWebadminServletTest{
 		p1.setPluginName("TestPlugin1");
 		p1.installed = true;
 		p1.setActivationTypes(activators);
+		ServiceReference mockRef = Mockito.mock(ServiceReference.class);
+		p1.setServiceRef(mockRef);
 
 		when(mockPA.listPlugins()).thenReturn(Arrays.asList(new PluginInfo[] {p1}));
 
