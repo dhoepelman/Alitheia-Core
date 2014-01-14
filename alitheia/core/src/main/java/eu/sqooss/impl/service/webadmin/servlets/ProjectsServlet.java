@@ -68,8 +68,6 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 	private final MetricActivator sobjMA;
 	private AdminService sobjAdminService;
 
-	private StoredProject selProject;
-
 	public ProjectsServlet(VelocityEngine ve, AlitheiaCore core) {
 		super(ve, core);
 		sobjSched = core.getScheduler();
@@ -87,13 +85,6 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 
 	@Override
 	protected Template render(HttpServletRequest req, VelocityContext vc) throws PageNotFoundException {
-		// Set selected project
-		String projectId = req.getParameter("REQ_PAR_PROJECT_ID");
-		if (isEmpty(projectId)) {
-			selProject = null;
-		} else {
-			selProject = sobjDB.findObjectById(StoredProject.class, fromString(projectId));
-		}
 
 		// Switch over the URI
 		switch(req.getRequestURI()) {
@@ -167,17 +158,17 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 		sobjAdminService.execute(aa);
 
 		// Print result
-		if (aa.hasErrors())
-			return makeErrorMsg(vc, "A problem is occured when installing the project");
-		else
-			return makeSuccessMsg(vc, "The project is installed succesfully");
+        if (aa.hasErrors())
+            return makeErrorMsg(vc, errorMapToString(aa.errors()));
+        else
+            return makeSuccessMsg(vc, resultMapToString(aa.results()));
 	}
 
 	private Template deleteProject(HttpServletRequest req, VelocityContext vc) {
-		if (selProject != null) {
+		if (getSelectedProject(req) != null) {
 			// Deleting large projects in the foreground is
 			// very slow
-			ProjectDeleteJob pdj = new ProjectDeleteJob(sobjDB, sobjPA, selProject);
+			ProjectDeleteJob pdj = new ProjectDeleteJob(sobjDB, sobjPA, getSelectedProject(req));
 			try {
 				sobjSched.enqueue(pdj);
 			} catch (SchedulerException e1) {
@@ -194,9 +185,9 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 		if (pInfo != null) {
 			AlitheiaPlugin pObj = sobjPA.getPlugin(pInfo);
 			if (pObj != null) {
-				sobjMA.syncMetric(pObj, selProject);
+				sobjMA.syncMetric(pObj, getSelectedProject(req));
 				sobjLogger.debug("Syncronise plugin (" + pObj.getName()
-						+ ") on project (" + selProject.getName() + ").");
+						+ ") on project (" + getSelectedProject(req).getName() + ").");
 				return makeSuccessMsg(vc, "Jobs are scheduled to run the plugin over all projects");
 			}
 		}
@@ -207,15 +198,15 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 			VelocityContext vc) {
 		// Trigger an updater on a project
 		AdminAction aa = sobjAdminService.create(UpdateProject.MNEMONIC);
-		aa.addArg("project", selProject.getId());
+		aa.addArg("project", getSelectedProject(req).getId());
 		aa.addArg("updater", req.getParameter("reqUpd"));
 		sobjAdminService.execute(aa);
 
-		// Print result
-		if (aa.hasErrors())
-			return makeErrorMsg(vc, "Could not trigger the update");
-		else
-			return makeSuccessMsg(vc, "Succesfully triggered the update");
+        // Print result
+        if (aa.hasErrors())
+            return makeErrorMsg(vc, errorMapToString(aa.errors()));
+        else
+            return makeSuccessMsg(vc, resultMapToString(aa.results()));
 	}
 
 	private Template triggerAllUpdate(HttpServletRequest req,
@@ -223,18 +214,19 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 
 		// Trigger all updaters on a project
 		AdminAction aa = sobjAdminService.create(UpdateProject.MNEMONIC);
-		aa.addArg("project", selProject.getId());
+		aa.addArg("project", getSelectedProject(req).getId());
 		sobjAdminService.execute(aa);
 
 		// Print result
 		if (aa.hasErrors())
-			return makeErrorMsg(vc, "A problem occurred when triggering the updates");
+			return makeErrorMsg(vc, errorMapToString(aa.errors()));
 		else
-			return makeSuccessMsg(vc, "Succesfully triggered the updates");
+			return makeSuccessMsg(vc, resultMapToString(aa.results()));
 	}
 
 	private Template triggerAllUpdateNode(HttpServletRequest req, VelocityContext vc) {
-		Set<StoredProject> projectList = sobjClusterNode.getClusterNode().getProjects();
+
+	    Set<StoredProject> projectList = ClusterNode.thisNode().getProjects();
 		boolean hasErrors = false;
 
 		if (projectList == null || projectList.isEmpty())
@@ -245,7 +237,7 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 
 				// Execute updaters
 				AdminAction aa = sobjAdminService.create(UpdateProject.MNEMONIC);
-				aa.addArg("project", selProject.getId());
+				aa.addArg("project", project.getId());
 				sobjAdminService.execute(aa);
 
 				// Merge the new results with the old ones
@@ -268,7 +260,7 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 		Template t = loadTemplate(templates.get(PAGE_PROJECTSLIST));
 
 		// Add selected project
-		vc.put("selProject", selProject);
+		vc.put("selProject", getSelectedProject(req));
 
 		// Add installed metrics
 		Collection<PluginInfo> installedMetrics = sobjPA.listPlugins();
@@ -306,7 +298,7 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 		Template t = loadTemplate(templates.get(PAGE_DELETEPROJECT));
 
 		// Add selected project
-		vc.put("selProject", selProject);
+		vc.put("selProject", getSelectedProject(req));
 
 		return t;
 	}
@@ -317,13 +309,9 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 		Template t = loadTemplate(templates.get(PAGE_VIEWPROJECT));
 
 		// Add selected project
-		vc.put("selProject", selProject);
+		vc.put("selProject", getSelectedProject(req));
 
 		return t;
-	}
-
-	private boolean isEmpty(String string) {
-		return string == null || string.equals("");
 	}
 
 	/**
@@ -342,6 +330,32 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 		catch (NumberFormatException ex){
 			return null;
 		}
+	}
+	
+	private StoredProject getSelectedProject(HttpServletRequest req) {
+	       // Set selected project
+        String projectId = req.getParameter("REQ_PAR_PROJECT_ID");
+        if (projectId == null || projectId.equals("")) {
+            return null;
+        } else {
+            return sobjDB.findObjectById(StoredProject.class, fromString(projectId));
+        }
+	}
+	
+	private String errorMapToString(Map<String, Object> map) {
+	    String string = "";
+	    for (Map.Entry<String, Object> entry : map.entrySet()) {
+	        string += entry.getKey() + ": " + entry.getValue().toString() + "<br />\n";
+	    }
+	    return string;
+	}
+	
+	private String resultMapToString(Map<String, Object> map) {
+        String string = "";
+        for (Object o : map.values()) {
+            string += o.toString() + "<br />\n"; 
+        }
+        return string;
 	}
 
 }

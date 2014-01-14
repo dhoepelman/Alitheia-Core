@@ -60,7 +60,7 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 		preRender();
 
 		// Try-finally to ensure DB session commit
-		try {
+		
 			/**
 			 * You might (rightly) consider making this a field
 			 * However: note that this might make for easier testing and debugging and prevent possible interference
@@ -90,9 +90,9 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 				response.setContentType("text/html");
 				t.merge(vc, response.getWriter());
 			}
-		}finally {
+		
 			postRender();
-		}
+		
 	}
 
 	@Override
@@ -129,7 +129,6 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 
 	/**
 	 * Does actions necessary after rendering (like committing the DB session)
-	 * Should always be called, i.e. in a finally block
 	 */
 	private void postRender() {
 		if (sobjDB.isDBSessionActive()) {
