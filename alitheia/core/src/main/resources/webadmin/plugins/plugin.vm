@@ -30,7 +30,7 @@
                         #end
                       </td>
                       <td>$plugin.getPluginName()</td>
-                      <td>$plugin.getServiceRef()</td>
+                      <td>$plugin.getClassName()</td>
                       <td>$plugin.getPluginVersion()</td>
                     </tr>
                     <tr>

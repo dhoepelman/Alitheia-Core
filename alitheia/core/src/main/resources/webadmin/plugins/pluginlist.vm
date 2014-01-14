@@ -27,7 +27,7 @@
 	                <tr class="edit" onclick="window.location.href = '/plugins/plugin?hash=$p.getHashcode()';">
 	                  <td class="trans"><img src="/edit.png" alt="[Edit]"/>&nbsp;#if ($p.isInstalled()) Installed #else Registered #end</td>
 	                  <td class="trans">$p.getPluginName()</td>
-	                  <td class="trans">$p.getServiceRef()</td>
+	                  <td class="trans">$p.getClassName()</td>
 	                  <td class="trans">$p.getPluginVersion()</td>
 	                </tr>
 	                
