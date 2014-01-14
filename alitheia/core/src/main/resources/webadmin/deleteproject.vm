@@ -15,7 +15,7 @@
                   </tr>
                   <tr>
                     <td class="borderless">
-                      <input type="button" class="install" style="width: 100px;" value="Yes" onclick="javascript:document.getElementById('action').value='delete';document.metrics.submit();">
+                      <input type="button" class="install" style="width: 100px;" value="Yes" onclick="javascript:document.getElementById('action').value='delete';document.projects.submit();">
                       <input type="button" class="install" style="width: 100px;" value="Cancel" onclick="javascript:window.location = '/projects';">
                     </td>
                   </tr>

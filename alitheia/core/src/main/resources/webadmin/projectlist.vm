@@ -38,16 +38,16 @@
                   #foreach ($project in $projectList)
 	                  #set ($isSelProj = $selProjectId == $project.getId())
 	                  #if (!$isSelProj) 
-	                    #set ($projectIdVal = $project.getId()) 
+	                    #set ($projectIdVal = "?REQ_PAR_PROJECT_ID=" + $project.getId()) 
 	                  #else
 	                    #set ($projectIdVal = "")
 	                  #end
-	                  <tr class="#if ($isSelProj) selected #else edit #end" onclick="javascript:window.location = '/projects?REQ_PAR_PROJECT_ID=$project.getId()';">
+	                  <tr class="#if ($isSelProj) selected #else edit #end" onclick="javascript:window.location = '/projects$projectIdVal';">
                         <td class="trans">$project.getId()</td>
 	                    <td class="trans">
-	                      <img src="/edit.png" alt="[Edit]"/>
+	                      <a href="projects/view?REQ_PAR_PROJECT_ID=$project.getId()"><img src="/edit.png" alt="[Edit]" border="0" /></a>
 	                      #if ($isSelProj)
-	                      	<input type="button" class="install" style="width: 100px;" value="Info" onclick="javascript:window.location = '/projects/view?REQ_PAR_PROJECT_ID=$project.getId()';">
+	                      	<input type="button" class="install" style="width: 100px;" value="Info" onclick="event.cancelBubble = true; javascript:window.location = '/projects/view?REQ_PAR_PROJECT_ID=$project.getId()';">
 	                      #end
 	                      &nbsp;$project.getName()
 	                    </td>
@@ -177,7 +177,7 @@
           <h2>$tr.label("install_new_project")</h2>
           <form id="addprojectdir" method="post" action="projects/action">
             $tr.label("project_info_txt")
-            <input name="info" type="text" alt="$tr.label("project_info_txt_help")" class="form" size="40" />
+            <input type="text" name="properties" alt="$tr.label("project_info_txt_help")" class="form" size="40" />
             <input type="hidden" id="action" name="action" value="installbyproperties" />
             <input type="submit" value="$tr.label("project_info_txt_install")"/>
           </form>

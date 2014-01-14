@@ -35,12 +35,16 @@
 				      <td>NA</td>
 				    #else
 				      <td>
-				        $exception.getClass().getPackage().getName()
-				        .
-				        $exception.getClass().getSimpleName()
+				        #set ($string = $exception.getClass().getPackage().getName() + ". " + $exception.getClass().getSimpleName()) 
+				        $string
 				      </td>
 				      <td>
-				        $exception.getMessage()
+				        
+				        #if ($null.isNull($exception.getMessage()))
+				          NA
+				        #else
+				          $exception.getMessage()
+				        #end
 				      </td>
 				      <td>
 				        #if ($null.isNotNull($exception.getStackTrace()))
@@ -50,6 +54,8 @@
 				              $string
 				            #end
 				          #end 
+				        #else
+				          NA
 				        #end				      
 				      </td>
 				    #end

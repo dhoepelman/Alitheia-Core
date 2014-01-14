@@ -20,7 +20,7 @@
               No running jobs
             #else
 	          <ul>
-	            #foreach ($job in $runningJobs) {
+	            #foreach ($job in $runningJobs)
 	              <li>$job</li>
 	            #end
 	          </ul>
@@ -38,7 +38,7 @@
                 </tr>
               </thead>
               <tbody>
-                #set ($waitingJobs = $scheduler.getRunJobs())
+                #set ($waitingJobs = $scheduler.getWaitingJobTypes())
                 #if ($waitingJobs.isEmpty())
                   <tr>
                     <td>No waiting</td>
