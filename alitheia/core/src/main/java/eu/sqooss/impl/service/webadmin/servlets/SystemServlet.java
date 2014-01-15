@@ -11,6 +11,10 @@ import org.osgi.framework.BundleException;
 import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.servlets.exceptions.PageNotFoundException;
 
+/**
+ * This servlet provides action which directly impact the Alitheia system, like restarting Alitheia
+ */
+@SuppressWarnings("serial")
 public class SystemServlet extends AbstractWebadminServlet {
 
 	private static final String ROOT_PATH = "/system";

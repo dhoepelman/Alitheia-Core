@@ -2,6 +2,9 @@ package eu.sqooss.impl.service.webadmin;
 
 import java.util.Locale;
 
+/**
+ * A translation interface for the Alitheia core webadmin. Every object should present a specific language
+ */
 public interface ITranslation {
 	/**
 	 * Retrieves the translation for the specified label key

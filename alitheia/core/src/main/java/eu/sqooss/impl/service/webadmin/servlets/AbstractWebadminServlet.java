@@ -20,6 +20,12 @@ import eu.sqooss.service.db.DBService;
 import eu.sqooss.service.logging.LogManager;
 import eu.sqooss.service.logging.Logger;
 
+/**
+ * Provides a base class for all webadmin servlets
+ * Contains the logic to process HTTPRequest and pass them off to the concrete servlet render() method
+ * It also contains some common functionality and dependencies
+ */
+@SuppressWarnings("serial")
 public abstract class AbstractWebadminServlet extends HttpServlet implements IWebadminServlet {
 
 	protected static final String TEMPLATE_ROOT = "/webadmin";
@@ -56,7 +62,7 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 			throws ServletException, IOException {
 		preRender();
 
-		
+
 		/**
 		 * You might (rightly) consider making this a field
 		 * However: note that this might make for easier testing and debugging and prevent possible interference
@@ -86,9 +92,9 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 			response.setContentType("text/html");
 			t.merge(vc, response.getWriter());
 		}
-	
+
 		postRender();
-		
+
 	}
 
 	@Override
@@ -188,22 +194,22 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 	protected ITranslation getTranslation() {
 		return Translation.EN;
 	}
-	
-	   /**
-     * Creates a <code>Long</code> object from the content of the given
-     * <code>String</code> object, while handling internally any thrown
-     * exception.
-     * 
-     * @param value the <code>String</code> value
-     * 
-     * @return The <code>Long</code> value.
-     */
-    protected static Long fromString (String value) {
-        try {
-            return (new Long(value));
-        }
-        catch (NumberFormatException ex){
-            return null;
-        }
-    }
+
+	/**
+	 * Creates a <code>Long</code> object from the content of the given
+	 * <code>String</code> object, while handling internally any thrown
+	 * exception.
+	 * 
+	 * @param value the <code>String</code> value
+	 * 
+	 * @return The <code>Long</code> value.
+	 */
+	protected static Long fromString (String value) {
+		try {
+			return (new Long(value));
+		}
+		catch (NumberFormatException ex){
+			return null;
+		}
+	}
 }

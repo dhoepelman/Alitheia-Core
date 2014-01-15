@@ -2,7 +2,7 @@
  * This file is part of the Alitheia system, developed by the SQO-OSS
  * consortium as part of the IST FP6 SQO-OSS project, number 033331.
  *
- * Copyright 2008 - 2010 - Organization for Free and Open Source Software,  
+ * Copyright 2008 - 2010 - Organization for Free and Open Source Software,
  *                Athens, Greece.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,91 +36,90 @@ package eu.sqooss.impl.service.webadmin;
 import java.util.HashMap;
 import java.util.List;
 
-import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.service.abstractmetric.AlitheiaPlugin;
-import eu.sqooss.service.db.DBService;
-import eu.sqooss.service.db.Plugin;
-import eu.sqooss.service.db.ProjectVersion;
-import eu.sqooss.service.db.StoredProject;
-import eu.sqooss.service.db.StoredProjectConfig;
+import eu.sqooss.service.db.*;
 import eu.sqooss.service.pa.PluginAdmin;
 import eu.sqooss.service.scheduler.Job;
 
+/**
+ * A job to delete a project
+ */
+// There are some problems with this class, but iIt was not changed when the webadmin was refactored
 public class ProjectDeleteJob extends Job {
 
 	private StoredProject sp;
-    private DBService dbs;
-    private PluginAdmin pa;
+	private DBService dbs;
+	private PluginAdmin pa;
 
-    public ProjectDeleteJob(DBService dbs, PluginAdmin pa, StoredProject sp) {
-        this.dbs = dbs;
-        this.pa = pa;
-        this.sp = sp;
-    }
+	public ProjectDeleteJob(DBService dbs, PluginAdmin pa, StoredProject sp) {
+		this.dbs = dbs;
+		this.pa = pa;
+		this.sp = sp;
+	}
 
-    @Override
-    public long priority() {
-        return 0xff;
-    }
+	@Override
+	public long priority() {
+		return 0xff;
+	}
 
-    @SuppressWarnings("unchecked")
-    @Override
-    protected void run() throws Exception {
-        if (!dbs.isDBSessionActive()) {
-            dbs.startDBSession();
-        }
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void run() throws Exception {
+		if (!dbs.isDBSessionActive()) {
+			dbs.startDBSession();
+		}
 
-        sp = dbs.attachObjectToDBSession(sp);
-        // Delete any associated invocation rules first
-        HashMap<String, Object> properties = new HashMap<String, Object>();
-        properties.put("project", sp);
+		sp = dbs.attachObjectToDBSession(sp);
+		// Delete any associated invocation rules first
+		HashMap<String, Object> properties = new HashMap<String, Object>();
+		properties.put("project", sp);
 
-        //Cleanup plugin results
-        List<Plugin> ps = (List<Plugin>) dbs.doHQL("from Plugin");        
-        
-        for (Plugin p : ps ) {
-            AlitheiaPlugin ap = pa.getPlugin(pa.getPluginInfo(p.getHashcode()));
-            if (ap == null) {
-            	//logger.warn("Plugin with hashcode: "+ p.getHashcode() + 
-            	//		" not installed");
-            	continue;
-            }
-            	
-            ap.cleanup(sp);
-        }
-        
-        boolean success = true;
-        
-        // Delete project version's parents.
-        List<ProjectVersion> versions = sp.getProjectVersions();
-        
-        for (ProjectVersion pv : versions) {
-           /* Set<ProjectVersionParent> parents = pv.getParents();
+		//Cleanup plugin results
+		List<Plugin> ps = (List<Plugin>) dbs.doHQL("from Plugin");
+
+		for (Plugin p : ps ) {
+			AlitheiaPlugin ap = pa.getPlugin(pa.getPluginInfo(p.getHashcode()));
+			if (ap == null) {
+				//logger.warn("Plugin with hashcode: "+ p.getHashcode() +
+				//		" not installed");
+				continue;
+			}
+
+			ap.cleanup(sp);
+		}
+
+		boolean success = true;
+
+		// Delete project version's parents.
+		List<ProjectVersion> versions = sp.getProjectVersions();
+
+		for (ProjectVersion pv : versions) {
+			/* Set<ProjectVersionParent> parents = pv.getParents();
             for (ProjectVersionParent pvp : parents) {
-                
+
             }*/
-            pv.getParents().clear();
-        }
-               
-        //Delete the project's config options
-        List<StoredProjectConfig> confParams = StoredProjectConfig.fromProject(sp);
-        if (!confParams.isEmpty()) {
-        	success &= dbs.deleteRecords(confParams);
-        }
-        
-        // Delete the selected project
-        success &= dbs.deleteRecord(sp);
+			pv.getParents().clear();
+		}
 
-        if (success) {
-            dbs.commitDBSession();
-        } else {
-            dbs.rollbackDBSession();
-        }
+		//Delete the project's config options
+		List<StoredProjectConfig> confParams = StoredProjectConfig.fromProject(sp);
+		if (!confParams.isEmpty()) {
+			success &= dbs.deleteRecords(confParams);
+		}
 
-    }
-    
-    @Override
-    public String toString() {
-        return "ProjectDeleteJob - Project:{" + sp +"}";
-    }
+		// Delete the selected project
+		success &= dbs.deleteRecord(sp);
+
+		if (success) {
+			dbs.commitDBSession();
+		} else {
+			dbs.rollbackDBSession();
+		}
+
+	}
+
+	@Override
+	public String toString() {
+		return "ProjectDeleteJob - Project:{" + sp +"}";
+	}
 }

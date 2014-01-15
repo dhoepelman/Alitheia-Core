@@ -96,6 +96,7 @@ public class PluginTest extends AbstractWebadminServletTest {
 		when(p.getHashcode()).thenReturn(hash);
 		when(mockPA.getPluginInfo(hash)).thenReturn(p);
 
+		// Execute the test request
 		testee.service(mockReq, mockResp);
 
 		// Verify that the plugin has been installed

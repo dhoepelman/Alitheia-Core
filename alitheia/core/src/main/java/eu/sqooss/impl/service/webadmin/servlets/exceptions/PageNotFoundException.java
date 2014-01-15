@@ -1,5 +1,9 @@
 package eu.sqooss.impl.service.webadmin.servlets.exceptions;
 
+/**
+ * This exception is thrown when a servlet is called with an URL it cannot handle
+ */
+@SuppressWarnings("serial")
 public class PageNotFoundException extends Exception {
 
 	public PageNotFoundException() {

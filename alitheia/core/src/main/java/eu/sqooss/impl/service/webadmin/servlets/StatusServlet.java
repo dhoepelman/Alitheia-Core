@@ -15,6 +15,10 @@ import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.servlets.exceptions.PageNotFoundException;
 import eu.sqooss.service.scheduler.Scheduler;
 
+/**
+ * This servlet provides the sidebar with some status information in the webadmin
+ */
+@SuppressWarnings("serial")
 public class StatusServlet extends AbstractWebadminServlet {
 
 	/**

@@ -4,7 +4,7 @@
   <class id="1" language="java" name="eu.sqooss.impl.service.webadmin.WebadminServiceImpl" project="core" 
     file="/core/src/main/java/eu/sqooss/impl/service/webadmin/WebadminServiceImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1512" y="952"/>    
+    <position height="-1" width="-1" x="1682" y="1004"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="false" static="true"/>      
@@ -13,7 +13,7 @@
   </class>  
   <interface id="2" language="java" name="eu.sqooss.impl.service.webadmin.ITranslation" project="core" 
     file="/core/src/main/java/eu/sqooss/impl/service/webadmin/ITranslation.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1718" y="531"/>    
+    <position height="-1" width="-1" x="1690" y="465"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="false" static="true"/>      
@@ -22,7 +22,7 @@
   </interface>  
   <enumeration id="3" language="java" name="eu.sqooss.impl.service.webadmin.Translation" project="core" 
     file="/core/src/main/java/eu/sqooss/impl/service/webadmin/Translation.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1727" y="306"/>    
+    <position height="-1" width="-1" x="1693" y="256"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="false" static="true"/>      
@@ -42,7 +42,7 @@
   <interface id="5" language="java" name="eu.sqooss.impl.service.webadmin.servlets.IWebadminServlet" project="core" 
     file="/core/src/main/java/eu/sqooss/impl/service/webadmin/servlets/IWebadminServlet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1205" y="959"/>    
+    <position height="-1" width="-1" x="1203" y="1009"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="false" static="true"/>      
@@ -72,7 +72,7 @@
   <class id="8" language="java" name="eu.sqooss.impl.service.webadmin.servlets.StaticResourceServlet" project="core" 
     file="/core/src/main/java/eu/sqooss/impl/service/webadmin/servlets/StaticResourceServlet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1789" y="716"/>    
+    <position height="-1" width="-1" x="1671" y="790"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="false" static="true"/>      
@@ -91,7 +91,7 @@
   </class>  
   <interface id="10" language="java" name="eu.sqooss.service.webadmin.WebadminService" project="core" 
     file="/core/src/main/java/eu/sqooss/service/webadmin/WebadminService.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1878" y="951"/>    
+    <position height="-1" width="-1" x="1680" y="1171"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="false" static="true"/>      
@@ -111,7 +111,7 @@
   <class id="12" language="java" name="javax.servlet.http.HttpServlet" project="core" 
     file="C:/Users/David/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar" binary="true" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1515" y="682"/>    
+    <position height="-1" width="-1" x="1667" y="602"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -121,7 +121,7 @@
   <interface id="13" language="java" name="javax.servlet.Servlet" project="core" 
     file="C:/Users/David/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar" binary="true" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1206" y="1074"/>    
+    <position height="-1" width="-1" x="1208" y="1122"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -130,7 +130,7 @@
   </interface>  
   <interface id="14" language="java" name="eu.sqooss.service.db.DBService" project="core" 
     file="/core/src/main/java/eu/sqooss/service/db/DBService.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1205" y="314"/>    
+    <position height="-1" width="-1" x="1205" y="320"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="false" static="true"/>      
@@ -205,11 +205,11 @@
   </class>  
   <interface id="22" language="java" name="eu.sqooss.service.logging.Logger" project="core" 
     file="/core/src/main/java/eu/sqooss/service/logging/Logger.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1383" y="255"/>    
+    <position height="-1" width="-1" x="1383" y="321"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
-      <attributes public="true" package="true" protected="true" private="false" static="false"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <attributes public="false" package="true" protected="true" private="false" static="false"/>      
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
   <interface id="23" language="java" name="eu.sqooss.service.logging.LogManager" project="core" 
@@ -230,167 +230,167 @@
       <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <realization id="25">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <generalization id="26">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
-  <association id="27">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="28" name="sobjSched"/>      
-      <multiplicity id="29" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="30">    
-    <bendpoint x="934" y="388"/>    
-    <bendpoint x="932" y="594"/>    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
-  <dependency id="31">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <realization id="32">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <association id="33">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="34" name="sobjAdminService"/>      
-      <multiplicity id="35" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="36">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="37" name="sobjSched"/>      
-      <multiplicity id="38" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="39">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="10"/>  
-  </realization>  
-  <association id="40">    
+  <association id="25">    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="41" name="sobjPA"/>      
-      <multiplicity id="42" minimum="0" maximum="1"/>    
+      <attribute id="26" name="sobjPA"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="17" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="43">    
-    <bendpoint x="930" y="914"/>    
-    <bendpoint x="936" y="594"/>    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="4"/>  
+  <generalization id="28">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="12"/>  
   </generalization>  
-  <dependency id="44">    
+  <dependency id="29">    
     <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="TARGET" refId="8"/>  
   </dependency>  
-  <association id="45">    
+  <association id="30">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="46" name="sobjClusterNode"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
+      <attribute id="31" name="sobjUpdater"/>      
+      <multiplicity id="32" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="33">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <realization id="34">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <association id="35">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="36" name="sobjClusterNode"/>      
+      <multiplicity id="37" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="48">    
+  <association id="38">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="39" name="compMA"/>      
+      <multiplicity id="40" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="41">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="42" name="sobjDB"/>      
+      <multiplicity id="43" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="44">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <association id="45">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="46" name="ve"/>      
+      <multiplicity id="47" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="48">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <association id="49">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="50" name="sobjLogger"/>      
+      <multiplicity id="51" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="52">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="49" name="sobjSched"/>      
-      <multiplicity id="50" minimum="0" maximum="1"/>    
+      <attribute id="53" name="sobjAdminService"/>      
+      <multiplicity id="54" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="55">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="56" name="sobjLogManager"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="58">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="59">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <association id="60">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="61" name="sobjSched"/>      
+      <multiplicity id="62" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="51">    
+  <association id="63">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="64" name="sobjSched"/>      
+      <multiplicity id="65" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="66">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="67" name="sobjSched"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="69">    
     <bendpoint x="930" y="1274"/>    
     <bendpoint x="933" y="726"/>    
     <bendpoint x="932" y="596"/>    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
-  <association id="52">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="53" name="sobjUpdater"/>      
-      <multiplicity id="54" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="55">    
+  <realization id="70">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <generalization id="71">    
+    <bendpoint x="934" y="388"/>    
+    <bendpoint x="932" y="594"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <realization id="72">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <generalization id="73">    
+    <bendpoint x="930" y="914"/>    
+    <bendpoint x="936" y="594"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="74">    
     <bendpoint x="930" y="176"/>    
     <bendpoint x="932" y="596"/>    
     <end type="SOURCE" refId="21"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
-  <generalization id="56">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="12"/>  
-  </generalization>  
-  <association id="57">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="58" name="sobjLogger"/>      
-      <multiplicity id="59" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="60">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="61" name="sobjLogManager"/>      
-      <multiplicity id="62" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="63">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="12"/>  
-  </generalization>  
-  <generalization id="64">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <dependency id="65">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="8"/>  
-  </dependency>  
-  <association id="66">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="67" name="ve"/>      
-      <multiplicity id="68" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="69">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="70" name="compMA"/>      
-      <multiplicity id="71" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="72">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="73" name="sobjDB"/>      
-      <multiplicity id="74" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="false" static="false"/>    

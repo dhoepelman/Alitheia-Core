@@ -1,12 +1,13 @@
 package eu.sqooss.impl.service.webadmin;
 
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.service.logging.Logger;
 
+/**
+ * Implements a translation for the webadmin interface
+ */
 public enum Translation implements ITranslation {
 	EN(Locale.ENGLISH),
 	DE(Locale.GERMAN);

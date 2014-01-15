@@ -1,9 +1,6 @@
 package eu.sqooss.impl.service.webadmin.servlets;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +16,11 @@ import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.servlets.exceptions.PageNotFoundException;
 import eu.sqooss.service.logging.LogManager;
 
+/**
+ * This servlet shows the alitheia logs
+ */
+@SuppressWarnings("serial")
+// TODO: Alter this servlet so every log can be completely viewed, not just the recent log entries
 public class LogsServlet extends AbstractWebadminServlet {
 
 	private static final String ROOT_PATH = "/logs";

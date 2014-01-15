@@ -7,18 +7,20 @@ import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 import com.google.common.collect.ImmutableMap;
 
-
+/**
+ * This servlet serves static resources like images or CSS files
+ * Because it owns the root path "/" it is also responsible for forwarding to the default page
+ */
+@SuppressWarnings("serial")
 public class StaticResourceServlet extends HttpServlet {
 
 	private final String default_page;
 	private static final String resourceLocation = "/webadmin/statics";
-	
+
 	private final Map<String, ResourceFile> staticContentMap =
 			new ImmutableMap.Builder<String, ResourceFile>()
 			.put("/screen.css", new ResourceFile(resourceLocation + "/screen.css", "text/css"))
@@ -70,12 +72,6 @@ public class StaticResourceServlet extends HttpServlet {
 	 * Sends a resource (stored in the jar file) as a response. The mime-type
 	 * is set to @p mimeType . The @p path to the resource should start
 	 * with a / .
-	 *
-	 * Test cases:
-	 *   - null mimetype, null path, bad path, relative path, path not found,
-	 *   - null response
-	 *
-	 * TODO: How to simulate conditions that will cause IOException
 	 */
 	protected void sendResource(HttpServletResponse response, String resource, String contentType)
 			throws ServletException, IOException {

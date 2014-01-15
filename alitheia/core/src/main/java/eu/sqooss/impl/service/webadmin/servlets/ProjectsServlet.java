@@ -28,6 +28,13 @@ import eu.sqooss.service.scheduler.SchedulerException;
 import eu.sqooss.service.updater.UpdaterService;
 import eu.sqooss.service.updater.UpdaterService.UpdaterStage;
 
+/**
+ * This servlet is responsible for projects.
+ * It provides pages to see the list of all projects or a single project.
+ * It provides forms and actions to add, edit or delete projects.
+ * It also provides actions to synchronize project metrics and run updaters
+ */
+@SuppressWarnings("serial")
 public class ProjectsServlet extends AbstractWebadminServlet {
 
 	private static final String ROOT_PATH = "/projects";
@@ -158,10 +165,10 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 		sobjAdminService.execute(aa);
 
 		// Print result
-        if (aa.hasErrors())
-            return makeErrorMsg(vc, errorMapToString(aa.errors()));
-        else
-            return makeSuccessMsg(vc, resultMapToString(aa.results()));
+		if (aa.hasErrors())
+			return makeErrorMsg(vc, errorMapToString(aa.errors()));
+		else
+			return makeSuccessMsg(vc, resultMapToString(aa.results()));
 	}
 
 	private Template deleteProject(HttpServletRequest req, VelocityContext vc) {
@@ -202,11 +209,11 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 		aa.addArg("updater", req.getParameter("reqUpd"));
 		sobjAdminService.execute(aa);
 
-        // Print result
-        if (aa.hasErrors())
-            return makeErrorMsg(vc, errorMapToString(aa.errors()));
-        else
-            return makeSuccessMsg(vc, resultMapToString(aa.results()));
+		// Print result
+		if (aa.hasErrors())
+			return makeErrorMsg(vc, errorMapToString(aa.errors()));
+		else
+			return makeSuccessMsg(vc, resultMapToString(aa.results()));
 	}
 
 	private Template triggerAllUpdate(HttpServletRequest req,
@@ -226,7 +233,7 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 
 	private Template triggerAllUpdateNode(HttpServletRequest req, VelocityContext vc) {
 
-	    Set<StoredProject> projectList = ClusterNode.thisNode().getProjects();
+		Set<StoredProject> projectList = ClusterNode.thisNode().getProjects();
 		boolean hasErrors = false;
 
 		if (projectList == null || projectList.isEmpty())
@@ -313,31 +320,30 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 
 		return t;
 	}
-	
+
 	private StoredProject getSelectedProject(HttpServletRequest req) {
-	       // Set selected project
-        String projectId = req.getParameter("REQ_PAR_PROJECT_ID");
-        if (projectId == null || projectId.equals("")) {
-            return null;
-        } else {
-            return sobjDB.findObjectById(StoredProject.class, fromString(projectId));
-        }
+		// Set selected project
+		String projectId = req.getParameter("REQ_PAR_PROJECT_ID");
+		if (projectId == null || projectId.equals(""))
+			return null;
+		else
+			return sobjDB.findObjectById(StoredProject.class, fromString(projectId));
 	}
-	
+
 	private String errorMapToString(Map<String, Object> map) {
-	    String string = "";
-	    for (Map.Entry<String, Object> entry : map.entrySet()) {
-	        string += entry.getKey() + ": " + entry.getValue().toString() + "<br />\n";
-	    }
-	    return string;
+		String string = "";
+		for (Map.Entry<String, Object> entry : map.entrySet()) {
+			string += entry.getKey() + ": " + entry.getValue().toString() + "<br />\n";
+		}
+		return string;
 	}
-	
+
 	private String resultMapToString(Map<String, Object> map) {
-        String string = "";
-        for (Object o : map.values()) {
-            string += o.toString() + "<br />\n"; 
-        }
-        return string;
+		String string = "";
+		for (Object o : map.values()) {
+			string += o.toString() + "<br />\n";
+		}
+		return string;
 	}
 
 }

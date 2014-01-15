@@ -15,6 +15,10 @@ import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.servlets.exceptions.PageNotFoundException;
 import eu.sqooss.service.scheduler.Scheduler;
 
+/**
+ * This servlet is responsible for jobs and provides pages to see the current jobs and failed jobs
+ */
+@SuppressWarnings("serial")
 public class JobsServlet extends AbstractWebadminServlet {
 
 	private static final String ROOT_PATH = "/jobs";
