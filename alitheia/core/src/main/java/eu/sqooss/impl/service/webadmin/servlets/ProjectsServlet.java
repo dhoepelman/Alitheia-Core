@@ -313,24 +313,6 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 
 		return t;
 	}
-
-	/**
-	 * Creates a <code>Long</code> object from the content of the given
-	 * <code>String</code> object, while handling internally any thrown
-	 * exception.
-	 * 
-	 * @param value the <code>String</code> value
-	 * 
-	 * @return The <code>Long</code> value.
-	 */
-	protected static Long fromString (String value) {
-		try {
-			return (new Long(value));
-		}
-		catch (NumberFormatException ex){
-			return null;
-		}
-	}
 	
 	private StoredProject getSelectedProject(HttpServletRequest req) {
 	       // Set selected project

@@ -56,39 +56,38 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 			throws ServletException, IOException {
 		preRender();
 
-		// Try-finally to ensure DB session commit
 		
-			/**
-			 * You might (rightly) consider making this a field
-			 * However: note that this might make for easier testing and debugging and prevent possible interference
-			 * Also: possible race conditions if a servlet 2 identical URL's are proccesed at the same time (I do not know if this really is a risk, but check this)
-			 */
-			VelocityContext vc = createDefaultVC(req);
-			Template t = null;
-			try {
-				t = render(req, vc);
-			}
-			// "Normal" exceptions
-			catch(PageNotFoundException e) {
-				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-				t = makeErrorMsg(vc, "Page not found", "/");
-			}
+		/**
+		 * You might (rightly) consider making this a field
+		 * However: note that this might make for easier testing and debugging and prevent possible interference
+		 * Also: possible race conditions if a servlet 2 identical URL's are proccesed at the same time (I do not know if this really is a risk, but check this)
+		 */
+		VelocityContext vc = createDefaultVC(req);
+		Template t = null;
+		try {
+			t = render(req, vc);
+		}
+		// "Normal" exceptions
+		catch(PageNotFoundException e) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			t = makeErrorMsg(vc, "Page not found", "/");
+		}
 
-			if(t == null) {
-				String request = req.getRequestURL() + (req.getQueryString()==null?"":"?" + req.getQueryString());
-				getLogger().warn("Servlet " + this.getClass().getSimpleName() + " failed rendering request " + request);
-				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				t = makeErrorMsg(vc, "Internal error while processing the request");
-				if(t == null)
-					throw new ServletException("Failed rendering the request and I couldn't even make an error message. Sorry about that.\nThis request caused me to break:\n" + HtmlEscapers.htmlEscaper().escape(request));
-			}
+		if(t == null) {
+			String request = req.getRequestURL() + (req.getQueryString()==null?"":"?" + req.getQueryString());
+			getLogger().warn("Servlet " + this.getClass().getSimpleName() + " failed rendering request " + request);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			t = makeErrorMsg(vc, "Internal error while processing the request");
+			if(t == null)
+				throw new ServletException("Failed rendering the request and I couldn't even make an error message. Sorry about that.\nThis request caused me to break:\n" + HtmlEscapers.htmlEscaper().escape(request));
+		}
 
-			if(t != null){
-				response.setContentType("text/html");
-				t.merge(vc, response.getWriter());
-			}
-		
-			postRender();
+		if(t != null){
+			response.setContentType("text/html");
+			t.merge(vc, response.getWriter());
+		}
+	
+		postRender();
 		
 	}
 
@@ -189,4 +188,22 @@ public abstract class AbstractWebadminServlet extends HttpServlet implements IWe
 	protected ITranslation getTranslation() {
 		return Translation.EN;
 	}
+	
+	   /**
+     * Creates a <code>Long</code> object from the content of the given
+     * <code>String</code> object, while handling internally any thrown
+     * exception.
+     * 
+     * @param value the <code>String</code> value
+     * 
+     * @return The <code>Long</code> value.
+     */
+    protected static Long fromString (String value) {
+        try {
+            return (new Long(value));
+        }
+        catch (NumberFormatException ex){
+            return null;
+        }
+    }
 }
