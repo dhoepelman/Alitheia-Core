@@ -67,6 +67,7 @@ public class PluginListTest extends AbstractWebadminServletTest{
 
 		// Do the fake request
 		testee.service(mockReq, mockResp);
+
 		// Get the output
 		String output = stripHTMLandWhitespace(getResponseOuput());
 

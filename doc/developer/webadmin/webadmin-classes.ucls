@@ -39,17 +39,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="eu.sqooss.impl.service.webadmin.servlets.OptionsServlet" project="core" 
-    file="/core/src/main/java/eu/sqooss/impl/service/webadmin/servlets/OptionsServlet.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="636" y="254"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="6" language="java" name="eu.sqooss.impl.service.webadmin.servlets.IWebadminServlet" project="core" 
+  <interface id="5" language="java" name="eu.sqooss.impl.service.webadmin.servlets.IWebadminServlet" project="core" 
     file="/core/src/main/java/eu/sqooss/impl/service/webadmin/servlets/IWebadminServlet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1465" y="819"/>    
@@ -59,7 +49,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="7" language="java" name="eu.sqooss.impl.service.webadmin.servlets.PluginsServlet" project="core" 
+  <class id="6" language="java" name="eu.sqooss.impl.service.webadmin.servlets.PluginsServlet" project="core" 
     file="/core/src/main/java/eu/sqooss/impl/service/webadmin/servlets/PluginsServlet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="636" y="637"/>    
@@ -69,7 +59,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="eu.sqooss.impl.service.webadmin.servlets.ProjectsServlet" project="core" 
+  <class id="7" language="java" name="eu.sqooss.impl.service.webadmin.servlets.ProjectsServlet" project="core" 
     file="/core/src/main/java/eu/sqooss/impl/service/webadmin/servlets/ProjectsServlet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="634" y="846"/>    
@@ -79,7 +69,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="eu.sqooss.impl.service.webadmin.servlets.StaticResourceServlet" project="core" 
+  <class id="8" language="java" name="eu.sqooss.impl.service.webadmin.servlets.StaticResourceServlet" project="core" 
     file="/core/src/main/java/eu/sqooss/impl/service/webadmin/servlets/StaticResourceServlet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1463" y="1045"/>    
@@ -89,7 +79,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="eu.sqooss.impl.service.webadmin.servlets.StatusServlet" project="core" 
+  <class id="9" language="java" name="eu.sqooss.impl.service.webadmin.servlets.StatusServlet" project="core" 
     file="/core/src/main/java/eu/sqooss/impl/service/webadmin/servlets/StatusServlet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="636" y="447"/>    
@@ -99,7 +89,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="11" language="java" name="eu.sqooss.service.webadmin.WebadminService" project="core" 
+  <interface id="10" language="java" name="eu.sqooss.service.webadmin.WebadminService" project="core" 
     file="/core/src/main/java/eu/sqooss/service/webadmin/WebadminService.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1140" y="1040"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -108,8 +98,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="12" language="java" name="org.apache.velocity.app.VelocityEngine" project="core" 
-    file="C:/Users/David/.m2/repository/org/apache/velocity/velocity/1.6/velocity-1.6.jar" binary="true" 
+  <class id="11" language="java" name="org.apache.velocity.app.VelocityEngine" project="core" 
+    file="C:/Users/David/.m2/repository/org/apache/velocity/velocity/1.7/velocity-1.7.jar" binary="true" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1057" y="326"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -118,7 +108,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="javax.servlet.http.HttpServlet" project="core" 
+  <class id="12" language="java" name="javax.servlet.http.HttpServlet" project="core" 
     file="C:/Users/David/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar" binary="true" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1463" y="706"/>    
@@ -128,7 +118,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <interface id="14" language="java" name="javax.servlet.Servlet" project="core" 
+  <interface id="13" language="java" name="javax.servlet.Servlet" project="core" 
     file="C:/Users/David/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar" binary="true" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1464" y="924"/>    
@@ -138,7 +128,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </interface>  
-  <interface id="15" language="java" name="eu.sqooss.service.db.DBService" project="core" 
+  <interface id="14" language="java" name="eu.sqooss.service.db.DBService" project="core" 
     file="/core/src/main/java/eu/sqooss/service/db/DBService.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1348" y="330"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -147,7 +137,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </interface>  
-  <interface id="16" language="java" name="eu.sqooss.service.scheduler.Scheduler" project="core" 
+  <interface id="15" language="java" name="eu.sqooss.service.scheduler.Scheduler" project="core" 
     file="/core/src/main/java/eu/sqooss/service/scheduler/Scheduler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="292" y="451"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -156,7 +146,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </interface>  
-  <interface id="17" language="java" name="eu.sqooss.service.metricactivator.MetricActivator" project="core" 
+  <interface id="16" language="java" name="eu.sqooss.service.metricactivator.MetricActivator" project="core" 
     file="/core/src/main/java/eu/sqooss/service/metricactivator/MetricActivator.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="294" y="755"/>    
@@ -166,7 +156,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </interface>  
-  <interface id="18" language="java" name="eu.sqooss.service.pa.PluginAdmin" project="core" 
+  <interface id="17" language="java" name="eu.sqooss.service.pa.PluginAdmin" project="core" 
     file="/core/src/main/java/eu/sqooss/service/pa/PluginAdmin.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="302" y="633"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -175,7 +165,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </interface>  
-  <interface id="19" language="java" name="eu.sqooss.service.cluster.ClusterNodeService" project="core" 
+  <interface id="18" language="java" name="eu.sqooss.service.cluster.ClusterNodeService" project="core" 
     file="/core/src/main/java/eu/sqooss/service/cluster/ClusterNodeService.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="330" y="969"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -184,7 +174,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </interface>  
-  <interface id="20" language="java" name="eu.sqooss.service.updater.UpdaterService" project="core" 
+  <interface id="19" language="java" name="eu.sqooss.service.updater.UpdaterService" project="core" 
     file="/core/src/main/java/eu/sqooss/service/updater/UpdaterService.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="303" y="849"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -193,7 +183,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </interface>  
-  <class id="21" language="java" name="eu.sqooss.impl.service.webadmin.servlets.JobsServlet" project="core" 
+  <class id="20" language="java" name="eu.sqooss.impl.service.webadmin.servlets.JobsServlet" project="core" 
     file="/core/src/main/java/eu/sqooss/impl/service/webadmin/servlets/JobsServlet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="635" y="1060"/>    
@@ -203,7 +193,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="eu.sqooss.impl.service.webadmin.servlets.LogsServlet" project="core" 
+  <class id="21" language="java" name="eu.sqooss.impl.service.webadmin.servlets.LogsServlet" project="core" 
     file="/core/src/main/java/eu/sqooss/impl/service/webadmin/servlets/LogsServlet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="632" y="1205"/>    
@@ -213,144 +203,130 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="23">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="24" name="sobjClusterNode"/>      
-      <multiplicity id="25" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="26">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="27" name="sobjUpdater"/>      
-      <multiplicity id="28" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="29">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <realization id="30">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <association id="31">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="32" name="sobjDB"/>      
-      <multiplicity id="33" minimum="0" maximum="1"/>    
+  <association id="22">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="23" name="sobjSched"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="34">    
-    <bendpoint x="826" y="446"/>    
-    <bendpoint x="828" y="512"/>    
-    <end type="SOURCE" refId="10"/>    
+  <dependency id="25">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="26">    
+    <bendpoint x="827" y="647"/>    
+    <bendpoint x="827" y="512"/>    
+    <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
-  <association id="35">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="36" name="compMA"/>      
-      <multiplicity id="37" minimum="0" maximum="1"/>    
+  <association id="27">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="28" name="sobjPA"/>      
+      <multiplicity id="29" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="17" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="38">    
-    <bendpoint x="828" y="256"/>    
-    <bendpoint x="826" y="512"/>    
-    <end type="SOURCE" refId="5"/>    
+  <generalization id="30">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <generalization id="31">    
+    <bendpoint x="1676" y="1046"/>    
+    <bendpoint x="1674" y="706"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <generalization id="32">    
+    <bendpoint x="826" y="446"/>    
+    <bendpoint x="828" y="512"/>    
+    <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
-  <dependency id="39">    
+  <association id="33">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="34" name="compMA"/>      
+      <multiplicity id="35" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="36">    
     <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="6"/>  
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <generalization id="37">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <association id="38">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="39" name="sobjDB"/>      
+      <multiplicity id="40" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="41">    
+    <bendpoint x="824" y="1197"/>    
+    <bendpoint x="825" y="514"/>    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <association id="42">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="43" name="sobjSched"/>      
+      <multiplicity id="44" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="45">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="8"/>  
   </dependency>  
-  <association id="40">    
+  <generalization id="46">    
+    <bendpoint x="826" y="1048"/>    
+    <bendpoint x="826" y="513"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <association id="47">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="41" name="sobjPA"/>      
-      <multiplicity id="42" minimum="0" maximum="1"/>    
+      <attribute id="48" name="sobjUpdater"/>      
+      <multiplicity id="49" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="51" name="sobjClusterNode"/>      
+      <multiplicity id="52" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="43">    
-    <bendpoint x="1676" y="1046"/>    
-    <bendpoint x="1674" y="706"/>    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <generalization id="44">    
-    <bendpoint x="827" y="647"/>    
-    <bendpoint x="827" y="512"/>    
+  <generalization id="53">    
+    <bendpoint x="828" y="846"/>    
+    <bendpoint x="826" y="512"/>    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
-  <generalization id="45">    
-    <bendpoint x="828" y="846"/>    
-    <bendpoint x="826" y="512"/>    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
-  <association id="46">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="47" name="compMA"/>      
-      <multiplicity id="48" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="49">    
-    <bendpoint x="826" y="1048"/>    
-    <bendpoint x="826" y="513"/>    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
-  <generalization id="50">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <association id="51">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="52" name="sobjSched"/>      
-      <multiplicity id="53" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="54">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="11"/>  
-  </realization>  
-  <association id="55">    
+  <association id="54">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="56" name="ve"/>      
-      <multiplicity id="57" minimum="0" maximum="1"/>    
+      <attribute id="55" name="ve"/>      
+      <multiplicity id="56" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
+    <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="58">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="59" name="sobjSched"/>      
-      <multiplicity id="60" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="61">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="14"/>  
-  </generalization>  
-  <generalization id="62">    
-    <bendpoint x="824" y="1197"/>    
-    <bendpoint x="825" y="514"/>    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
+  <realization id="57">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
