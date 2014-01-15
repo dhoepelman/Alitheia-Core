@@ -4,9 +4,15 @@
         <div id="contents">
           <div id="table">
             <h2>$tr.label("plugins_mngm")</h2>
-            <form id="pluginform" name="pluginform" method="post" action="/plugins/plugin/action?hash=$plugin.getHashcode()">
-            <input type="hidden" id="action" name="action" value="" />
+            <form id="pluginform" name="pluginform" method="post" action="/plugins/plugin/action">
+              <input type="hidden" id="action" name="action" value="" />
+              <input type="hidden" id="hash" name="hash" value="$plugin.getHashcode()" />
             </form>
+            <form id="propertyform" name="propertyform" method="post" action="/properties/editor">
+              <input type="hidden" id="hash" name="hash" value="$plugin.getHashcode()" />
+              <input type="hidden" id="propertyId" name="propertyId" value="" />
+            </form>
+            
               
               ## Display plugin info
               <fieldset>
@@ -63,7 +69,7 @@
 	                      #if ($metrics.isEmpty())
 		                      <tr>
 		                        <td colspan="4" class="noattr">
-		                          This plug-in does not support metrics."
+		                          This plug-in does not support metrics.
 		                        </td>
 		                      </tr>
 	                      #else
@@ -98,9 +104,9 @@
 		                      </tr>
 	                      #else
 		                      #foreach ($configProp in $configPropList)
-		                      <tr> 
-		                        <td class="trans" title="$configProp.getMsg()">
-		                          <img src="/edit.png" alt="[Edit]" />&nbsp;
+		                      <tr class="edit">
+		                        <td class="trans" title="$configProp.getMsg()" onClick="javascript:document.getElementById('propertyId').value='$configProp.getId()'; document.propertyform.submit();">
+		                          <a href="/properties/editor?propertyId=$configProp.getId()"><img src="/edit.png" alt="[Edit]" border="0" /></a>&nbsp;
 		                          $configProp.getName()
 		                        </td>
 		                        <td class="trans">
@@ -114,7 +120,7 @@
 	                      #end
 	                      <tr>
 	                        <td colspan="3">
-	                          <input type="button" class="install" style="width: 100px;" value="Add property" onclick="javascript:document.getElementById('reqParAction').value='actValReqAddProp';document.pluginform.submit();">
+	                          <input type="button" class="install" style="width: 100px;" value="Add property" onclick="javascript:window.location = '/properties/editor?hash=$plugin.getHashcode()'" />
 	                        </td>
 	                      </tr>
 	                    </tbody>

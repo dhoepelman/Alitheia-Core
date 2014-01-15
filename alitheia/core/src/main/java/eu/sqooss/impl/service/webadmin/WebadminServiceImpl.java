@@ -179,6 +179,7 @@ public class WebadminServiceImpl implements WebadminService {
 		servlets.add(new JobsServlet(ve, core));
 		servlets.add(new LogsServlet(ve, core));
 		servlets.add(new PluginsServlet(ve, core));
+		servlets.add(new PropertiesServlet(ve, core));
 		servlets.add(new ProjectsServlet(ve, core));
 		servlets.add(new StatusServlet(ve, core));
 		servlets.add(new SystemServlet(ve, core, bc));

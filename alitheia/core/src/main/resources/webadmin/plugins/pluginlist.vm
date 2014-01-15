@@ -33,16 +33,17 @@
 	                
 	                ## Show properties if needed
 	                #if ($showProperties)
-		                #foreach ($property in $Plugin.getPluginByHashcode($p.getHashcode()).getConfigurations())
-		                <tr>
-	                      <td>&nbsp;</td>
-	                      <td colspan="3" class="attr">
-	                        <b>Property:</b> " + $property.getName() &nbsp;
-	                        <b>Type:</b> " + $property.getType() &nbsp;
-	                        <b>Value:</b> " + $property.getValue()
-	                      </td>
-	                    </tr>
-		                #end
+	                  #set ($properties = $configurations.get($p.getHashcode()))
+		              #foreach ($property in $properties)
+		              <tr>
+	                    <td>&nbsp;</td>
+	                    <td colspan="3" class="attr">
+	                      <b>Property:</b> " + $property.getName() &nbsp;
+	                      <b>Type:</b> " + $property.getType() &nbsp;
+	                      <b>Value:</b> " + $property.getValue()
+	                    </td>
+	                  </tr>
+		              #end
 	                #end
 	                
 	                ## Show activators if needed

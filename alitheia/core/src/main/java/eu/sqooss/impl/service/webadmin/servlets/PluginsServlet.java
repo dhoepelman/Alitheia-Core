@@ -12,7 +12,9 @@ import com.google.common.collect.ImmutableMap;
 
 import eu.sqooss.core.AlitheiaCore;
 import eu.sqooss.impl.service.webadmin.servlets.exceptions.PageNotFoundException;
+import eu.sqooss.service.db.Metric;
 import eu.sqooss.service.db.Plugin;
+import eu.sqooss.service.db.PluginConfiguration;
 import eu.sqooss.service.metricactivator.MetricActivator;
 import eu.sqooss.service.pa.PluginAdmin;
 import eu.sqooss.service.pa.PluginInfo;
@@ -95,9 +97,23 @@ public class PluginsServlet extends AbstractWebadminServlet {
 			getLogger().warn(
 					"Could not get plugin information from PluginAdmin");
 		}
+		
+		// Properties for each plugin (failsafe)
+        Map<String, Set<PluginConfiguration>> configurations = new HashMap<String, Set<PluginConfiguration>>();
+        for (PluginInfo p : pluginList) {
+            try {
+                Set<PluginConfiguration> c = p.getConfiguration();
+                if (c != null && !c.isEmpty())
+                    configurations.put(p.getHashcode(), c);
+                else
+                    configurations.put(p.getHashcode(), new HashSet<PluginConfiguration>());
+            } catch (Exception e) {
+                configurations.put(p.getHashcode(), new HashSet<PluginConfiguration>());
+            }
+        }
+        vc.put("configurations", configurations);
 
 		vc.put("pluginList", pluginList);
-		vc.put("Plugin", Plugin.class);
 
 		return t;
 	}
@@ -116,10 +132,19 @@ public class PluginsServlet extends AbstractWebadminServlet {
 		// Provide the variables to the template
 		vc.put("plugin", plugin);
 		if (plugin.isInstalled()) {
-			vc.put("metrics", sobjPA.getPlugin(plugin).getAllSupportedMetrics());
-			vc.put("configPropList",
-					Plugin.getPluginByHashcode(plugin.getHashcode())
-					.getConfigurations());
+		    // Add metrics
+		    vc.put("metrics", sobjPA.getPlugin(plugin).getAllSupportedMetrics());
+		    
+			// Add properties (failsafe loading)
+			Set<PluginConfiguration> configurations = new HashSet<PluginConfiguration>();
+			try {
+    			configurations = plugin.getConfiguration();
+    			if (configurations == null || configurations.isEmpty())
+    			    configurations = new HashSet<PluginConfiguration>();
+			} catch (Exception e) {
+			    configurations = new HashSet<PluginConfiguration>();
+			}
+			vc.put("configPropList", configurations);
 		}
 
 		return t;
