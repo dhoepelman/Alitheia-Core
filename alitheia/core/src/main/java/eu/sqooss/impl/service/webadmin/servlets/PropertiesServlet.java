@@ -22,11 +22,11 @@ public class PropertiesServlet extends AbstractWebadminServlet {
     private static final String paramPluginHash = "hash";
     
     private static final String ROOT_PATH = "/properties";
-    private static final String PAGE_EDITOR = ROOT_PATH + "/editor";
+    private static final String PAGE_EDITOR = ROOT_PATH;
     private static final String ACTION_PROPERTIES = PAGE_EDITOR + "/action";
     
     private static final Map<String, String> templates = new ImmutableMap.Builder<String, String>()
-            .put(PAGE_EDITOR, "/properties/editor.vm").build();
+            .put(PAGE_EDITOR, "/properties.vm").build();
 
     private enum PROPERTIES_ACTIONS {
         CREATE, UPDATE, REMOVE, INVALID;

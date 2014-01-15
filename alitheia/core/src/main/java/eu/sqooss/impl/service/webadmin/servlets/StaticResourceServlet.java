@@ -17,24 +17,25 @@ import com.google.common.collect.ImmutableMap;
 public class StaticResourceServlet extends HttpServlet {
 
 	private final String default_page;
-
+	private static final String resourceLocation = "/webadmin/statics";
+	
 	private final Map<String, ResourceFile> staticContentMap =
 			new ImmutableMap.Builder<String, ResourceFile>()
-			.put("/screen.css", new ResourceFile("/screen.css", "text/css"))
-			.put("/webadmin.css",new ResourceFile("/webadmin.css", "text/css"))
-			.put("/sqo-oss.png",new ResourceFile("/sqo-oss.png", "image/png"))
-			.put("/queue.png",new ResourceFile("/queue.png", "image/png"))
-			.put("/uptime.png",new ResourceFile("/uptime.png", "image/png"))
-			.put("/greyBack.jpg",new ResourceFile("/greyBack.jpg", "image/x-jpg"))
-			.put("/projects.png",new ResourceFile("/projects.png", "image/png"))
-			.put("/logs.png",new ResourceFile("/logs.png", "image/png"))
-			.put("/metrics.png",new ResourceFile("/metrics.png", "image/png"))
-			.put("/gear.png",new ResourceFile("/gear.png", "image/png"))
-			.put("/header-repeat.png",new ResourceFile("/header-repeat.png", "image/png"))
-			.put("/add_user.png",new ResourceFile("/add_user.png", "image/png"))
-			.put("/edit.png",new ResourceFile("/edit.png", "image/png"))
-			.put("/jobs.png",new ResourceFile("/jobs.png", "image/png"))
-			.put("/rules.png",new ResourceFile("/rules.png", "image/png"))
+			.put("/screen.css", new ResourceFile(resourceLocation + "/screen.css", "text/css"))
+			.put("/webadmin.css", new ResourceFile(resourceLocation + "/webadmin.css", "text/css"))
+			.put("/sqo-oss.png", new ResourceFile(resourceLocation + "/sqo-oss.png", "image/png"))
+			.put("/queue.png", new ResourceFile(resourceLocation + "/queue.png", "image/png"))
+			.put("/uptime.png", new ResourceFile(resourceLocation + "/uptime.png", "image/png"))
+			.put("/greyBack.jpg", new ResourceFile(resourceLocation + "/greyBack.jpg", "image/x-jpg"))
+			.put("/projects.png", new ResourceFile(resourceLocation + "/projects.png", "image/png"))
+			.put("/logs.png", new ResourceFile(resourceLocation + "/logs.png", "image/png"))
+			.put("/metrics.png", new ResourceFile(resourceLocation + "/metrics.png", "image/png"))
+			.put("/gear.png", new ResourceFile(resourceLocation + "/gear.png", "image/png"))
+			.put("/header-repeat.png", new ResourceFile(resourceLocation + "/header-repeat.png", "image/png"))
+			.put("/add_user.png", new ResourceFile(resourceLocation + "/add_user.png", "image/png"))
+			.put("/edit.png", new ResourceFile(resourceLocation + "/edit.png", "image/png"))
+			.put("/jobs.png", new ResourceFile(resourceLocation + "/jobs.png", "image/png"))
+			.put("/rules.png", new ResourceFile(resourceLocation + "/rules.png", "image/png"))
 			.build();
 
 	public StaticResourceServlet(String default_page) {

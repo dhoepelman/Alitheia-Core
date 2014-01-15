@@ -8,7 +8,7 @@
               <input type="hidden" id="action" name="action" value="" />
               <input type="hidden" id="hash" name="hash" value="$plugin.getHashcode()" />
             </form>
-            <form id="propertyform" name="propertyform" method="post" action="/properties/editor">
+            <form id="propertyform" name="propertyform" method="post" action="/properties">
               <input type="hidden" id="hash" name="hash" value="$plugin.getHashcode()" />
               <input type="hidden" id="propertyId" name="propertyId" value="" />
             </form>
@@ -106,7 +106,7 @@
 		                      #foreach ($configProp in $configPropList)
 		                      <tr class="edit">
 		                        <td class="trans" title="$configProp.getMsg()" onClick="javascript:document.getElementById('propertyId').value='$configProp.getId()'; document.propertyform.submit();">
-		                          <a href="/properties/editor?propertyId=$configProp.getId()"><img src="/edit.png" alt="[Edit]" border="0" /></a>&nbsp;
+		                          <a href="/properties?propertyId=$configProp.getId()"><img src="/edit.png" alt="[Edit]" border="0" /></a>&nbsp;
 		                          $configProp.getName()
 		                        </td>
 		                        <td class="trans">
@@ -120,7 +120,7 @@
 	                      #end
 	                      <tr>
 	                        <td colspan="3">
-	                          <input type="button" class="install" style="width: 100px;" value="Add property" onclick="javascript:window.location = '/properties/editor?hash=$plugin.getHashcode()'" />
+	                          <input type="button" class="install" style="width: 100px;" value="Add property" onclick="javascript:window.location = '/properties?hash=$plugin.getHashcode()'" />
 	                        </td>
 	                      </tr>
 	                    </tbody>

@@ -40,10 +40,10 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 	private static final String ACTION_PROJECT = ROOT_PATH + "/action";
 
 	private static final Map<String, String> templates = new ImmutableMap.Builder<String, String>()
-			.put(PAGE_PROJECTSLIST, "/projectlist.vm")
-			.put(PAGE_ADDPROJECT, "/addproject.vm")
-			.put(PAGE_DELETEPROJECT, "/deleteproject.vm")
-			.put(PAGE_VIEWPROJECT, "/project.vm")
+			.put(PAGE_PROJECTSLIST, "/projects/projectlist.vm")
+			.put(PAGE_ADDPROJECT, "/projects/add.vm")
+			.put(PAGE_DELETEPROJECT, "/projects/delete.vm")
+			.put(PAGE_VIEWPROJECT, "/projects/project.vm")
 			.build();
 
 	/**

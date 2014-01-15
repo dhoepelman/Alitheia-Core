@@ -4,7 +4,7 @@
         <div id="contents">
           <h2>$tr.label("plugins_mngm")</h2>
           <div id="table">  
-            <form id="property" name="property" method="post" action="/properties/editor/action">
+            <form id="property" name="property" method="post" action="/properties/action">
               <fieldset>
                 <legend>Create property for $plugin.getPluginName()</legend>
                 
