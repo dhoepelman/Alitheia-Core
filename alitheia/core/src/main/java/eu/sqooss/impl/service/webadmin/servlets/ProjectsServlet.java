@@ -11,7 +11,6 @@ import org.apache.velocity.app.VelocityEngine;
 import com.google.common.collect.ImmutableMap;
 
 import eu.sqooss.core.AlitheiaCore;
-import eu.sqooss.impl.service.webadmin.ProjectDeleteJob;
 import eu.sqooss.impl.service.webadmin.servlets.exceptions.PageNotFoundException;
 import eu.sqooss.service.abstractmetric.AlitheiaPlugin;
 import eu.sqooss.service.admin.AdminAction;
@@ -23,8 +22,7 @@ import eu.sqooss.service.db.*;
 import eu.sqooss.service.metricactivator.MetricActivator;
 import eu.sqooss.service.pa.PluginAdmin;
 import eu.sqooss.service.pa.PluginInfo;
-import eu.sqooss.service.scheduler.Scheduler;
-import eu.sqooss.service.scheduler.SchedulerException;
+import eu.sqooss.service.scheduler.*;
 import eu.sqooss.service.updater.UpdaterService;
 import eu.sqooss.service.updater.UpdaterService.UpdaterStage;
 
@@ -344,6 +342,89 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 			string += o.toString() + "<br />\n";
 		}
 		return string;
+	}
+
+	/**
+	 * A job to delete a project
+	 */
+	// There are some problems with this class, but iIt was not changed when the webadmin was refactored
+	private class ProjectDeleteJob extends Job {
+
+		private StoredProject sp;
+		private DBService dbs;
+		private PluginAdmin pa;
+
+		public ProjectDeleteJob(DBService dbs, PluginAdmin pa, StoredProject sp) {
+			this.dbs = dbs;
+			this.pa = pa;
+			this.sp = sp;
+		}
+
+		@Override
+		public long priority() {
+			return 0xff;
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		protected void run() throws Exception {
+			if (!dbs.isDBSessionActive()) {
+				dbs.startDBSession();
+			}
+
+			sp = dbs.attachObjectToDBSession(sp);
+			// Delete any associated invocation rules first
+			HashMap<String, Object> properties = new HashMap<String, Object>();
+			properties.put("project", sp);
+
+			//Cleanup plugin results
+			List<Plugin> ps = (List<Plugin>) dbs.doHQL("from Plugin");
+
+			for (Plugin p : ps ) {
+				AlitheiaPlugin ap = pa.getPlugin(pa.getPluginInfo(p.getHashcode()));
+				if (ap == null) {
+					//logger.warn("Plugin with hashcode: "+ p.getHashcode() +
+					//		" not installed");
+					continue;
+				}
+
+				ap.cleanup(sp);
+			}
+
+			boolean success = true;
+
+			// Delete project version's parents.
+			List<ProjectVersion> versions = sp.getProjectVersions();
+
+			for (ProjectVersion pv : versions) {
+				/* Set<ProjectVersionParent> parents = pv.getParents();
+	            for (ProjectVersionParent pvp : parents) {
+
+	            }*/
+				pv.getParents().clear();
+			}
+
+			//Delete the project's config options
+			List<StoredProjectConfig> confParams = StoredProjectConfig.fromProject(sp);
+			if (!confParams.isEmpty()) {
+				success &= dbs.deleteRecords(confParams);
+			}
+
+			// Delete the selected project
+			success &= dbs.deleteRecord(sp);
+
+			if (success) {
+				dbs.commitDBSession();
+			} else {
+				dbs.rollbackDBSession();
+			}
+
+		}
+
+		@Override
+		public String toString() {
+			return "ProjectDeleteJob - Project:{" + sp +"}";
+		}
 	}
 
 }
