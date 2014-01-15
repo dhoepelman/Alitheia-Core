@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.4" icons="true" automaticImage="PNG">  
+  <object id="1" language="java" name="org.osgi.service.http.HttpService" project="core" 
+    file="C:/Users/David/.m2/repository/org/osgi/org.osgi.compendium/4.2.0/org.osgi.compendium-4.2.0.jar" binary="true" 
+    label="httpService" type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="416" y="0"/>    
+    <execution id="2">      
+      <position height="507" width="117" x="5" y="164"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="eu.sqooss.impl.service.webadmin.AdminServlet" project="core" 
+    file="/core/src/main/java/eu/sqooss/impl/service/webadmin/AdminServlet.java" binary="false" label="adminServlet" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="439" y="0"/>    
+    <execution id="4">      
+      <position height="459" width="196" x="126" y="188"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="377" width="0" x="0" y="246"/>    
+    </execution>    
+    <execution id="9">      
+      <position height="299" width="0" x="0" y="300"/>    
+    </execution>    
+    <execution id="13">      
+      <position height="24" width="0" x="0" y="427"/>    
+    </execution>  
+  </object>  
+  <object id="18" language="java" name="org.apache.velocity.app.VelocityEngine" project="core" 
+    file="C:/Users/David/.m2/repository/org/apache/velocity/velocity/1.7/velocity-1.7.jar" binary="true" label="ve" 
+    type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="11">      
+      <position height="24" width="0" x="0" y="336"/>    
+    </execution>  
+  </object>  
+  <object id="19" language="java" name="javax.servlet.http.HttpServletResponse" project="core" 
+    file="C:/Users/David/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar" binary="true" 
+    label="httpServletResponse" type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="1206" y="0"/>    
+    <execution id="15">      
+      <position height="24" width="177" x="579" y="466"/>    
+    </execution>  
+  </object>  
+  <object id="20" language="java" name="org.apache.velocity.Template" project="core" 
+    file="C:/Users/David/.m2/repository/org/apache/velocity/velocity/1.7/velocity-1.7.jar" binary="true" label="t" 
+    type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="17">      
+      <position height="72" width="0" x="0" y="503"/>    
+    </execution>  
+  </object>  
+  <object id="23" language="java" name="eu.sqooss.impl.service.webadmin.PluginsView" project="core" 
+    file="/core/src/main/java/eu/sqooss/impl/service/webadmin/PluginsView.java" binary="false" label="&lt;static&gt;" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="875" y="0"/>    
+    <execution id="22">      
+      <position height="24" width="196" x="760" y="527"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="service(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse):void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="doGet(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse):void">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" 
+    operation="sendPage(javax.servlet.http.HttpServletResponse,javax.servlet.http.HttpServletRequest,java.lang.String):void" 
+    x="235" y="256">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="getTemplate(java.lang.String):org.apache.velocity.Template">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>  
+  <message id="12" operation="createSubstitutions(javax.servlet.http.HttpServletRequest):void">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="14" operation="getWriter():java.io.PrintWriter">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="15"/>  
+  </message>  
+  <message id="16" operation="merge(org.apache.velocity.context.Context,java.io.Writer):void">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>  
+  <message id="21" operation="render(javax.servlet.http.HttpServletRequest):java.lang.String">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>
+</sequence-diagram>
