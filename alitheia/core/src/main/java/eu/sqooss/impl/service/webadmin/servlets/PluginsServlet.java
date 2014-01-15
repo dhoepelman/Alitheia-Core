@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.hibernate.LazyInitializationException;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -98,6 +99,13 @@ public class PluginsServlet extends AbstractWebadminServlet {
 					"Could not get plugin information from PluginAdmin");
 		}
 		
+        // FIXME: The Set<PluginConfiguration> in a PluginInfo initializes not properly
+        // and gives LazyInitializationExceptions when invoking methods on this object.
+        // The set works properly when adding a new PluginConfiguration via the webadmin 
+        // form. (why?). Now the PluginConfiguration are loaded on a safe way to prevent
+        // the displaying of errors, but this means that the PluginConfiguration are 
+        // not showed before the Set is initialized on a proper way.
+		
 		// Properties for each plugin (failsafe)
         Map<String, Set<PluginConfiguration>> configurations = new HashMap<String, Set<PluginConfiguration>>();
         for (PluginInfo p : pluginList) {
@@ -107,12 +115,14 @@ public class PluginsServlet extends AbstractWebadminServlet {
                     configurations.put(p.getHashcode(), c);
                 else
                     configurations.put(p.getHashcode(), new HashSet<PluginConfiguration>());
-            } catch (Exception e) {
+            } catch (LazyInitializationException e) {
                 configurations.put(p.getHashcode(), new HashSet<PluginConfiguration>());
+                getLogger().warn("LazyInitializationException while loading plugin configurations: " + e.getMessage());
             }
         }
         vc.put("configurations", configurations);
 
+        // Put plugin list
 		vc.put("pluginList", pluginList);
 
 		return t;
@@ -135,14 +145,22 @@ public class PluginsServlet extends AbstractWebadminServlet {
 		    // Add metrics
 		    vc.put("metrics", sobjPA.getPlugin(plugin).getAllSupportedMetrics());
 		    
+		    // FIXME: The Set<PluginConfiguration> in a PluginInfo initializes not properly
+	        // and gives LazyInitializationExceptions when invoking methods on this object.
+	        // The set works properly when adding a new PluginConfiguration via the webadmin 
+	        // form. (why?). Now the PluginConfiguration are loaded on a safe way to prevent
+	        // the displaying of errors, but this means that the PluginConfiguration are 
+	        // not showed before the Set is initialized on a proper way.
+		    
 			// Add properties (failsafe loading)
 			Set<PluginConfiguration> configurations = new HashSet<PluginConfiguration>();
 			try {
     			configurations = plugin.getConfiguration();
     			if (configurations == null || configurations.isEmpty())
     			    configurations = new HashSet<PluginConfiguration>();
-			} catch (Exception e) {
+			} catch (LazyInitializationException e) {
 			    configurations = new HashSet<PluginConfiguration>();
+			    getLogger().warn("LazyInitializationException while loading plugin configurations: " + e.getMessage());
 			}
 			vc.put("configPropList", configurations);
 		}

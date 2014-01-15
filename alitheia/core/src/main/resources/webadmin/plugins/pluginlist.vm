@@ -38,9 +38,9 @@
 		              <tr>
 	                    <td>&nbsp;</td>
 	                    <td colspan="3" class="attr">
-	                      <b>Property:</b> " + $property.getName() &nbsp;
-	                      <b>Type:</b> " + $property.getType() &nbsp;
-	                      <b>Value:</b> " + $property.getValue()
+	                      <b>Property:</b> $property.getName() &nbsp;
+	                      <b>Type:</b> $property.getType() &nbsp;
+	                      <b>Value:</b> $property.getValue()
 	                    </td>
 	                  </tr>
 		              #end

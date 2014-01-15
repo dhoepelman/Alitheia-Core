@@ -50,7 +50,7 @@ public class PropertiesServlet extends AbstractWebadminServlet {
         // Switch over the URI
         switch(req.getRequestURI()) {
         case PAGE_EDITOR:
-            return PageAdd(req, vc);
+            return PageEditor(req, vc);
         case ACTION_PROPERTIES:
             // Convert the action argument to the enum and switch on it
             PROPERTIES_ACTIONS action;
@@ -75,7 +75,7 @@ public class PropertiesServlet extends AbstractWebadminServlet {
         }
     }
 
-    private Template PageAdd(HttpServletRequest req, VelocityContext vc) {
+    private Template PageEditor(HttpServletRequest req, VelocityContext vc) {
         // Load template
         Template t = loadTemplate(templates.get(PAGE_EDITOR));
         
@@ -87,7 +87,7 @@ public class PropertiesServlet extends AbstractWebadminServlet {
         vc.put("plugin", plugin);
         
         // Put the correct property
-        PluginConfiguration property = getProperty(plugin, req);
+        PluginConfiguration property = getPluginConfiguration(plugin, req);
         vc.put("property", property);
         
         // Put whether the editor is in update mode
@@ -142,7 +142,7 @@ public class PropertiesServlet extends AbstractWebadminServlet {
                         "No plugin hash given or plugin does not exist");
             
             // Get the correct property
-            PluginConfiguration property = getProperty(plugin, req);
+            PluginConfiguration property = getPluginConfiguration(plugin, req);
             
             // Try to update the property
             if (plugin.updateConfigEntry(
@@ -215,15 +215,15 @@ public class PropertiesServlet extends AbstractWebadminServlet {
         return plugin;
     }
     
-    private PluginConfiguration getProperty(PluginInfo plugin, HttpServletRequest req) {
-        Long propertyId = fromString(req.getParameter("propertyId"));
-        if (propertyId == null)
+    private PluginConfiguration getPluginConfiguration(PluginInfo plugin, HttpServletRequest req) {
+        try {
+            return getPluginConfigurationFromId(plugin, Long.parseLong(req.getParameter("propertyId")));
+        } catch (NumberFormatException ex) {
             return null;
-        else
-            return getPropertyFromId(plugin, propertyId);
+        }
     }
     
-    private PluginConfiguration getPropertyFromId(PluginInfo plugin, Long id) {
+    private PluginConfiguration getPluginConfigurationFromId(PluginInfo plugin, Long id) {
         for (PluginConfiguration property : plugin.getConfiguration())
             if (property.getId() == id)
                 return property;
