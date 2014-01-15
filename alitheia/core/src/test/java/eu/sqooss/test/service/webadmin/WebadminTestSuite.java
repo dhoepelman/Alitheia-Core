@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import eu.sqooss.test.service.webadmin.jobs.JobsTest;
 import eu.sqooss.test.service.webadmin.misc.LogsTest;
 import eu.sqooss.test.service.webadmin.misc.StatusTest;
 import eu.sqooss.test.service.webadmin.misc.SystemTest;
@@ -17,7 +18,8 @@ import eu.sqooss.test.service.webadmin.plugins.PluginTest;
 	PluginListTest.class,
 	StatusTest.class,
 	SystemTest.class,
-	LogsTest.class
+	LogsTest.class,
+	JobsTest.class
 })
 public class WebadminTestSuite {
 

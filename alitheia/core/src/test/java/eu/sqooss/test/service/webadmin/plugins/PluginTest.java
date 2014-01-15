@@ -75,7 +75,7 @@ public class PluginTest extends AbstractWebadminServletTest {
 
 		testee.service(mockReq, mockResp);
 
-		String output = getResponseOuput();
+		String output = getResponseOutput();
 		assertTrue(output.contains("TestPlugin1"));
 		assertTrue(output.contains("MUMUMUMNemic"));
 	}

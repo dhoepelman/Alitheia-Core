@@ -60,7 +60,7 @@ public class JobsServlet extends AbstractWebadminServlet {
 
 		// Add scheduler stats
 		vc.put("scheduler", sobjSched.getSchedulerStats());
-
+		
 		return t;
 	}
 

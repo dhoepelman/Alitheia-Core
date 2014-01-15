@@ -59,7 +59,7 @@ public class LogsTest extends AbstractWebadminServletTest {
         testee.service(mockReq, mockResp);
 
         // Get the output
-        String output = stripHTMLandWhitespace(getResponseOuput());
+        String output = stripHTMLandWhitespace(getResponseOutput());
 
         // Check whether the entries occur in the output
         assertTrue(output.matches(".*fzoevtvtow.*byisqfovcq.*"));

@@ -86,7 +86,7 @@ public abstract class AbstractWebadminServletTest {
 	/**
 	 * Get the output of the mock http response
 	 */
-	protected String getResponseOuput() {
+	protected String getResponseOutput() {
 		//return responseOutput.getOutput();
 		return responseOutput.toString();
 	}

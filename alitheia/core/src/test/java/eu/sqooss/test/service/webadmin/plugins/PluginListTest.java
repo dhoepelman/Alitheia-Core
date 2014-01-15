@@ -69,7 +69,7 @@ public class PluginListTest extends AbstractWebadminServletTest{
 		testee.service(mockReq, mockResp);
 
 		// Get the output
-		String output = stripHTMLandWhitespace(getResponseOuput());
+		String output = stripHTMLandWhitespace(getResponseOutput());
 
 		// Verify that the 2 plugins are all contained correctly in the output
 		assertTrue(output.contains("InstalledTestPlugin1"));
@@ -103,7 +103,7 @@ public class PluginListTest extends AbstractWebadminServletTest{
 		// Do the fake request
 		testee.service(mockReq, mockResp);
 		// Get the output
-		String output = getResponseOuput();
+		String output = getResponseOutput();
 		System.out.println(output);
 		// Assert that all activators are in the output
 		for(Class<?> c : activators) {

@@ -42,8 +42,8 @@ public class StatusTest extends AbstractWebadminServletTest {
         testee = new StatusServlet(ve, mockAC);
     }
     
-    //TODO: Test the displaying of the uptime
-    //TODO: Test the displaying of the queue length
+    // Test the displaying of the uptime
+    // Test the displaying of the queue length
     @Test
     public void testDisplay() throws ServletException, IOException {
         when(mockReq.getRequestURI()).thenReturn("/status");
@@ -57,7 +57,7 @@ public class StatusTest extends AbstractWebadminServletTest {
         testee.service(mockReq, mockResp);
 
         // Get the output
-        String output = stripHTMLandWhitespace(getResponseOuput());
+        String output = stripHTMLandWhitespace(getResponseOutput());
 
         // Verify that the uptime is displayed
         // Warning: this fails if the test takes longer than a minute
@@ -70,10 +70,10 @@ public class StatusTest extends AbstractWebadminServletTest {
     }
     
     //TODO: Test the displaying of the executing jobs
-    //TODO: Test the displaying of the waiting jobs
-    //TODO: Test the displaying of the failed jobs
-    //TODO: Test the displaying of the total jobs
-    //TODO: Test the displaying of the threads
+    // Test the displaying of the waiting jobs
+    // Test the displaying of the failed jobs
+    // Test the displaying of the total jobs
+    // Test the displaying of the threads
     @Test
     public void testDisplayJobInformation() throws ServletException, IOException {
         when(mockReq.getRequestURI()).thenReturn("/status");
@@ -91,7 +91,7 @@ public class StatusTest extends AbstractWebadminServletTest {
         testee.service(mockReq, mockResp);
 
         // Get the output
-        String output = stripHTMLandWhitespace(getResponseOuput());
+        String output = stripHTMLandWhitespace(getResponseOutput());
         
         // Verify that the number are equal
         // Warning: this is always true when the number 751, 761, 771, 781 
