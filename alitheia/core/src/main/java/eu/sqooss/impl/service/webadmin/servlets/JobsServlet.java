@@ -12,6 +12,7 @@ import org.apache.velocity.app.VelocityEngine;
 import com.google.common.collect.ImmutableMap;
 
 import eu.sqooss.core.AlitheiaCore;
+import eu.sqooss.impl.service.webadmin.servlets.exceptions.PageNotFoundException;
 import eu.sqooss.service.scheduler.Scheduler;
 
 public class JobsServlet extends AbstractWebadminServlet {
@@ -37,7 +38,7 @@ public class JobsServlet extends AbstractWebadminServlet {
 	}
 
 	@Override
-	protected Template render(HttpServletRequest req, VelocityContext vc) {
+	protected Template render(HttpServletRequest req, VelocityContext vc) throws PageNotFoundException {
 		// Switch over the URI
 		switch(req.getRequestURI()) {
 		case PAGE_JOBS:
@@ -45,8 +46,7 @@ public class JobsServlet extends AbstractWebadminServlet {
 		case PAGE_FAILEDJOBS:
 			return PageFailedJobs(req, vc);
 		default:
-			getLogger().warn(this.getClass() + " was called with incorrect path " + req.getRequestURI());
-			return null;
+			throw new PageNotFoundException();
 		}
 	}
 
