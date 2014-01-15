@@ -24,6 +24,7 @@ import eu.sqooss.service.logging.LogManager;
 import eu.sqooss.service.logging.Logger;
 import eu.sqooss.service.metricactivator.MetricActivator;
 import eu.sqooss.service.pa.PluginAdmin;
+import eu.sqooss.service.scheduler.Scheduler;
 
 /**
  * Sets up things needed for all Servlet test and contains tests all Servlets should pass

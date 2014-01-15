@@ -22,7 +22,7 @@ public class StatusServlet extends AbstractWebadminServlet {
 	 * thus the system) was started. This is required for the system
 	 * uptime display.
 	 */
-	private static long startTime = new Date().getTime();
+	private final long startTime = new Date().getTime();
 
 	private static final String ROOT_PATH = "/status";
 	private static final String PAGE_SIDEBAR = ROOT_PATH;
@@ -41,7 +41,7 @@ public class StatusServlet extends AbstractWebadminServlet {
 	 * Returns a string representing the uptime of the Alitheia core
 	 * in dd:hh:mm:ss format
 	 */
-	private static String getUptime() {
+	private String getUptime() {
 		long remainder;
 		long currentTime = new Date().getTime();
 		long timeRunning = currentTime - startTime;
