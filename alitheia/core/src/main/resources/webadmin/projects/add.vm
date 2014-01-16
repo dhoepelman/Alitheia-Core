@@ -66,7 +66,7 @@
           
           ## Display a fast way to add a project
           <h2>$tr.label("install_new_project")</h2>
-          <form id="addprojectdir" method="post" action="projects/action">
+          <form id="addprojectdir" method="post" action="/projects/action">
             project.properties file location
             <input name="properties" type="text" alt="Enter the path to the project.properties file of the project you want to install" class="form" size="40" />
             <input type="hidden" id="action" name="action" value="installbyproperties" />
