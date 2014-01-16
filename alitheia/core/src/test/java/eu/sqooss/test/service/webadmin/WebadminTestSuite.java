@@ -11,6 +11,8 @@ import eu.sqooss.test.service.webadmin.misc.StatusTest;
 import eu.sqooss.test.service.webadmin.misc.SystemTest;
 import eu.sqooss.test.service.webadmin.plugins.PluginListTest;
 import eu.sqooss.test.service.webadmin.plugins.PluginTest;
+import eu.sqooss.test.service.webadmin.projects.AddProjectTest;
+import eu.sqooss.test.service.webadmin.projects.ProjectActionTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -21,7 +23,9 @@ import eu.sqooss.test.service.webadmin.plugins.PluginTest;
 	SystemTest.class,
 	LogsTest.class,
 	JobsTest.class,
-	PropertiesTest.class
+	PropertiesTest.class,
+	AddProjectTest.class,
+	ProjectActionTest.class
 })
 public class WebadminTestSuite {
 
