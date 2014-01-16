@@ -375,7 +375,10 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 	}
 
 	private String errorMapToString(Map<String, Object> map) {
-		String string = "";
+	    if (map == null)
+	        return "";
+	      
+	    String string = "";
 		for (Map.Entry<String, Object> entry : map.entrySet()) {
 			string += entry.getKey() + ": " + entry.getValue().toString() + "<br />\n";
 		}
@@ -383,7 +386,10 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 	}
 
 	private String resultMapToString(Map<String, Object> map) {
-		String string = "";
+	    if (map == null)
+            return "";
+	    
+	    String string = "";
 		for (Object o : map.values()) {
 			string += o.toString() + "<br />\n";
 		}
