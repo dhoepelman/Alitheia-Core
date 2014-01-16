@@ -250,7 +250,7 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 		String reqUpd = req.getParameter("reqUpd");
 		if (reqUpd == null)
 		    reqUpd = "";
-		aa.addArg("updater", req.getParameter("reqUpd"));
+		aa.addArg("updater", reqUpd);
 		sobjAdminService.execute(aa);
 
 		// Print result
