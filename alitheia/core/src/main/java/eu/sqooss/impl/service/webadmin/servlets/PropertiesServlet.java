@@ -168,11 +168,18 @@ public class PropertiesServlet extends AbstractWebadminServlet {
 			// Get the correct property
 			PluginConfiguration property = getPluginConfiguration(plugin, req);
 
+			// Get parameters from the request
+			String value;
+	         if (req.getParameter("reqParPropValue") == null)
+                value = "";
+            else
+                value = req.getParameter("reqParPropValue");
+			
 			// Try to update the property
 			if (plugin.updateConfigEntry(
 					sobjDB,
 					property.getName(),
-					req.getParameter("reqParPropValue"))) {
+					value)) {
 
 				// Update the Plug-in Admin's information
 				sobjPA.pluginUpdated(sobjPA.getPlugin(plugin));
