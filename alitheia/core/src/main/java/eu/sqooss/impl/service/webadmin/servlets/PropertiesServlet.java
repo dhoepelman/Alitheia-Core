@@ -111,14 +111,36 @@ public class PropertiesServlet extends AbstractWebadminServlet {
 			if (plugin == null)
 				return makeErrorMsg(vc,
 						"No plugin hash given or plugin does not exist");
-
+			
+			// Get parameters from the request
+			String name, descr, type, value;
+			if (req.getParameter("reqParPropName") == null)
+			    name = "";
+			else
+			    name = req.getParameter("reqParPropName");
+			
+			if (req.getParameter("reqParPropDescr") == null) 
+			    descr = "";
+			else
+			    descr = req.getParameter("reqParPropDescr");
+			
+			if (req.getParameter("reqParPropType") == null)
+			    type = "";
+			else
+			    type = req.getParameter("reqParPropType");
+			
+			if (req.getParameter("reqParPropValue") == null)
+			    value = "";
+			else
+			    value = req.getParameter("reqParPropValue");
+			
 			// Try to add property
 			if (plugin.addConfigEntry(
 					sobjDB,
-					req.getParameter("reqParPropName"),
-					req.getParameter("reqParPropDescr"),
-					req.getParameter("reqParPropType"),
-					req.getParameter("reqParPropValue"))) {
+					name,
+					descr,
+					type,
+					value)) {
 
 				// Update the Plug-in Admin's information
 				sobjPA.pluginUpdated(sobjPA.getPlugin(plugin));
