@@ -141,11 +141,43 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 			VelocityContext vc) {
 		// Install a project by a filled form
 		AdminAction aa = sobjAdminService.create(AddProject.MNEMONIC);
-		aa.addArg("scm", req.getParameter("REQ_PAR_PRJ_CODE"));
-		aa.addArg("name", req.getParameter("REQ_PAR_PRJ_NAME"));
-		aa.addArg("bts", req.getParameter("REQ_PAR_PRJ_BUG"));
-		aa.addArg("mail", req.getParameter("REQ_PAR_PRJ_MAIL"));
-		aa.addArg("web", req.getParameter("REQ_PAR_PRJ_WEB"));
+		String scm, name, bug, bts, mail, web;
+			
+		if (req.getParameter("REQ_PAR_PRJ_CODE") == null)
+		    scm = "";
+        else
+            scm = req.getParameter("REQ_PAR_PRJ_CODE");
+        aa.addArg("scm", scm);
+		
+		if (req.getParameter("REQ_PAR_PRJ_NAME") == null)
+            name = "";
+        else
+            name = req.getParameter("REQ_PAR_PRJ_NAME");
+        aa.addArg("name", name);
+        
+        if (req.getParameter("REQ_PAR_PRJ_BUG") == null)
+            bug = "";
+        else
+            bug = req.getParameter("REQ_PAR_PRJ_BUG");
+        aa.addArg("bug", bug);
+		
+		if (req.getParameter("REQ_PAR_PRJ_BTS") == null)
+            bts = "";
+        else
+            bts = req.getParameter("REQ_PAR_PRJ_BTS");
+        aa.addArg("bts", bts);
+		
+		if (req.getParameter("REQ_PAR_PRJ_MAIL") == null)
+		    mail = "";
+		else
+		    mail = req.getParameter("REQ_PAR_PRJ_MAIL");
+		aa.addArg("mail", mail);
+		
+		if (req.getParameter("REQ_PAR_PRJ_WEB") == null)
+		    web = "";
+		else
+		    web = req.getParameter("REQ_PAR_PRJ_WEB");
+		aa.addArg("web", web);
 		sobjAdminService.execute(aa);
 
 		// Print result
@@ -159,7 +191,13 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 			VelocityContext vc) {
 		// Install a project by a project.properties file
 		AdminAction aa = sobjAdminService.create(AddProject.MNEMONIC);
-		aa.addArg("dir", req.getParameter("properties"));
+		
+		String properties;
+		if (req.getParameter("properties") == null) 
+		    properties = "";
+		else
+		    properties = req.getParameter("properties");
+		aa.addArg("dir", properties);
 		sobjAdminService.execute(aa);
 
 		// Print result
@@ -186,7 +224,12 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 
 	private Template synchronizePlugin(HttpServletRequest req,
 			VelocityContext vc) {
-		PluginInfo pInfo = sobjPA.getPluginInfo(req.getParameter("REQ_PAR_SYNC_PLUGIN"));
+	    String hashcode;
+	    if (req.getParameter("REQ_PAR_SYNC_PLUGIN") == null)
+	        return makeErrorMsg(vc, "The hashcode that identify a plugin is empty");
+	    else
+	        hashcode = req.getParameter("REQ_PAR_SYNC_PLUGIN");
+		PluginInfo pInfo = sobjPA.getPluginInfo(hashcode);
 		if (pInfo != null) {
 			AlitheiaPlugin pObj = sobjPA.getPlugin(pInfo);
 			if (pObj != null) {
@@ -204,6 +247,9 @@ public class ProjectsServlet extends AbstractWebadminServlet {
 		// Trigger an updater on a project
 		AdminAction aa = sobjAdminService.create(UpdateProject.MNEMONIC);
 		aa.addArg("project", getSelectedProject(req).getId());
+		String reqUpd = req.getParameter("reqUpd");
+		if (reqUpd == null)
+		    reqUpd = "";
 		aa.addArg("updater", req.getParameter("reqUpd"));
 		sobjAdminService.execute(aa);
 
